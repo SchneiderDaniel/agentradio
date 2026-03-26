@@ -1,9 +1,9 @@
 ---
-name: agentic-qa
+name: general-general-agentic-qa
 description: Expert procedural guidance for automated test generation, visual regression, and "reproduction-first" debugging. Inspired by Qodo (CodiumAI).
 ---
 
-# Skill: Agentic-QA (Auditor)
+# Skill: general-agentic-qa (Auditor)
 
 Expert procedural guidance for automated test generation, visual regression, and "reproduction-first" debugging. Inspired by **Qodo (CodiumAI)**.
 
@@ -22,7 +22,7 @@ This skill enables the Auditor to provide empirical proof for every code change.
 - For every new service:
   - Generate a full suite of unit tests with Pytest.
   - Cover edge cases (nulls, empty inputs, type errors).
-  - Use `sequential-pytest-runner` for validation.
+  - Use `general-sequential-pytest-runner` for validation.
 
 ### 3. Visual & UI Verification
 - Use **Playwright** to capture screenshots of UI changes.
@@ -33,4 +33,6 @@ This skill enables the Auditor to provide empirical proof for every code change.
 - A "Quality Assurance Report" in Myosotis (`quality_assurance`).
 - 100% test coverage for the modified path.
 - Verified screenshots of UI changes.
+
+
 

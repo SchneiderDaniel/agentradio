@@ -1,9 +1,9 @@
 ---
-name: refactor-and-doc
+name: general-general-refactor-and-doc
 description: Expert procedural guidance for repository-level "Speaking Code" refactoring and automated Service-Layer documentation. Inspired by Aider and Cursor.
 ---
 
-# Skill: Refactor-and-Doc (Developer)
+# Skill: general-refactor-and-doc (Developer)
 
 Expert procedural guidance for repository-level "Speaking Code" refactoring and automated Service-Layer documentation. Inspired by **Aider** and **Cursor**.
 
@@ -24,10 +24,12 @@ This skill enables the Developer to maintain high code quality and documentation
 
 ### 3. Localization Sync
 - Scan files for hardcoded strings and automatically wrap them in `_()` (Babel).
-- Trigger `flask-translation-manager` if new strings are found.
+- Trigger `flask_blogs-translation-manager` if new strings are found.
 
 ## Output Standard
 - Self-documenting, clean code.
 - Updated `.po` files for DE/EN.
 - A "Refactoring Summary" in Myosotis (`learnings`).
+
+
 

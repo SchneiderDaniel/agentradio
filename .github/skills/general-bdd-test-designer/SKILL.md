@@ -1,5 +1,5 @@
 ---
-name: bdd-test-designer
+name: general-general-bdd-test-designer
 description: Expert procedural guidance for BDD test design using Gherkin syntax and the Test Pyramid strategy (Unit, Integration, UI/E2E).
 ---
 
@@ -49,3 +49,4 @@ Your final "Test Design" document MUST be structured exactly as follows:
 *(List the critical browser-based user journeys)*
 - [ ] `test_ui_<page>_<journey>`: High-level description of the browser interactions.
 ```
+

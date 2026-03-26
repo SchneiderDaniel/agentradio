@@ -1,9 +1,9 @@
 ---
-name: system-integrity-guard
+name: general-general-system-integrity-guard
 description: Expert procedural guidance for cross-service impact analysis, security scanning, and SEO structural audits. Inspired by Snyk and LangGraph.
 ---
 
-# Skill: System-Integrity-Guard (Architect)
+# Skill: general-system-integrity-guard (Architect)
 
 Expert procedural guidance for cross-service impact analysis, security scanning, and SEO structural audits. Inspired by **Snyk** and **LangGraph**.
 
@@ -23,7 +23,7 @@ This skill enables the Architect to maintain architectural and security standard
 - **Environment Audit**: Verify that production and development environment variables are isolated.
 
 ### 3. SEO & Structural Integrity
-- Run **SEO-Optimizer** for every template change.
+- Run **flask_blogs-seo-optimizer** for every template change.
 - Audit sitemap generation and `hreflang` tags.
 - Verify meta-tag presence and OpenGraph consistency.
 
@@ -31,4 +31,6 @@ This skill enables the Architect to maintain architectural and security standard
 - A "System Integrity Audit" in Myosotis (`technical_design`).
 - Approved Technical Design with security/impact sign-off.
 - Verified SEO scores and sitemap integrity.
+
+
 

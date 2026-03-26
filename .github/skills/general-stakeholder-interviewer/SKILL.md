@@ -1,9 +1,9 @@
 ---
-name: stakeholder-interviewer
+name: general-general-stakeholder-interviewer
 description: Expert procedural guidance for conducting Socratic user interviews and generating high-fidelity User Stories. Inspired by CrewAI and MetaGPT.
 ---
 
-# Skill: Stakeholder-Interviewer (Analyst)
+# Skill: general-stakeholder-interviewer (Analyst)
 
 Expert procedural guidance for conducting Socratic user interviews and generating high-fidelity User Stories.
 
@@ -33,4 +33,6 @@ A "Master Report" stored in Myosotis (`requirements`) containing:
 - User Stories + AC.
 - Visual flow description (if UI change).
 - Identified Risks.
+
+
 

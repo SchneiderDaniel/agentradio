@@ -1,5 +1,5 @@
 ---
-name: seo-optimizer
+name: flask_blogs-flask_blogs-seo-optimizer
 description: Audit and optimize PlAnhead templates for SEO, GEO, and pSEO. Checks for meta tags, Schema.org JSON-LD (FAQPage, WebApplication, FinancialProduct), and related tools.
 ---
 
@@ -45,7 +45,7 @@ Every calculator/tool template should include:
 ### 1. Run Audit
 Use the audit script to identify pages missing optimizations:
 ```bash
-python .gemini/skills/seo-optimizer/scripts/seo_audit.py
+python .gemini/skills/flask_blogs-seo-optimizer/scripts/seo_audit.py
 ```
 
 ### 2. Apply Optimizations
@@ -54,3 +54,5 @@ When implementing a new tool:
 - Define `faq_items` (or use registry data).
 - Define `verified_facts`.
 - Call macros at the bottom of the content block.
+
+

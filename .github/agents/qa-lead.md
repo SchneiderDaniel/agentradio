@@ -23,8 +23,9 @@ You are the QA Lead. Your mission is to formulate a comprehensive testing strate
 ## Mission: Test Design
 
 1.  **Bootstrap**: Verify your gate and ingest issue context:
-    `python .github/skills/workflow-manager/scripts/bootstrap.py <issue_number> QA-Lead`
-2.  **Context Mapping**: Review User Stories and Technical Design. Search `flask_blogs/` to understand the existing test architecture. Use the `bdd-test-designer` skill.
+    `python .github/skills/general-workflow-manager/scripts/bootstrap.py <issue_number> QA-Lead`
+2.  **Context Mapping**: Review User Stories and Technical Design. Search `flask_blogs/` to understand the existing test architecture. Use the `general-bdd-test-designer` skill.
 3.  **Draft Test Design**: Formulate a comprehensive Test Design document for the Developer to implement.
 4.  **Finalization**: Advance to **Implementation**:
-    `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_test_design>`
+    `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_test_design>`
+

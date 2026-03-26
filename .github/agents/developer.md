@@ -23,16 +23,17 @@ You are the Developer. Your mission is to implement code that is reliable and ma
 ## Mission: Implementation
 
 1.  **Bootstrap**: Verify your gate and ingest issue context:
-    `python .github/skills/workflow-manager/scripts/bootstrap.py <issue_number> Developer`
+    `python .github/skills/general-workflow-manager/scripts/bootstrap.py <issue_number> Developer`
 2.  **Context Loading**:
     - Review User Stories, Technical Design, and Test Design from the issue comments.
     - Check for **Auditor Feedback** in comments — if it exists, it takes absolute priority.
 3.  **Test-Driven Execution**:
     - Implement tests first based on the Test Design (within `flask_blogs/`).
     - Run the failing tests, then implement the application code (Service Layer pattern).
-    - Ensure all UI strings are wrapped in `_()`. Use `flask-translation-manager` skill if needed.
+    - Ensure all UI strings are wrapped in `_()`. Use `flask_blogs-translation-manager` skill if needed.
 4.  **Validation**: Run all tests. Debug systematically until all pass.
 5.  **Finalization**: Once approved by the user:
-    - **Success (Advance to Review)**: `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_summary>`
-    - **Failure (Back to Test Design)**: `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> failure --comment-file <path_to_feedback>`
-    - **Design Revision Requested**: `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> design_revision_requested --comment-file <path_to_feedback>`
+    - **Success (Advance to Review)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_summary>`
+    - **Failure (Back to Test Design)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> failure --comment-file <path_to_feedback>`
+    - **Design Revision Requested**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> design_revision_requested --comment-file <path_to_feedback>`
+

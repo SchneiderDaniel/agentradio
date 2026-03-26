@@ -1,5 +1,5 @@
 ---
-name: sequential-pytest-runner
+name: general-general-sequential-pytest-runner
 description: "Executes pytest tests one by one sequentially instead of all at once. Stops immediately when a test fails. Use this when the user asks to run all tests to prevent the agent from getting overwhelmed by too many failures at once."
 ---
 
@@ -15,14 +15,14 @@ Execute the provided Python script to gather all tests and run them sequentially
 ```bash
 cd flask_blogs/flask_planhead
 $env:PYTHONPATH="."
-python ../../../.gemini/skills/sequential-pytest-runner/scripts/run_sequential_tests.py .
+python ../../../.gemini/skills/general-sequential-pytest-runner/scripts/run_sequential_tests.py .
 ```
 
 ### For Hippocooking
 ```bash
 cd flask_blogs/flask_hippocooking
 $env:PYTHONPATH="."
-python ../../../.gemini/skills/sequential-pytest-runner/scripts/run_sequential_tests.py .
+python ../../../.gemini/skills/general-sequential-pytest-runner/scripts/run_sequential_tests.py .
 ```
 
 The script automatically:
@@ -31,3 +31,5 @@ The script automatically:
 3. If a test fails, the script will stop immediately with exit code 1.
 
 **Crucial Step:** When a test fails, DO NOT attempt to run the remaining tests or use a different test execution strategy. **Fix the failed test first**, ensure it passes, and then re-run the script.
+
+

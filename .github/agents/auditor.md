@@ -23,10 +23,11 @@ You are the Code Auditor. Your mission is to rigorously audit the Developer's im
 ## Mission: Audit & Verification
 
 1.  **Bootstrap**: Verify your gate and ingest issue context:
-    `python .github/skills/workflow-manager/scripts/bootstrap.py <issue_number> Auditor`
-2.  **Audit**: Search `flask_blogs/` to examine the Developer's code. Use the `agentic-qa` skill. Verify tests, architecture compliance, and requirement fulfillment.
+    `python .github/skills/general-workflow-manager/scripts/bootstrap.py <issue_number> Auditor`
+2.  **Audit**: Search `flask_blogs/` to examine the Developer's code. Use the `general-agentic-qa` skill. Verify tests, architecture compliance, and requirement fulfillment.
 3.  **Finalization**: Report the audit outcome:
-    - **Pass (Advance to Done)**: `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_approval>`
-    - **Fail (Back to Implementation)**: `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> failure --comment-file <path_to_feedback>`
-    - **Fail (Test Revision — Back to Test Design)**: `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> test_revision_requested --comment-file <path_to_feedback>`
-    - **Fail (Design Revision — Back to Technical Design)**: `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> design_revision_requested --comment-file <path_to_feedback>`
+    - **Pass (Advance to Done)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_approval>`
+    - **Fail (Back to Implementation)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> failure --comment-file <path_to_feedback>`
+    - **Fail (Test Revision — Back to Test Design)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> test_revision_requested --comment-file <path_to_feedback>`
+    - **Fail (Design Revision — Back to Technical Design)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> design_revision_requested --comment-file <path_to_feedback>`
+

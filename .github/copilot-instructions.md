@@ -15,7 +15,7 @@ The Main Agent (Copilot CLI) acts as the **Commissioner** (Orchestrator). It man
 
 **🛑 MANDATORY ORCHESTRATION PROTOCOL**:
 1.  **Identify GitHub Issue**: If a user mentions a GitHub issue (e.g., `#123`), the Main Agent MUST call **Mission Control**.
-2.  **Mission Control Tool**: `python .github/skills/workflow-manager/scripts/mission_control.py <issue_number>`
+2.  **Mission Control Tool**: `python .github/skills/general-workflow-manager/scripts/mission_control.py <issue_number>`
 3.  **Synchronize Context**: If the status is ambiguous, the Main Agent may use the `explore` agent (via the `task` tool) to map affected areas before delegating.
 4.  **Delegate & Stop**: Invoke the recommended agent directly via the `task` tool (e.g. `agent_type: "sherlock"`). The Main Agent **MUST NOT** implement the logic directly if an issue is active.
 
@@ -106,3 +106,4 @@ The development lifecycle is tailored to task complexity. Standard tasks follow 
 - **Adding a Recipe?** Modify `flask_hippocooking_volume/recipes`.
 - **New Calculation Logic?** Add a service to `flask_planhead/app/services/`.
 - **New Page?** Register a Blueprint in `flask_planhead/app/__init__.py`.
+

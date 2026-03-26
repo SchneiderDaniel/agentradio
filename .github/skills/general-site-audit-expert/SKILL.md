@@ -1,5 +1,5 @@
 ---
-name: site-audit-expert
+name: general-general-site-audit-expert
 description: Expert procedural guidance for comprehensive route-by-route site audits using Chrome DevTools. Use when Gemini CLI needs to scan a website for console errors, network failures, and accessibility issues across all internal routes.
 ---
 
@@ -49,3 +49,5 @@ If requested, create or update a GitHub issue using `run_shell_command` with the
 ## Tools
 - `mcp_chrome-devtools_*`: Core auditing tools.
 - `gh issue create/edit`: Integration with GitHub.
+
+

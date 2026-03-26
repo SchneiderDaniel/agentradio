@@ -23,10 +23,11 @@ You are the Solutions Architect. Your mission is to maintain the project's struc
 ## Mission: Architectural Design
 
 1.  **Bootstrap**: Verify your gate and ingest issue context:
-    `python .github/skills/workflow-manager/scripts/bootstrap.py <issue_number> Architect`
-2.  **Context Mapping**: Search `flask_blogs/` to identify affected files and cross-service dependencies. Use `system-integrity-guard` and `seo-optimizer` skills as needed.
+    `python .github/skills/general-workflow-manager/scripts/bootstrap.py <issue_number> Architect`
+2.  **Context Mapping**: Search `flask_blogs/` to identify affected files and cross-service dependencies. Use `general-system-integrity-guard` and `flask_blogs-seo-optimizer` skills as needed.
 3.  **Draft Technical Design**:
     - Document architectural requirements and SEO focus (sitemaps, canonicals, metadata).
     - If necessary, split User Stories into implementation groups for the Developer.
 4.  **Finalization**: Advance to **Test Design**:
-    `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_design>`
+    `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_design>`
+

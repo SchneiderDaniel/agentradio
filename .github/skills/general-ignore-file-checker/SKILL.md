@@ -1,5 +1,5 @@
 ---
-name: ignore-file-checker
+name: general-general-ignore-file-checker
 description: Audits .gitignore and .geminiignore files for consistency, finds tracked files that should be ignored, and identifies untracked files that are missing from ignore lists. Use when the user asks to "check ignores", "clean up the repository", or when troubleshooting why certain files (like env or pycache) are visible.
 ---
 
@@ -13,7 +13,7 @@ To perform a comprehensive audit of the project's ignore settings:
 
 1. **Run the Audit Script**: Execute the bundled Python script to scan the root and all submodules.
    ```bash
-   python .gemini/skills/ignore-file-checker/scripts/check_ignores.py
+   python .gemini/skills/general-ignore-file-checker/scripts/check_ignores.py
    ```
 
 2. **Analyze the Report**:
@@ -41,3 +41,5 @@ Ensure common patterns are recursive to cover the entire project tree:
 
 ### scripts/
 - **check_ignores.py**: The primary audit tool. It performs the Git checks and pattern analysis recursively across the project and its submodules.
+
+

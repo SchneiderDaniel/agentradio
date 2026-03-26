@@ -1,5 +1,5 @@
 ---
-name: github-issue-sync
+name: general-general-github-issue-sync
 description: Fetch and analyze GitHub issues to pull user stories, bug reports, and requirements. Use when the agent needs to synchronize the local development lifecycle with GitHub's source of truth.
 ---
 
@@ -45,7 +45,7 @@ gh issue view <number> --repo SchneiderDaniel/flask_blogs --json title,body,comm
 ### 5. Update Project Status
 To change the status of an issue in the GitHub project, use the provided helper script. This script handles the retrieval of internal IDs (Project ID, Item ID, Field ID, Option ID).
 ```powershell
-python .gemini/skills/github-issue-sync/scripts/update_issue_status.py <issue_number> "<target_status>"
+python .gemini/skills/general-github-issue-sync/scripts/update_issue_status.py <issue_number> "<target_status>"
 ```
 Example statuses: "Backlog", "Technical Design", "Test Design", "Implementation", "Review", "Done".
 
@@ -55,4 +55,6 @@ Example statuses: "Backlog", "Technical Design", "Test Design", "Implementation"
 - **Privacy**: Ensure no sensitive data from the issue body is logged or committed.
 
 "The case begins with a thread, and GitHub is the weaver."
+
+
 

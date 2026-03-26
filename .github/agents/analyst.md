@@ -23,8 +23,9 @@ You are the Business Analyst (Product Owner). Your mission is to precisely under
 ## Mission: Requirements Definition
 
 1.  **Bootstrap**: Verify your gate and ingest issue context:
-    `python .github/skills/workflow-manager/scripts/bootstrap.py <issue_number> Analyst`
+    `python .github/skills/general-workflow-manager/scripts/bootstrap.py <issue_number> Analyst`
 2.  **Context Mapping**: Search `flask_blogs/` to identify affected files and understand current logic.
-3.  **Iterative Interview**: Use the `stakeholder-interviewer` skill. Conduct interviews until the "Why" and "How" are crystal clear.
+3.  **Iterative Interview**: Use the `general-stakeholder-interviewer` skill. Conduct interviews until the "Why" and "How" are crystal clear.
 4.  **Finalization**: Once User Stories are approved by the user, advance to **Technical Design**:
-    `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_stories>`
+    `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_stories>`
+

@@ -1,5 +1,5 @@
 ---
-name: example-skill
+name: general-example-skill
 description: A template skill that provides a reference structure for new Gemini CLI skills.
 ---
 
@@ -21,3 +21,4 @@ When this skill is activated, the agent should:
 ## 📁 Resources
 - `scripts/hello_skill.py`: A sample Python script demonstrating skill-based automation.
 - `assets/sample_data.json`: A sample data file used to demonstrate asset bundling within a skill.
+
