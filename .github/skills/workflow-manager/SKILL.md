@@ -25,17 +25,17 @@ The agentic lifecycle is defined as follows:
 
 ### 1. Mission Control (Orchestrator Tool)
 Run this tool to see the current status and get the command for the next agent.
-- **Tool**: `python .gemini/skills/workflow-manager/scripts/mission_control.py <issue_number>`
+- **Tool**: `python .github/skills/workflow-manager/scripts/mission_control.py <issue_number>`
 - **Output**: Returns the current status, authorized agents, and recommended next command.
 
 ### 2. The Bootstrap Protocol
 Agents MUST call this protocol as their **FIRST** action to verify authorization and ingest mission context.
-- **Tool**: `python .gemini/skills/workflow-manager/scripts/bootstrap.py <issue_number> <persona_name>`
+- **Tool**: `python .github/skills/workflow-manager/scripts/bootstrap.py <issue_number> <persona_name>`
 - **Behavior**: Verifies the issue status against the persona's "Gate". If successful, it prints the full issue body and comments.
 
 ### 3. The Finalization Protocol
 Agents MUST call this protocol as their **LAST** action to synchronize results to GitHub and Myosotis and advance the project status.
-- **Tool**: `python .gemini/skills/workflow-manager/scripts/finalize.py <issue_number> <outcome> [options]`
+- **Tool**: `python .github/skills/workflow-manager/scripts/finalize.py <issue_number> <outcome> [options]`
 - **Options**:
   - `--comment-file <path>`: Path to a file containing the summary to post on GitHub.
   - `--memory-file <path>`: Path to a file containing the content to store in Myosotis.
@@ -47,5 +47,6 @@ Agents MUST call this protocol as their **LAST** action to synchronize results t
 - **No Manual Transitions**: Never use `gh project item-edit` manually. Always use the Finalization Protocol.
 - **No Manual Context Fetching**: Always use the Bootstrap Protocol to ensure you are working on the correct state.
 - **Atomic Sync**: Always include both the `--comment-file` and `--memory-file` in the finalization call to ensure GitHub and Myosotis are in sync.
+- **Copilot Launch**: When Mission Control recommends an agent, open Copilot CLI and use `/agent` to select that persona rather than launching Gemini.
 
 "Order is the foundation of progress."

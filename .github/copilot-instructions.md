@@ -11,13 +11,13 @@ This repository is an agentic automation framework designed to orchestrate speci
     - **Planhead**: Strategic calculator suite using a strict Service-Layer pattern.
 
 ## ⚙️ Operational Protocols (The Commissioner)
-The Main Agent (Gemini CLI) acts as the **Commissioner** (Orchestrator). It manages the high-level project status and delegates complex tasks to specialized detectives through the **Mission Control Protocol**.
+The Main Agent (Copilot CLI) acts as the **Commissioner** (Orchestrator). It manages the high-level project status and delegates complex tasks to specialized detectives through the **Mission Control Protocol**.
 
 **🛑 MANDATORY ORCHESTRATION PROTOCOL**:
 1.  **Identify GitHub Issue**: If a user mentions a GitHub issue (e.g., `#123`), the Main Agent MUST call **Mission Control**.
 2.  **Mission Control Tool**: `python .github/skills/workflow-manager/scripts/mission_control.py <issue_number>`
 3.  **Synchronize Context**: If the status is ambiguous, the Main Agent may use `codebase_investigator` to map affected areas before delegating.
-4.  **Delegate & Stop**: Use `gemini run <persona_name> <issue_number>`. The Main Agent **MUST NOT** implement the logic directly if an issue is active.
+4.  **Delegate & Stop**: Use Copilot CLI and select the recommended persona with `/agent`. The Main Agent **MUST NOT** implement the logic directly if an issue is active.
 
 
 ### 🗺️ The Agentic Lifecycle
@@ -52,7 +52,7 @@ Each agent MUST ONLY perform its own task and MUST stop after finalization. The 
 ## ⚙️ Operational Protocol (Main Agent)
 The Main Agent's primary role is **Orchestration** and **Surgical Fixes**. 
 
-- **Orchestration**: For any task linked to a GitHub issue, call `mission_control.py` and delegate to the recommended sub-agent via `gemini run`.
+- **Orchestration**: For any task linked to a GitHub issue, call `mission_control.py` and delegate to the recommended sub-agent via Copilot CLI `/agent`.
 - **Surgical Fixes**: If a task is independent of the agentic workflow (no GitHub issue), follow the **Research -> Strategy -> Execution** lifecycle.
 - **No Shadow Implementation**: Never implement logic for an active GitHub issue outside the sub-agent workflow.
 

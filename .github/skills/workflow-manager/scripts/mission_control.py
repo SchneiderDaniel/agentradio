@@ -88,10 +88,11 @@ def get_mission_status(issue_number, repo=CONFIG["repo"]):
         primary_agent = authorized_personas[0]
         # Special case for Implementation where Mycroft might group first
         if "Implementation" in current_status and "Mycroft" in authorized_personas:
-             print(f"👉 Recommended: Run Mycroft first for grouping, then Watson.")
+             print("👉 Recommended: Select Mycroft in Copilot first for grouping, then Watson.")
         
-        print(f"Run the following to start the mission:")
-        print(f"  gemini run {primary_agent.lower()} {issue_number}")
+        print("Run the following to start the mission in Copilot:")
+        print(f"  copilot")
+        print(f"  /agent -> {primary_agent}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Check mission status and identify the next agent.")
@@ -112,7 +113,8 @@ if __name__ == "__main__":
             print(f"👤 Authorized Agents: {', '.join(authorized_personas)}")
             print("\n--- Next Step ---")
             primary_agent = authorized_personas[0]
-            print(f"Run the following to start the mission:")
-            print(f"  gemini run {primary_agent.lower()} {args.issue_number}")
+            print("Run the following to start the mission in Copilot:")
+            print(f"  copilot")
+            print(f"  /agent -> {primary_agent}")
     else:
         get_mission_status(args.issue_number, args.repo)
