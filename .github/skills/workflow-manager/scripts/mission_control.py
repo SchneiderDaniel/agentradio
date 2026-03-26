@@ -90,9 +90,14 @@ def get_mission_status(issue_number, repo=CONFIG["repo"]):
         if "Implementation" in current_status and "Mycroft" in authorized_personas:
              print("👉 Recommended: Select Mycroft in Copilot first for grouping, then Watson.")
         
-        print("Run the following to start the mission in Copilot:")
-        print(f"  copilot")
-        print(f"  /agent -> {primary_agent}")
+        agent_type = primary_agent.lower()
+        print(f"\n--- Machine-Readable Result ---")
+        print(json.dumps({
+            "issue": issue_number,
+            "status": current_status,
+            "agent": primary_agent,
+            "agent_type": agent_type
+        }))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Check mission status and identify the next agent.")
@@ -113,8 +118,13 @@ if __name__ == "__main__":
             print(f"👤 Authorized Agents: {', '.join(authorized_personas)}")
             print("\n--- Next Step ---")
             primary_agent = authorized_personas[0]
-            print("Run the following to start the mission in Copilot:")
-            print(f"  copilot")
-            print(f"  /agent -> {primary_agent}")
+            agent_type = primary_agent.lower()
+            print(f"\n--- Machine-Readable Result ---")
+            print(json.dumps({
+                "issue": args.issue_number,
+                "status": args.status,
+                "agent": primary_agent,
+                "agent_type": agent_type
+            }))
     else:
         get_mission_status(args.issue_number, args.repo)

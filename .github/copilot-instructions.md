@@ -16,8 +16,8 @@ The Main Agent (Copilot CLI) acts as the **Commissioner** (Orchestrator). It man
 **🛑 MANDATORY ORCHESTRATION PROTOCOL**:
 1.  **Identify GitHub Issue**: If a user mentions a GitHub issue (e.g., `#123`), the Main Agent MUST call **Mission Control**.
 2.  **Mission Control Tool**: `python .github/skills/workflow-manager/scripts/mission_control.py <issue_number>`
-3.  **Synchronize Context**: If the status is ambiguous, the Main Agent may use `codebase_investigator` to map affected areas before delegating.
-4.  **Delegate & Stop**: Use Copilot CLI and select the recommended persona with `/agent`. The Main Agent **MUST NOT** implement the logic directly if an issue is active.
+3.  **Synchronize Context**: If the status is ambiguous, the Main Agent may use the `explore` agent (via the `task` tool) to map affected areas before delegating.
+4.  **Delegate & Stop**: Invoke the recommended agent directly via the `task` tool (e.g. `agent_type: "sherlock"`). The Main Agent **MUST NOT** implement the logic directly if an issue is active.
 
 
 ### 🗺️ The Agentic Lifecycle
@@ -52,16 +52,16 @@ Each agent MUST ONLY perform its own task and MUST stop after finalization. The 
 ## ⚙️ Operational Protocol (Main Agent)
 The Main Agent's primary role is **Orchestration** and **Surgical Fixes**. 
 
-- **Orchestration**: For any task linked to a GitHub issue, call `mission_control.py` and delegate to the recommended sub-agent via Copilot CLI `/agent`.
+- **Orchestration**: For any task linked to a GitHub issue, call `mission_control.py` and invoke the recommended sub-agent directly via the `task` tool (e.g. `agent_type: "sherlock"`).
 - **Surgical Fixes**: If a task is independent of the agentic workflow (no GitHub issue), follow the **Research -> Strategy -> Execution** lifecycle.
 - **No Shadow Implementation**: Never implement logic for an active GitHub issue outside the sub-agent workflow.
 
 
 ## ⚠️ CLI Stability & Tool Safety
 To prevent terminal crashes and context bloat:
-- **`read_file`**: Never read more than **150 lines** at once. Use `start_line` and `end_line`.
-- **`grep_search`**: Minimize `context` (2-3 lines). Use `total_max_matches` and `max_matches_per_file`.
-- **`run_shell_command`**: Pipe large outputs to `Select-Object -First 20` (PowerShell) or `head -n 20` (Bash).
+- **`view`**: Never read more than **150 lines** at once. Use `view_range: [start, end]`.
+- **`grep`**: Minimize context lines (2-3). Use `head_limit` to cap results.
+- **`powershell`**: Pipe large outputs to `| Select-Object -First 20` to avoid flooding context.
 
 "Code is ephemeral; Myosotis is eternal."
 

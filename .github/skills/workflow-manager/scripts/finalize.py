@@ -114,7 +114,9 @@ def transition_workflow(issue_number, outcome, repo=CONFIG["repo"]):
     # Reimplementing simplified version here
     item_id = item.get("id")
     project_id = item.get("project", {}).get("id")
-    project_number = item.get("project", {}).get("number")
+    # project.number is NOT returned by `gh issue view --json projectItems`.
+    # Use the value from project_config.json instead.
+    project_number = CONFIG.get("github_project_number")
     
     # Find field and option IDs
     fields_json = run_command([
