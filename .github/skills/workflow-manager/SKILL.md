@@ -15,11 +15,11 @@ Expert procedural guidance for deterministic agent orchestration using GitHub Pr
 ## 🧠 Workflow Gates & Transitions
 
 The agentic lifecycle is defined as follows:
-1. **Refinement** (Sherlock) -> Technical Design
-2. **Technical Design** (Mycroft) -> Test Design
-3. **Test Design** (Lestrade) -> Implementation
-4. **Implementation** (Watson) -> Audit
-5. **Audit** (Hounds) -> Done
+1. **Refinement** (Analyst) -> Technical Design
+2. **Technical Design** (Architect) -> Test Design
+3. **Test Design** (QA Lead) -> Implementation
+4. **Implementation** (Developer) -> Audit
+5. **Audit** (Auditor) -> Done
 
 ## 🕵️ Workflow Protocols
 
@@ -47,6 +47,6 @@ Agents MUST call this protocol as their **LAST** action to synchronize results t
 - **No Manual Transitions**: Never use `gh project item-edit` manually. Always use the Finalization Protocol.
 - **No Manual Context Fetching**: Always use the Bootstrap Protocol to ensure you are working on the correct state.
 - **Atomic Sync**: Always include both the `--comment-file` and `--memory-file` in the finalization call to ensure GitHub and Myosotis are in sync.
-- **Copilot Launch**: When Mission Control recommends an agent, open Copilot CLI and use `/agent` to select that persona rather than launching Gemini.
+- **Agent Invocation**: When Mission Control recommends an agent, the Commissioner invokes it directly via the `task` tool (e.g., `agent_type: "analyst"`).
 
 "Order is the foundation of progress."

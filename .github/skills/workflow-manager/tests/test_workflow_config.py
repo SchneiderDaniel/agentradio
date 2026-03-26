@@ -8,7 +8,7 @@ from workflow_config import GATES, TRANSITIONS
 
 def test_all_personas_present():
     """T-UC-1: Verify all core personas are present in GATES."""
-    expected_personas = {"Sherlock", "Mycroft", "Lestrade", "Watson", "Hounds"}
+    expected_personas = {"Analyst", "Architect", "QA-Lead", "Developer", "Auditor"}
     assert all(p in GATES for p in expected_personas)
 
 def test_all_statuses_have_transitions():

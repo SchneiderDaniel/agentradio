@@ -1,10 +1,10 @@
 # Mapping of personas to the statuses they are authorized to work on.
 GATES = {
-    "Sherlock": ["Backlog"],
-    "Mycroft": ["Technical Design"],
-    "Lestrade": ["Test Design"],
-    "Watson": ["Implementation"],
-    "Hounds": ["Review"]
+    "Analyst": ["Backlog"],
+    "Architect": ["Technical Design"],
+    "QA-Lead": ["Test Design"],
+    "Developer": ["Implementation"],
+    "Auditor": ["Review"]
 }
 
 # Mapping of current status and mission outcome to the next status.

@@ -23,11 +23,11 @@ The Main Agent (Copilot CLI) acts as the **Commissioner** (Orchestrator). It man
 ### 🗺️ The Agentic Lifecycle
 Each agent (detective) has a specialized role and MUST NOT automatically hand over or call other agents. They MUST use the **Finalization Protocol** to update the state and stop.
 
-1.  **Refinement (Sherlock)**: Understands requirements and defines User Stories.
-2.  **Architecture (Mycroft)**: Designs technical solutions and ensures SEO/Security standards.
-3.  **Test Design (Lestrade)**: Formulates the empirical verification strategy.
-4.  **Implementation (Watson)**: Writes the application code and the tests.
-5.  **Audit (Hounds)**: Rigorously verifies the implementation against all designs.
+1.  **Refinement (Analyst)**: Understands requirements and defines User Stories.
+2.  **Architecture (Architect)**: Designs technical solutions and ensures SEO/Security standards.
+3.  **Test Design (QA Lead)**: Formulates the empirical verification strategy.
+4.  **Implementation (Developer)**: Writes the application code and the tests.
+5.  **Audit (Auditor)**: Rigorously verifies the implementation against all designs.
 
 **🛑 AUTOMATION MANDATE**: 
 Each agent MUST ONLY perform its own task and MUST stop after finalization. The Commissioner (Main Agent) handles the overall flow.

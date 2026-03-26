@@ -86,9 +86,9 @@ def get_mission_status(issue_number, repo=CONFIG["repo"]):
         print(f"👤 Authorized Agents: {', '.join(authorized_personas)}")
         print("\n--- Next Step ---")
         primary_agent = authorized_personas[0]
-        # Special case for Implementation where Mycroft might group first
-        if "Implementation" in current_status and "Mycroft" in authorized_personas:
-             print("👉 Recommended: Select Mycroft in Copilot first for grouping, then Watson.")
+        # Special case for Implementation where Architect might group first
+        if "Implementation" in current_status and "Architect" in authorized_personas:
+             print("👉 Recommended: Invoke Architect first for implementation grouping, then Developer.")
         
         agent_type = primary_agent.lower()
         print(f"\n--- Machine-Readable Result ---")

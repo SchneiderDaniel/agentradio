@@ -96,7 +96,7 @@ def bootstrap_mission(issue_number, persona_name, repo=CONFIG["repo"]):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Bootstrap an agent mission (Gate Check + Context Fetch).")
     parser.add_argument("issue_number", type=int, help="The issue number.")
-    parser.add_argument("persona_name", type=str, help="The agent persona (e.g., Sherlock).")
+    parser.add_argument("persona_name", type=str, help="The agent persona (e.g., Analyst).")
     parser.add_argument("--repo", type=str, default=CONFIG["repo"], help="The repository (owner/repo).")
     
     args = parser.parse_args()

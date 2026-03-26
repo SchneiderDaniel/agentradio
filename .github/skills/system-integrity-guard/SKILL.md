@@ -3,12 +3,12 @@ name: system-integrity-guard
 description: Expert procedural guidance for cross-service impact analysis, security scanning, and SEO structural audits. Inspired by Snyk and LangGraph.
 ---
 
-# Skill: System-Integrity-Guard (Mycroft)
+# Skill: System-Integrity-Guard (Architect)
 
 Expert procedural guidance for cross-service impact analysis, security scanning, and SEO structural audits. Inspired by **Snyk** and **LangGraph**.
 
 ## Overview
-This skill enables Mycroft to maintain architectural and security standards across the mono-repo.
+This skill enables the Architect to maintain architectural and security standards across the mono-repo.
 
 ## Core Procedures
 
@@ -31,3 +31,4 @@ This skill enables Mycroft to maintain architectural and security standards acro
 - A "System Integrity Audit" in Myosotis (`technical_design`).
 - Approved Technical Design with security/impact sign-off.
 - Verified SEO scores and sitemap integrity.
+

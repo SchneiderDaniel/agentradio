@@ -3,12 +3,12 @@ name: refactor-and-doc
 description: Expert procedural guidance for repository-level "Speaking Code" refactoring and automated Service-Layer documentation. Inspired by Aider and Cursor.
 ---
 
-# Skill: Refactor-and-Doc (Watson)
+# Skill: Refactor-and-Doc (Developer)
 
 Expert procedural guidance for repository-level "Speaking Code" refactoring and automated Service-Layer documentation. Inspired by **Aider** and **Cursor**.
 
 ## Overview
-This skill enables Watson to maintain high code quality and documentation-as-code.
+This skill enables the Developer to maintain high code quality and documentation-as-code.
 
 ## Core Procedures
 
@@ -30,3 +30,4 @@ This skill enables Watson to maintain high code quality and documentation-as-cod
 - Self-documenting, clean code.
 - Updated `.po` files for DE/EN.
 - A "Refactoring Summary" in Myosotis (`learnings`).
+

@@ -3,12 +3,12 @@ name: agentic-qa
 description: Expert procedural guidance for automated test generation, visual regression, and "reproduction-first" debugging. Inspired by Qodo (CodiumAI).
 ---
 
-# Skill: Agentic-QA (Lestrade)
+# Skill: Agentic-QA (Auditor)
 
 Expert procedural guidance for automated test generation, visual regression, and "reproduction-first" debugging. Inspired by **Qodo (CodiumAI)**.
 
 ## Overview
-This skill enables Lestrade to provide empirical proof for every code change.
+This skill enables the Auditor to provide empirical proof for every code change.
 
 ## Core Procedures
 
@@ -16,7 +16,7 @@ This skill enables Lestrade to provide empirical proof for every code change.
 - For every reported bug:
   - Create a failing test case in `tests/test_[name].py`.
   - Record the failure logs.
-  - Hand over to Watson only after the failure is confirmed.
+  - Hand over to the Developer only after the failure is confirmed.
 
 ### 2. Automated Test Suite Generation
 - For every new service:
@@ -33,3 +33,4 @@ This skill enables Lestrade to provide empirical proof for every code change.
 - A "Quality Assurance Report" in Myosotis (`quality_assurance`).
 - 100% test coverage for the modified path.
 - Verified screenshots of UI changes.
+

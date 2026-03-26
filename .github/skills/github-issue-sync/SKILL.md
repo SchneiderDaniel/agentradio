@@ -15,8 +15,8 @@ Expert procedural guidance for fetching, analyzing, and syncing GitHub issues in
   - **Mandate**: When the user says "git issue" or "git project", they refer to the **flask_blogs** repository. Use `--repo SchneiderDaniel/flask_blogs` for all `gh` commands.
 
 ## 🧠 Myosotis Mapping
-- **Sherlock (PO)**: Primary user of this skill. Fetches issues to define the "Definition of Ready".
-- **Lestrade (QA)**: Uses issue descriptions to build reproduction scripts.
+- **Analyst (PO)**: Primary user of this skill. Fetches issues to define the "Definition of Ready".
+- **QA Lead (QA)**: Uses issue descriptions to build reproduction scripts.
 
 ## 🕵️ Sync Workflow
 
@@ -32,13 +32,13 @@ Once an issue number is identified, fetch the full body and comments.
 gh issue view <number> --repo SchneiderDaniel/flask_blogs --json title,body,comments,labels,projectItems
 ```
 
-### 3. Requirements Ingestion (Sherlock)
+### 3. Requirements Ingestion (Analyst)
 - **Analyze**: Extract User Stories and Acceptance Criteria (AC) from the issue body.
 - **Clarify**: If the issue is underspecified, use `ask_user` to bridge the gap before proceeding.
-- **Sync**: Once the requirement is clear, Sherlock MUST store the analyzed requirement in Myosotis using the `add_memory` MCP tool.
+- **Sync**: Once the requirement is clear, the Analyst MUST store the analyzed requirement in Myosotis using the `add_memory` MCP tool.
   `add_memory(project="flask_blogs", role="sherlock", namespace="requirements", text="Requirement from GH Issue #<number>: [Analyzed Text]")`
 
-### 4. Bug Reproduction (Lestrade)
+### 4. Bug Reproduction (QA Lead)
 - **Extract**: Identify the "Steps to Reproduce" from the issue body.
 - **Verify**: Create a failing test case based on the issue's description.
 
@@ -55,3 +55,4 @@ Example statuses: "Backlog", "Technical Design", "Test Design", "Implementation"
 - **Privacy**: Ensure no sensitive data from the issue body is logged or committed.
 
 "The case begins with a thread, and GitHub is the weaver."
+
