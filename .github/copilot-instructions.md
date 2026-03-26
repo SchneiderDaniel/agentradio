@@ -42,10 +42,6 @@ Each agent MUST ONLY perform its own task and MUST stop after finalization. The 
 - **Adding a New Skill?** Add a new directory in `.github/skills/` with a `SKILL.md` and supporting assets.
 - **Global Context?** Update `.github/context/env_args.json`.
 
-"The Game is Afoot!"
-
-
-
 
 # ⚙️ Operational Layer: Agent Behavior
 
@@ -63,5 +59,50 @@ To prevent terminal crashes and context bloat:
 - **`grep`**: Minimize context lines (2-3). Use `head_limit` to cap results.
 - **`powershell`**: Pipe large outputs to `| Select-Object -First 20` to avoid flooding context.
 
-"Code is ephemeral; Myosotis is eternal."
+# 🤖 Project: Flask Blogs Mono-Repo
 
+## 🏗️ Architectural Overview
+This mono-repo orchestrates three distinct Python applications under a single domain, utilizing **Nginx** as the central gateway and **Docker Compose** for infrastructure.
+
+### 🗺️ Service Map & Patterns
+1. **Gateway (Nginx)**:
+   - **Entry Points**: `nginx/nginx_dev.conf` (Local), `nginx/nginx_prd.conf` (Production).
+   - **Role**: SSL termination (Certbot), subdomain routing via uWSGI, and security header injection (CSP, HSTS).
+   - **Routing**: 
+     - `hippocooking.localhost` -> `flask_hippocooking:5001`
+     - `ui.planhead.localhost` / `localhost` -> `flask_planhead:5002`
+2. **Hippocooking (Sub-App 1 - The Chef)**:
+   - **Architecture**: **JSON-driven NoSQL architecture**.
+   - **Logic**: All content (recipes, site-wide translations) is stored as JSON in `flask_hippocooking_volume/`.
+   - **Key Pattern**: Thin Blueprints (`homepage/`) dynamically load content based on `locale_id` and `recipe_id` from the filesystem. No traditional database migrations are needed for content updates.
+3. **Planhead (Sub-App 2 - The Strategist)**:
+   - **Architecture**: **Strict Service-Layer Pattern**.
+   - **Logic**: Thin Blueprints (`app/blueprints/`) act as controllers, delegating complex calculations and business logic to the Service Layer (`app/services/`).
+   - **SEO & i18n**: Advanced Flask-Babel integration. Uses `?lang=de|en` for session switching. Implements 301 canonical redirects for English to maintain clean URLs for SEO.
+   - **Persistence**: Hybrid. SQLite for analytics (`analytics.db`) and JSON for static state.
+4. **Myosotis (Sub-App 3 - The Memory)**:
+   - **Architecture**: **Agentic Memory Service (CLI + FastAPI)**.
+   - **Logic**: Provides semantic search and a Knowledge Graph for memory persistence.
+   - **Entry Points**: `myosotis/myosotis/cli/main.py` (CLI) and `myosotis/myosotis/api/app.py` (FastAPI).
+   - **Persistence**: High-performance Vector Index and SQLite store in `myosotis_volume/`.
+
+## 🛠️ Technology Stack & Data Storage
+- **Runtime**: Python 3.11+, Flask, FastAPI, Dash (Planhead simulations).
+- **Communication**: uWSGI (Binary protocol) for Flask apps; REST/FastAPI for Myosotis.
+- **Persistence** (NEVER delete `*_volume/`):
+  - `flask_hippocooking_volume/recipes`: JSON recipes and images.
+  - `flask_planhead_volume/data`: Analytics SQLite DB and simulations.
+  - `myosotis_volume/index`: Vector storage and Knowledge Graph.
+
+## 🌍 Localization (i18n) Mandate
+- **Hippocooking**: Dual-track. UI strings via Babel `_()`; Recipe content via dynamic JSON loader (`utils.py`).
+- **Planhead**: URL-param driven (`?lang=`). Session persistence. 
+- **Workflow**: All new UI strings MUST be wrapped in `_()` and compiled via `pybabel`.
+
+## ⚙️ Operational Protocols
+The development lifecycle is tailored to task complexity. Standard tasks follow the Research -> Strategy -> Execution (Plan-Act-Validate) workflow. For more complex features, refer to the available specialized agents.
+
+## 🧭 Navigation for Agents
+- **Adding a Recipe?** Modify `flask_hippocooking_volume/recipes`.
+- **New Calculation Logic?** Add a service to `flask_planhead/app/services/`.
+- **New Page?** Register a Blueprint in `flask_planhead/app/__init__.py`.
