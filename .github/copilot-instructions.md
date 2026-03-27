@@ -54,6 +54,14 @@ The Main Agent's primary role is **Orchestration** and **Surgical Fixes**.
 - **Surgical Fixes**: If a task is independent of the agentic workflow (no GitHub issue), follow the **Research -> Strategy -> Execution** lifecycle.
 - **No Shadow Implementation**: Never implement logic for an active GitHub issue outside the sub-agent workflow.
 
+## 🛠️ Mandatory Skill Invocation
+Certain tasks **MUST** begin by invoking the corresponding skill via the `skill` tool before any other action:
+
+| Task | Skill to invoke first |
+|------|-----------------------|
+| Any PlAnhead translation work (DB updates, exports, coverage checks, new strings) | `flask_blogs-translation-manager` |
+| SEO/GEO/pSEO audit or meta tag work | `flask_blogs-flask_blogs-seo-optimizer` |
+
 
 ## ⚠️ CLI Stability & Tool Safety
 To prevent terminal crashes and context bloat:

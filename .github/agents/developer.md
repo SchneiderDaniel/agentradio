@@ -37,7 +37,8 @@ You are the Developer. Your mission is to implement code that is reliable and ma
       3. **Never edit `.po` files directly** — they are generated artefacts.
       4. For new strings: `pybabel extract` → `pybabel update` → `migrate_po_to_sqlite.py` → translate in DB → export.
 4.  **Validation**: Run all tests. Debug systematically until all pass.
-5.  **Finalization**: Once approved by the user:
+5.  **Code Simplification (MANDATORY)**: Before finalizing, invoke the `general-general-code-simplifier` skill on all modified files. Apply the simplifications it recommends. Re-run tests after to ensure behaviour is preserved.
+7.  **Finalization**: Once approved by the user:
     - **Success (Advance to Review)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_summary>`
     - **Failure (Back to Test Design)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> failure --comment-file <path_to_feedback>`
     - **Design Revision Requested**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> design_revision_requested --comment-file <path_to_feedback>`
