@@ -18,7 +18,7 @@ CONFIG = load_config()
 def run_command(command, env=None):
     try:
         result = subprocess.run(command, capture_output=True, text=True, check=True, env=env)
-        return result.stdout.strip()
+        return result.stdout.strip() or True
     except subprocess.CalledProcessError as e:
         print(f"❌ Error: {e.stderr}")
         return None
@@ -31,6 +31,23 @@ def post_comment(issue_number, comment_file, repo=CONFIG["repo"]):
     except Exception as e:
         print(f"❌ Error reading comment file: {e}")
         return False
+
+    # Idempotency check: skip if an identical comment already exists
+    existing = run_command([
+        "gh", "issue", "view", str(issue_number),
+        "--repo", repo,
+        "--json", "comments"
+    ])
+    if existing and existing is not True:
+        import json as _json
+        try:
+            data = _json.loads(existing)
+            for c in data.get("comments", []):
+                if c.get("body", "").strip() == comment_body.strip():
+                    print(f"⚠️ Comment already exists on issue #{issue_number}, skipping.")
+                    return True
+        except Exception:
+            pass
 
     result = run_command([
         "gh", "issue", "comment", str(issue_number),
@@ -71,57 +88,71 @@ def add_memory(text_file, project, role, namespace):
 
 def transition_workflow(issue_number, outcome, repo=CONFIG["repo"]):
     print(f"Updating GitHub Project status (Outcome: {outcome})...")
-    
-    # 1. Get current status
-    issue_json = run_command([
-        "gh", "issue", "view", str(issue_number),
-        "--repo", repo,
-        "--json", "projectItems"
+
+    project_number = CONFIG.get("github_project_number")
+    owner = repo.split("/")[0]
+
+    # 1. Get item_id, project_id and current_status via project item-list
+    items_json = run_command([
+        "gh", "project", "item-list", str(project_number),
+        "--owner", owner,
+        "--format", "json"
     ])
-    
-    if not issue_json:
+
+    if not items_json:
         return False
-    
-    data = json.loads(issue_json)
-    project_items = data.get("projectItems", [])
-    if not project_items:
+
+    items_data = json.loads(items_json)
+    item = next(
+        (i for i in items_data.get("items", [])
+         if i.get("content", {}).get("number") == issue_number),
+        None
+    )
+
+    if not item:
+        print(f"❌ Error: Issue #{issue_number} not found in project #{project_number}.")
         return False
-    
-    item = project_items[0]
-    current_status = item.get("status", {}).get("name")
-    
-    if not current_status:
-        field_values = item.get("fieldValues", {}).get("nodes", [])
-        status_node = next((node for node in field_values if node.get("field", {}).get("name") == "Status"), None)
-        if status_node:
-            current_status = status_node.get("name")
+
+    item_id = item.get("id")
+    current_status = item.get("status")
 
     if not current_status:
+        print(f"❌ Error: Could not determine current status for issue #{issue_number}.")
         return False
+
+    # Fetch the project node ID
+    projects_json = run_command([
+        "gh", "project", "list",
+        "--owner", owner,
+        "--format", "json"
+    ])
+    if not projects_json:
+        return False
+    projects_data = json.loads(projects_json)
+    project_node = next(
+        (p for p in projects_data.get("projects", []) if p.get("number") == project_number),
+        None
+    )
+    if not project_node:
+        print(f"❌ Error: Project #{project_number} not found.")
+        return False
+    project_id = project_node.get("id")
 
     # 2. Determine target status
     status_transitions = TRANSITIONS.get(current_status)
     if not status_transitions:
         print(f"❌ Error: No transitions defined for '{current_status}'.")
         return False
-    
+
     target_status = status_transitions.get(outcome)
     if not target_status:
         print(f"❌ Error: No target for outcome '{outcome}' from '{current_status}'.")
         return False
-
-    # 3. Update status (import logic from transition.py or reimplement)
-    # Reimplementing simplified version here
-    item_id = item.get("id")
-    project_id = item.get("project", {}).get("id")
-    # project.number is NOT returned by `gh issue view --json projectItems`.
-    # Use the value from project_config.json instead.
-    project_number = CONFIG.get("github_project_number")
     
-    # Find field and option IDs
+    # 3. Find field and option IDs
     fields_json = run_command([
         "gh", "project", "field-list", str(project_number),
-        "--owner", repo.split("/")[0],
+        "--owner", owner,
         "--format", "json"
     ])
     
