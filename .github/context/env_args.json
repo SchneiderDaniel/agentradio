@@ -4,6 +4,14 @@
     "mode": "velocity",
     "confirm_risk": "critical_only"
   },
+  "orchestration": {
+    "auto_chain_agents": true,
+    "human_touchpoints": [
+      "Analyst stakeholder interview (user must answer questions before stories are finalized)",
+      "After Auditor sets issue to Done (user closes the GitHub issue manually)"
+    ],
+    "commissioner_protocol": "After each agent completes successfully, the Commissioner MUST immediately invoke the next agent based on mission_control.py output WITHOUT waiting for user confirmation. Only pause at the two human touchpoints listed above."
+  },
   "environment": {
     "os": "win32",
     "projects": {
