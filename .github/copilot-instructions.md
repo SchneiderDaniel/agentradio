@@ -33,6 +33,12 @@ Each agent (detective) has a specialized role and MUST NOT automatically hand ov
 **🛑 AUTOMATION MANDATE**: 
 Each agent MUST ONLY perform its own task and MUST stop after finalization. The Commissioner (Main Agent) handles the overall flow.
 
+**🚀 AUTO-CHAIN MANDATE (CRITICAL)**:
+After each agent completes, the Commissioner **MUST immediately invoke the next recommended agent** without asking the user for permission. The answer to "shall I proceed with the next agent?" is **always YES**. The only exceptions where the Commissioner MUST pause and wait for user input are:
+1. The **Analyst** requires answers to stakeholder interview questions.
+2. The **Auditor** has set the issue status to **Done** (the human reviewer decides when to close the issue).
+Never ask "Should I invoke the next agent?" — just do it.
+
 **🛑 ISSUE CLOSING FORBIDDEN**: No agent — including the Commissioner — may ever run `gh issue close`. Only the human reviewer closes GitHub issues. Agents may only advance the project board status.
 
 ## 🌍 Agent Environment & Paths
