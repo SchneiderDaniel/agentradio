@@ -17,7 +17,7 @@ CONFIG = load_config()
 
 def run_command(command):
     try:
-        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        result = subprocess.run(command, capture_output=True, text=True, check=True, encoding="utf-8")
         return result.stdout.strip() or True
     except subprocess.CalledProcessError as e:
         return None
@@ -50,7 +50,7 @@ def get_mission_status(issue_number, repo=CONFIG["repo"]):
                 p_number = p.get("number")
                 p_owner = repo.split('/')[0]
                 # Check if this issue is in this project
-                items = run_command(["gh", "project", "item-list", str(p_number), "--owner", p_owner, "--format", "json"])
+                items = run_command(["gh", "project", "item-list", str(p_number), "--owner", p_owner, "--format", "json", "--limit", "100"])
                 if items:
                     item_data = json.loads(items)
                     # For ProjectV2, items can be issues or PRs. Look for a match.

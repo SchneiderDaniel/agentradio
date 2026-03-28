@@ -17,7 +17,7 @@ CONFIG = load_config()
 
 def run_command(command, env=None):
     try:
-        result = subprocess.run(command, capture_output=True, text=True, check=True, env=env)
+        result = subprocess.run(command, capture_output=True, text=True, check=True, env=env, encoding="utf-8")
         return result.stdout.strip() or True
     except subprocess.CalledProcessError as e:
         print(f"❌ Error: {e.stderr}")
@@ -86,6 +86,44 @@ def add_memory(text_file, project, role, namespace):
         return True
     return False
 
+def ensure_issue_open(issue_number, repo=CONFIG["repo"]):
+    """Re-open the GitHub issue if GitHub project automation auto-closed it.
+    
+    When a project board item is moved to 'Done', GitHub may automatically
+    close the linked issue. This function detects and reverses that action,
+    since only the human reviewer is allowed to close issues.
+    """
+    import time
+    time.sleep(2)  # Brief pause to allow GitHub automation to run first
+
+    state_json = run_command([
+        "gh", "issue", "view", str(issue_number),
+        "--repo", repo,
+        "--json", "state"
+    ])
+    if not state_json or state_json is True:
+        print(f"⚠️ Could not verify issue #{issue_number} state.")
+        return
+
+    try:
+        state = json.loads(state_json).get("state", "").upper()
+    except Exception:
+        state = ""
+
+    if state == "CLOSED":
+        print(f"⚠️ Issue #{issue_number} was auto-closed by GitHub automation. Re-opening...")
+        result = run_command([
+            "gh", "issue", "reopen", str(issue_number),
+            "--repo", repo
+        ])
+        if result is not None:
+            print(f"✅ Issue #{issue_number} re-opened. Only the human reviewer may close it.")
+        else:
+            print(f"❌ Failed to re-open issue #{issue_number}. Manual intervention required.")
+    else:
+        print(f"✅ Issue #{issue_number} is still open — no auto-close detected.")
+
+
 def transition_workflow(issue_number, outcome, repo=CONFIG["repo"]):
     print(f"Updating GitHub Project status (Outcome: {outcome})...")
 
@@ -96,7 +134,8 @@ def transition_workflow(issue_number, outcome, repo=CONFIG["repo"]):
     items_json = run_command([
         "gh", "project", "item-list", str(project_number),
         "--owner", owner,
-        "--format", "json"
+        "--format", "json",
+        "--limit", "100"
     ])
 
     if not items_json:
@@ -182,6 +221,10 @@ def transition_workflow(issue_number, outcome, repo=CONFIG["repo"]):
     
     if update_result:
         print(f"✅ Project Status: Advanced from '{current_status}' to '{target_status}'.")
+        # Guard: if the board moved to "Done", GitHub automation may auto-close the issue.
+        # Detect and reverse that — only the human reviewer may close the issue.
+        if target_status.lower() == "done":
+            ensure_issue_open(issue_number, repo)
         return True
     return False
 

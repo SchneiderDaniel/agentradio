@@ -9,6 +9,7 @@ This repository is an agentic automation framework designed to orchestrate speci
     - **Gateway (Nginx)**: Subdomain routing and security headers.
     - **Hippocooking**: JSON-driven NoSQL recipe application.
     - **Planhead**: Strategic calculator suite using a strict Service-Layer pattern.
+    - **Sudoku**: User-facing Sudoku puzzle game using a strict Service-Layer pattern.
 
 ## ⚙️ Operational Protocols (The Commissioner)
 The Main Agent (Copilot CLI) acts as the **Commissioner** (Orchestrator). It manages the high-level project status and delegates complex tasks to specialized detectives through the **Mission Control Protocol**.
@@ -81,6 +82,7 @@ This mono-repo orchestrates three distinct Python applications under a single do
    - **Routing**: 
      - `hippocooking.localhost` -> `flask_hippocooking:5001`
      - `ui.planhead.localhost` / `localhost` -> `flask_planhead:5002`
+     - `sudoku.planhead.localhost` -> `flask_sudoku:5003`
 2. **Hippocooking (Sub-App 1 - The Chef)**:
    - **Architecture**: **JSON-driven NoSQL architecture**.
    - **Logic**: All content (recipes, site-wide translations) is stored as JSON in `flask_hippocooking_volume/`.
@@ -90,7 +92,11 @@ This mono-repo orchestrates three distinct Python applications under a single do
    - **Logic**: Thin Blueprints (`app/blueprints/`) act as controllers, delegating complex calculations and business logic to the Service Layer (`app/services/`).
    - **SEO & i18n**: Advanced Flask-Babel integration. Uses `?lang=de|en` for session switching. Implements 301 canonical redirects for English to maintain clean URLs for SEO.
    - **Persistence**: Hybrid. SQLite for analytics (`analytics.db`) and JSON for static state.
-4. **Myosotis (Sub-App 3 - The Memory)**:
+4. **Sudoku (Sub-App 3 - The Puzzler)**:
+   - **Architecture**: **Strict Service-Layer Pattern**.
+   - **Logic**: Thin Blueprints (`homepage/main/`) delegate puzzle generation and solving to the Service Layer (`homepage/services/`).
+   - **Entry Point**: `flask_sudoku/run.py`, port `5003`.
+5. **Myosotis (Sub-App 4 - The Memory)**:
    - **Architecture**: **Agentic Memory Service (CLI + FastAPI)**.
    - **Logic**: Provides semantic search and a Knowledge Graph for memory persistence.
    - **Entry Points**: `myosotis/myosotis/cli/main.py` (CLI) and `myosotis/myosotis/api/app.py` (FastAPI).
@@ -120,5 +126,7 @@ The development lifecycle is tailored to task complexity. Standard tasks follow 
 ## 🧭 Navigation for Agents
 - **Adding a Recipe?** Modify `flask_hippocooking_volume/recipes`.
 - **New Calculation Logic?** Add a service to `flask_planhead/app/services/`.
-- **New Page?** Register a Blueprint in `flask_planhead/app/__init__.py`.
+- **New Page (Planhead)?** Register a Blueprint in `flask_planhead/app/__init__.py`.
+- **New Sudoku Logic?** Add a service to `flask_sudoku/homepage/services/`.
+- **New Sudoku Page?** Register a Blueprint in `flask_sudoku/run.py`.
 
