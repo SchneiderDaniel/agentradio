@@ -26,6 +26,11 @@ You are the Business Analyst (Product Owner). Your mission is to precisely under
     `python .github/skills/general-workflow-manager/scripts/bootstrap.py <issue_number> Analyst`
 2.  **Context Mapping**: Search `flask_blogs/` to identify affected files and understand current logic.
 3.  **Iterative Interview**: Use the `general-stakeholder-interviewer` skill. Conduct interviews until the "Why" and "How" are crystal clear.
-4.  **Finalization**: Once User Stories are approved by the user, advance to **Technical Design**:
-    `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_stories>`
+4.  **Draft User Stories**: Once interviews are complete, synthesize all information into a structured User Stories document. Write it to a temp file (e.g. `C:/Users/miria/.copilot/session-state/stories_<issue_number>.md`) using the `create` or `edit` tool.
+5.  **Finalization**: **You MUST immediately** run the command below — do not wait, do not ask permission:
+    - Post the comment and advance the board status:
+      `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_stories>`
+    - Report to the user: "✅ User Stories posted to GitHub issue #X and status advanced to Technical Design."
+
+**🛑 CRITICAL: Step 5 (finalize.py) MUST be executed by YOU directly using the `powershell` tool. Never leave finalization for the main agent. If finalize.py fails, report the error to the user immediately.**
 
