@@ -4,6 +4,7 @@
 This repository is an agentic automation framework designed to orchestrate specialized AI agents and skills for high-fidelity software engineering.
 
 ### 🗺️ Repository Structure
+
 1.  **`.github/`**: The core operational layer containing agent definitions, reusable skills, and global context.
 2.  **`flask_blogs/`**: A hosted mono-repo project that the framework's agents are currently configured to manage.
     - **Gateway (Nginx)**: Subdomain routing and security headers.
@@ -12,7 +13,7 @@ This repository is an agentic automation framework designed to orchestrate speci
     - **Sudoku**: User-facing Sudoku puzzle game using a strict Service-Layer pattern.
 
 ## ⚙️ Operational Protocols (The Commissioner)
-The Main Agent (Copilot CLI) acts as the **Commissioner** (Orchestrator). It manages the high-level project status and delegates complex tasks to specialized detectives through the **Mission Control Protocol**.
+The Main Agent (Copilot CLI) acts as the **Commissioner** (Orchestrator). It manages the high-level project status and delegates complex tasks to specialized detectives through the **Mission Control Protocol**. Tasks are located as issue in `https://github.com/SchneiderDaniel/flask_blogs/issues/*`.
 
 **🛑 MANDATORY ORCHESTRATION PROTOCOL**:
 1.  **Identify GitHub Issue**: If a user mentions a GitHub issue (e.g., `#123`), the Main Agent MUST call **Mission Control**.
@@ -135,4 +136,3 @@ The development lifecycle is tailored to task complexity. Standard tasks follow 
 - **New Page (Planhead)?** Register a Blueprint in `flask_planhead/app/__init__.py`.
 - **New Sudoku Logic?** Add a service to `flask_sudoku/homepage/services/`.
 - **New Sudoku Page?** Register a Blueprint in `flask_sudoku/run.py`.
-
