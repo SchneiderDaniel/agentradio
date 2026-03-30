@@ -1,12 +1,12 @@
 ---
 name: flask_blogs-translation-manager
-description: Manage PlAnhead translations. Edit translations.db (SQLite) first, then export to .po/.mo via export_sqlite_to_mo.py. Never edit .po files directly. DB is dev-time only; runtime uses Flask-Babel .mo files.
+description: Manage PlAnhead and Sudoku translations. Edit translations.db (SQLite) first, then export to .po/.mo via export_sqlite_to_mo.py. Never edit .po files directly. DB is dev-time only; runtime uses Flask-Babel .mo files.
 ---
 
 # Skill: flask_blogs-translation-manager
 
 ## Purpose
-Manage all translations for the **PlAnhead** Flask app. The single source of truth for translations is `translations.db` (SQLite). `.po` and `.mo` files are **generated artefacts** — never edited directly.
+Manage all translations for the **PlAnhead** and **Sudoku** Flask apps. The single source of truth for translations is `translations.db` (SQLite) in each app's root directory. `.po` and `.mo` files are **generated artefacts** — never edited directly.
 
 ---
 
@@ -96,12 +96,20 @@ GROUP BY locale;
 
 ---
 
-## Key Scripts (run from `flask_blogs/flask_planhead/`)
+## Key Scripts
+
+### PlAnhead (run from `flask_blogs/flask_planhead/`)
 
 | Script | Purpose |
 |--------|---------|
 | `scripts/export_sqlite_to_mo.py` | DB → `.po` + `.mo` (use after any DB edit) |
 | `scripts/migrate_po_to_sqlite.py` | `.po` → DB (use only when importing new stubs) |
+
+### Sudoku (run from `flask_blogs/flask_sudoku/`)
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/export_sqlite_to_mo.py` | DB → `.po` + `.mo` (use after any DB edit) |
 
 ---
 

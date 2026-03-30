@@ -125,6 +125,11 @@ This mono-repo orchestrates three distinct Python applications under a single do
   2. **Export to .po/.mo** — run `python scripts/export_sqlite_to_mo.py` from `flask_planhead/` to regenerate all `.po` and `.mo` files from the DB.
   3. **Never edit `.po` files directly** — they are generated artefacts. Changes will be overwritten on next export.
   4. **Adding new strings**: wrap in `_()` in code → run `pybabel extract` + `pybabel update` to sync `.pot`/`.po` stubs → import stubs into DB via `python scripts/migrate_po_to_sqlite.py` → translate in DB → export.
+- **⚠️ Sudoku Translation Pipeline (CRITICAL — always follow this order)**:
+  1. **Edit `translations.db`** (SQLite in `flask_sudoku/`) — the single source of truth. Insert or update rows in the `translations` table.
+  2. **Export to .po/.mo** — run `python scripts/export_sqlite_to_mo.py` from `flask_sudoku/` to regenerate all `.po` and `.mo` files from the DB.
+  3. **Never edit `.po` files directly** — they are generated artefacts. Changes will be overwritten on next export.
+  4. **Adding new strings**: wrap in `_()` in code → insert all four locales into `translations.db` → export.
 - **Supported locales**: `en`, `de`, `fr`, `es`. All four must be present in `translations.db` for every domain.
 
 ## ⚙️ Operational Protocols
