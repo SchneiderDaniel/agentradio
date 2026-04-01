@@ -29,7 +29,9 @@ You are the Code Auditor. Your mission is to rigorously audit the Developer's im
     - **Pass (Audit Complete — Moves to Done)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> audit_passed --comment-file <path_to_approval>`
       > ✅ The issue advances to **Done** on the project board.
       > 🛑 **NEVER run `gh issue close`**. Only the human reviewer may close the GitHub issue itself. Closing it via CLI is strictly forbidden.
-    - **Fail (Back to Implementation)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> failure --comment-file <path_to_feedback>`
-    - **Fail (Test Revision — Back to Test Design)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> test_revision_requested --comment-file <path_to_feedback>`
-    - **Fail (Design Revision — Back to Technical Design)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> design_revision_requested --comment-file <path_to_feedback>`
+    - **Fail — Code Issues (Back to Developer)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> revision_required --comment-file <path_to_feedback>`
+      > The issue advances to **Revision Required**. The Developer will fix the code and re-submit for audit.
+      > The feedback file **MUST** contain a numbered list of every finding with file paths and line references.
+    - **Fail — Test Revision (Back to Test Design)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> test_revision_requested --comment-file <path_to_feedback>`
+    - **Fail — Design Revision (Back to Technical Design)**: `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> design_revision_requested --comment-file <path_to_feedback>`
 

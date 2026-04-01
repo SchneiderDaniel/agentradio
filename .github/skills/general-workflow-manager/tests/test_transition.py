@@ -31,7 +31,8 @@ def mock_gh_field_list():
                     {"id": "opt_tech_design", "name": "Technical Design"},
                     {"id": "opt_test_design", "name": "Test Design"},
                     {"id": "opt_implementation", "name": "Implementation"},
-                    {"id": "opt_audit", "name": "Audit"},
+                    {"id": "opt_revision_required", "name": "Revision Required"},
+                    {"id": "opt_review", "name": "Review"},
                     {"id": "opt_done", "name": "Done"}
                 ]
             }

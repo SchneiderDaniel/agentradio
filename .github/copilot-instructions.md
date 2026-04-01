@@ -32,6 +32,9 @@ Each agent (detective) has a specialized role and MUST NOT automatically hand ov
 3.  **Test Design (QA Lead)**: Formulates the empirical verification strategy.
 4.  **Implementation (Developer)**: Writes the application code and the tests.
 5.  **Audit (Auditor)**: Rigorously verifies the implementation against all designs.
+6.  **Revision Loop** *(repeats until Auditor passes)*:
+    - Auditor finds code-level issues → sets status to **Revision Required** → Developer fixes → status back to **Review** → Auditor re-audits.
+    - This loop is enforced by the state machine. The Commissioner auto-chains Developer on `Revision Required` and Auditor on `Review` without any user confirmation.
 
 **🛑 AUTOMATION MANDATE**: 
 Each agent MUST ONLY perform its own task and MUST stop after finalization. The Commissioner (Main Agent) handles the overall flow.
@@ -43,6 +46,8 @@ After each agent completes, the Commissioner **MUST immediately invoke the next 
 Never ask "Should I invoke the next agent?" — just do it.
 
 **🛑 ISSUE CLOSING FORBIDDEN**: No agent — including the Commissioner — may ever run `gh issue close`. Only the human reviewer closes GitHub issues. Agents may only advance the project board status.
+
+**🛑 COMMITTING FORBIDDEN**: No agent — including the Commissioner — may ever run `git commit`, `git push`, or any equivalent command. Only the human user commits and pushes code. Agents write files; the human decides what goes into version control.
 
 ## 🌍 Agent Environment & Paths
 - **Active Projects**: `flask_blogs/` (Flask web apps) and `lorest/` (desktop knowledge base — early stage).

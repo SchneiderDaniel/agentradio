@@ -15,11 +15,14 @@ Expert procedural guidance for deterministic agent orchestration using GitHub Pr
 ## 🧠 Workflow Gates & Transitions
 
 The agentic lifecycle is defined as follows:
-1. **Refinement** (Analyst) -> Technical Design
-2. **Technical Design** (Architect) -> Test Design
-3. **Test Design** (QA Lead) -> Implementation
-4. **Implementation** (Developer) -> Audit
-5. **Audit** (Auditor) -> Done
+1. **Backlog** (Analyst) → Technical Design
+2. **Technical Design** (Architect) → Test Design
+3. **Test Design** (QA Lead) → Implementation
+4. **Implementation** (Developer) → Review
+5. **Review** (Auditor) → Done *(if passed)* or **Revision Required** *(if code issues found)*
+6. **Revision Required** (Developer) → Review *(loop repeats until Auditor passes)*
+
+> ⚠️ **GitHub Project Setup**: The project board must have a **"Revision Required"** status column for the loop to function. Add it between "Review" and "Done" if it does not exist.
 
 ## 🕵️ Workflow Protocols
 

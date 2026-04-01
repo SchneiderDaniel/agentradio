@@ -3,7 +3,7 @@ GATES = {
     "Analyst": ["Backlog"],
     "Architect": ["Technical Design"],
     "QA-Lead": ["Test Design"],
-    "Developer": ["Implementation"],
+    "Developer": ["Implementation", "Revision Required"],
     "Auditor": ["Review"]
 }
 
@@ -28,9 +28,17 @@ TRANSITIONS = {
     },
     "Review": {
         "audit_passed": "Done",
-        "failure": "Implementation",
+        # Code-level issues: send back to Developer via dedicated "Revision Required" status.
+        # This distinguishes Auditor-driven rework from first-time implementation.
+        "revision_required": "Revision Required",
+        "failure": "Revision Required",              # alias kept for backward compatibility
         "test_revision_requested": "Test Design",
         "design_revision_requested": "Technical Design"
         # Note: closing the GitHub issue is done by the human reviewer only.
+    },
+    # Developer picks up Auditor feedback here and re-submits for review.
+    "Revision Required": {
+        "success": "Review",
+        "failure": "Revision Required"
     }
 }

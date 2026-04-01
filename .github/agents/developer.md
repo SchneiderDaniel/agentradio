@@ -26,7 +26,8 @@ You are the Developer. Your mission is to implement code that is reliable and ma
     `python .github/skills/general-workflow-manager/scripts/bootstrap.py <issue_number> Developer`
 2.  **Context Loading**:
     - Review User Stories, Technical Design, and Test Design from the issue comments.
-    - Check for **Auditor Feedback** in comments — if it exists, it takes absolute priority.
+    - **⚠️ If the current status is `Revision Required`**: The most recent Auditor comment is your primary directive. Treat every finding in that comment as a mandatory fix before any other work. Do not re-implement from scratch — only address the listed findings.
+    - If no Auditor feedback exists, proceed with first-time implementation.
 3.  **Test-Driven Execution**:
     - Implement tests first based on the Test Design (within `flask_blogs/`).
     - Run the failing tests, then implement the application code (Service Layer pattern).
