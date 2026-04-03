@@ -1,0 +1,8 @@
+{
+  "_DEPRECATED": "HowTo schema was deprecated by Google in September 2023. DO NOT USE.",
+  "_REASON": "Google no longer generates rich results for HowTo markup. Using it wastes implementation effort and may trigger Search Console warnings.",
+  "_ALTERNATIVE": "Use Article schema with step-by-step content in the body. Structure steps as an ordered list for AI readability.",
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "DO_NOT_USE_THIS_TEMPLATE"
+}

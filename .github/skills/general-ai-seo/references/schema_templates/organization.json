@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{org_name}}",
+  "url": "{{org_url}}",
+  "logo": "{{logo_url}}",
+  "description": "{{org_description}}",
+  "foundingDate": "{{founding_date}}",
+  "founder": {
+    "@type": "Person",
+    "name": "{{founder_name}}"
+  },
+  "sameAs": [
+    "{{linkedin_url}}",
+    "{{youtube_url}}",
+    "{{twitter_url}}",
+    "{{github_url}}"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "{{contact_email}}",
+    "url": "{{contact_url}}"
+  },
+  "knowsAbout": [
+    "{{topic_1}}",
+    "{{topic_2}}",
+    "{{topic_3}}"
+  ]
+}

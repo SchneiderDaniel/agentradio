@@ -1,0 +1,92 @@
+# AI Content Optimization Rules
+# Used by optimize_content.py to transform pages for AI citability.
+
+answer_first:
+  description: "Place a direct answer in the first 40-60 words of the page/section"
+  impact: "2.3x more citations (Digital Bloom)"
+  rules:
+    - "Answer the core question immediately — no preamble, no background"
+    - "Target 40-60 words for the opening paragraph"
+    - "Include the primary keyword/topic naturally"
+    - "Make it a self-contained, extractable snippet"
+  example: |
+    BAD: "In today's rapidly evolving digital landscape, many businesses are wondering about..."
+    GOOD: "Schema markup increases your chance of appearing in AI-generated answers by 2.5x.
+    It works by adding structured data (JSON-LD) to your pages that tells AI systems exactly
+    what your content covers, who wrote it, and when it was last updated."
+
+citation_blocks:
+  description: "Embed statistics and data points throughout content"
+  impact: "Statistics +22%, quotations +37%, in-text citations +115%"
+  rules:
+    - "Include a statistic every 150-200 words"
+    - "Always attribute the source inline: 'According to [Source]...'"
+    - "Use specific numbers, not vague claims ('14.2%' not 'significantly higher')"
+    - "Format as standalone extractable paragraphs of 40-60 words"
+  structure: |
+    [Specific Claim] + [Data Point] + [Source Attribution] + [Context/Implication]
+
+question_headings:
+  description: "Use H2/H3 headings phrased as natural questions"
+  impact: "Matches how users query AI systems"
+  rules:
+    - "Convert topic headings to questions: 'Schema Markup' → 'What is schema markup and why does it matter?'"
+    - "Use the exact phrasing a user would type into ChatGPT or Google"
+    - "Keep H2s broad, H3s specific"
+  examples:
+    bad: ["Overview", "Benefits", "Implementation", "Results"]
+    good:
+      - "What is [topic] and why does it matter?"
+      - "How does [topic] work in practice?"
+      - "What are the measurable results of [topic]?"
+      - "How do you implement [topic] step by step?"
+
+faq_section:
+  description: "Add a structured FAQ section with 5-8 questions"
+  impact: "Directly maps to FAQPage schema, feeds AI Q&A extraction"
+  rules:
+    - "Use real questions from 'People Also Ask', Reddit, Quora"
+    - "Each answer should be 40-80 words — concise but complete"
+    - "Include at least one statistic or data point per answer"
+    - "Match the FAQ to FAQPage JSON-LD schema"
+
+expert_quotes:
+  description: "Include named expert quotes"
+  impact: "+37% AI visibility (Digital Bloom)"
+  rules:
+    - "Quote must be from a named person with relevant credentials"
+    - "Include their title/role for authority signal"
+    - "Quote should contain a specific claim or insight, not generic praise"
+  example: |
+    "According to Lily Ray, VP of SEO Strategy at Amsive Digital, 'All traffic projections
+    must be cut in half in 2026' due to the impact of AI-generated search results on
+    traditional organic click-through rates."
+
+recency_markers:
+  description: "Add visible freshness signals"
+  impact: "85% of AI citations from content published in last 2 years"
+  rules:
+    - "Add 'Updated: [Month Year]' at the top of every page"
+    - "Use 'As of [Month Year]' before statistics"
+    - "Update dateModified in Article schema"
+    - "Review and refresh cornerstone content every 7-14 days"
+
+entity_mentions:
+  description: "Reinforce brand/author identity"
+  impact: "Brand search volume is #1 AI citation predictor (0.334 correlation)"
+  rules:
+    - "Mention brand name 2-3 times naturally in content"
+    - "Include author name with credentials in byline"
+    - "Use consistent naming (don't alternate between abbreviations)"
+    - "Link to About page on first brand mention"
+
+content_structure:
+  description: "Overall page structure for maximum AI extractability"
+  recommended_format:
+    - "TL;DR / Key Takeaway (40-60 words)"
+    - "H2: What is [Topic]? (answer-first paragraph)"
+    - "H2: Why does [Topic] matter? (stats + context)"
+    - "H2: How to [implement/use Topic]? (step-by-step)"
+    - "H2: [Comparison or case study]"
+    - "H2: FAQ (5-8 questions with structured answers)"
+    - "Schema markup: FAQPage + Article JSON-LD"

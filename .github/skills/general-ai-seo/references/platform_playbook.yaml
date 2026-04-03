@@ -1,0 +1,137 @@
+# Multi-Platform Distribution Playbook
+# Platform-specific strategies for maximizing AI citation surface area.
+
+platforms:
+  reddit:
+    ai_citation_rate: "24% of AI responses cite Reddit (OtterlyAI 2026, 1M+ citations)"
+    priority: "high"
+    strategy:
+      - "Identify 5-10 relevant subreddits in your niche"
+      - "Provide genuinely helpful answers to questions (not self-promotion)"
+      - "Share original data, frameworks, and insights"
+      - "Participate in AMAs if relevant"
+      - "Build comment karma before posting content"
+    content_types:
+      - "Detailed how-to answers to specific questions"
+      - "Original data or research findings"
+      - "Honest product/service comparisons (include competitors)"
+      - "AMA threads for industry expertise"
+    anti_patterns:
+      - "Never spam links to your site"
+      - "Never create fake accounts or astroturf"
+      - "Never post generic promotional content"
+      - "Reddit users detect and punish inauthenticity"
+    ranking_lifecycle:
+      - "0-24 hours: hook and early comments"
+      - "2-7 days: long-form accumulation"
+      - "2-8 weeks: long-tail Google ranking begins"
+      - "2-12+ months: evergreen traffic phase"
+
+  youtube:
+    ai_citation_rate: "29.5% of AI Overviews cite YouTube"
+    priority: "high"
+    strategy:
+      - "Create answer-first video descriptions (first 200 chars answer the query)"
+      - "Use keyword-rich titles matching how people ask AI"
+      - "Add timestamps for step-by-step content"
+      - "Include full transcripts in descriptions or pinned comments"
+      - "Create playlist clusters around topic areas"
+    content_types:
+      - "How-to tutorials with clear steps"
+      - "Comparison/review videos ('X vs Y')"
+      - "Expert interviews with named credentials"
+      - "Data-driven analysis videos"
+    seo_for_ai:
+      - "First sentence of description = direct answer to the query"
+      - "Include statistics in description"
+      - "Tag with relevant keywords"
+      - "Closed captions improve AI transcription accuracy"
+
+  linkedin:
+    ai_citation_rate: "High for professional/B2B queries"
+    priority: "medium-high"
+    strategy:
+      - "Post 3-5x per week with original insights"
+      - "Share frameworks, not just tips"
+      - "Include data points in every post"
+      - "Engage with industry conversations"
+    content_types:
+      - "Original data or benchmarks from your work"
+      - "Contrarian takes with evidence"
+      - "Frameworks and mental models"
+      - "Case study breakdowns"
+    authority_signals:
+      - "Complete profile with credentials and specializations"
+      - "Consistent posting cadence builds authority over time"
+      - "Engagement (comments, shares) amplifies reach to AI training data"
+
+  third_party:
+    ai_citation_rate: "85% of brand citations come from 3rd-party pages"
+    priority: "highest leverage"
+    strategy:
+      - "Guest post on industry publications already cited by AI"
+      - "Get included in 'best of' and roundup lists (THIRD-PARTY only — see warning below)"
+      - "Contribute expert quotes to journalist articles"
+      - "Appear on podcasts (transcripts get indexed)"
+      - "Get listed in relevant directories"
+      - "Get listed on trusted review platforms (G2, TrustPilot, Capterra) — ChatGPT 5.4 now runs site: searches against these trusted domains per category (March 2026)"
+    warnings:
+      self_promotional_listicles:
+        - "NEVER create 'Best X for Y' articles ranking yourself #1 — this is actively being penalized"
+        - "Claude and ChatGPT now warn users: 'this is a spammed category, I used reputable third-party sources'"
+        - "Self-promotional listicles may now HURT your LLM visibility (Lily Ray, Amsive Digital, March 2026)"
+        - "Focus on earning mentions in THIRD-PARTY roundup lists instead"
+      whitelisted_domains:
+        - "ChatGPT 5.4 fan-out queries now use site: searches targeting trusted domains per category"
+        - "Example: for reviews, it may only search TrustPilot, G2, Yelp — filtering out manipulative sites"
+        - "Being ON these trusted platforms is becoming mandatory, not optional"
+    tactics:
+      guest_posts:
+        - "Target publications that already rank in AI responses for your keywords"
+        - "Pitch unique data, frameworks, or case studies (not generic advice)"
+        - "Include your credentials and link to your site in author bio"
+      roundup_lists:
+        - "Search '[your category] best tools/services/companies'"
+        - "Identify lists where competitors appear but you don't"
+        - "Reach out to list owners with your differentiators"
+        - "NEVER create your own listicle ranking yourself #1 — this backfires in LLMs"
+      expert_quotes:
+        - "Use HARO (Help A Reporter Out) or similar services"
+        - "Respond quickly with specific, data-backed quotes"
+        - "Include your credentials and company name"
+      podcasts:
+        - "Podcast transcripts are indexed and cited by AI"
+        - "Target podcasts your ICP listens to"
+        - "Prepare data points and quotable insights"
+
+  wikipedia:
+    ai_citation_rate: "47.9% of ChatGPT citations reference Wikipedia"
+    priority: "medium (if eligible)"
+    strategy:
+      - "Only applicable if your brand/person meets Wikipedia notability criteria"
+      - "Never edit your own Wikipedia page (conflict of interest)"
+      - "Build reliable secondary sources that Wikipedians can cite"
+      - "Industry awards, major press coverage, and academic citations help"
+    warning: "Wikipedia editing is heavily policed. Focus on earning coverage in sources Wikipedia trusts."
+
+distribution_calendar_template:
+  weeks_1_4:
+    focus: "Third-party seeding (highest leverage)"
+    actions:
+      - "Identify 10 target publications/lists"
+      - "Pitch 3-5 guest posts"
+      - "Submit to 5 relevant directories"
+      - "Respond to 10 journalist/HARO queries"
+  weeks_5_8:
+    focus: "Reddit + YouTube"
+    actions:
+      - "Join and participate in 5 relevant subreddits"
+      - "Create 3-5 answer-optimized YouTube videos"
+      - "Post 10 helpful Reddit comments with genuine expertise"
+  weeks_9_12:
+    focus: "LinkedIn + maintenance"
+    actions:
+      - "Establish 3-5x/week LinkedIn posting cadence"
+      - "Follow up on guest post pitches"
+      - "Update existing content with fresh data"
+      - "Re-run Share of Model check to measure improvement"
