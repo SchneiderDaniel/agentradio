@@ -1458,7 +1458,7 @@ def main():
 
     # Sanitize surrogates from crawled content before writing
     report = report.encode('utf-8', errors='replace').decode('utf-8')
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding='utf-8') as f:
         f.write(report)
 
     print(json.dumps({

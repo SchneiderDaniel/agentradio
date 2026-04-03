@@ -1,0 +1,405 @@
+{
+  "domain": "planhead.dev",
+  "brand_name": "PlAnhead",
+  "robots_txt": "User-agent: *\nDisallow: /internal-portal/\nDisallow: /login\nDisallow: /logout\nDisallow: /callback\nDisallow: /set_language/\n\nSitemap: https://ui.planhead.dev/sitemap.xml",
+  "llms_txt": null,
+  "sitemap_exists": true,
+  "pages": [
+    {
+      "url": "https://planhead.dev/",
+      "content": "# PlAnhead | Financial Planning & Comparison Tools\nWelcome to PlAnhead! We provide powerful, private, and easy-to-use financial tools to help you make informed decisions about your future.\n\n## Most Popular Calculators\n#### Financial Simulator\nForecast your long-term wealth, income, and expenses with our comprehensive simulator.\n\n#### Prefab House Calculator\nEstimate the total cost of building your dream prefabricated home, including land and side costs.\n\n#### Car Simulator\nCompare the total cost of ownership between electric and combustion engine vehicles.\n\n## Explore by Category\nTools for your personal life, from fitness and hobby costs to your overall financial future.\nAnalyze your career earnings, taxes, and the real value of your wage after all deductions.\nPlanning to build or buy? Our house tools help you navigate the complex costs of property.\nOptimize your daily life by comparing the efficiency and costs of household appliances.\n\n## What is PlAnhead?\nPlAnhead is a financial planning and comparison platform designed to give you clarity on long-term costs. Unlike simple price comparison sites, we focus on the Total Cost of Ownership (TCO). Whether you are comparing energy-efficient appliances, calculating the real cost of a car, or simulating your retirement wealth, PlAnhead provides an objective, data-driven perspective.\n\n### Why focus on Total Cost of Ownership?\nOften, the cheapest initial price is not the best financial choice. By factoring in electricity, maintenance, water, and insurance over 10-20 years, we help you identify the truly most affordable and sustainable options.\n\n### Private and Secure\nYour data never leaves your browser. PlAnhead performs all financial simulations locally, ensuring that your sensitive information remains private. No account or registration is required to use our tools.\n\n## Frequently Asked Questions\nPlAnhead is a financial planning and comparison platform designed to give you clarity on long-term costs. Unlike simple price comparison sites, we focus on the Total Cost of Ownership (TCO).\nYes. Your data never leaves your browser. PlAnhead performs all financial simulations locally, ensuring that your sensitive information remains private. No account or registration is required.\nPlAnhead is free to use. Our goal is to provide accessible financial planning tools for everyone.",
+      "raw_html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebSite\",\"name\":\"PlAnhead\",\"url\":\"https://ui.planhead.dev/\",\"description\":\"Financial planning and forecasting tool.\"},{\"@type\":\"ItemList\",\"name\":\"Popular Financial Calculators\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://ui.planhead.dev/personal/financial-simulator\",\"name\":\"Financial Simulator\"},{\"@type\":\"ListItem\",\"position\":2,\"url\":\"https://ui.planhead.dev/house/prefabricated_house\",\"name\":\"Prefab House Calculator\"},{\"@type\":\"ListItem\",\"position\":3,\"url\":\"https://ui.planhead.dev/personal/car\",\"name\":\"Car Simulator\"}]}]}</script><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"PlAnhead\",\"item\":\"https://ui.planhead.dev/\"}]}</script>",
+      "metadata": {
+        "title": "PlAnhead | Financial Planning & Comparison Tools",
+        "description": "PlAnhead offers a variety of financial calculators and comparison tools for your personal, professional, and household needs."
+      }
+    },
+    {
+      "url": "https://planhead.dev/about",
+      "content": "## Our Mission\nAt PlAnhead, our mission is to empower individuals to take control of their financial future with confidence and clarity. We believe that everyone deserves to understand their money, forecast their financial journey, and make informed decisions without compromising their privacy.\n\n## The Creator: Dr. Daniel Schneider\nPlAnhead was conceived and developed by Dr. Daniel Schneider, a seasoned expert with a passion for personal finance and secure software solutions. With a background in software engineering, financial analytics and data privacy, Dr. Schneider recognized the critical need for a financial tool that prioritizes user privacy above all else.\n\n## Our Commitment to Privacy\nWe are deeply committed to your privacy. Unlike many other financial applications, PlAnhead operates without a backend database for user financial data.\n\n## Tech Stack\nPlAnhead is built using Flask (Python), Plotly & Dash for visualizations, Bootstrap 5.",
+      "raw_html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebApplication\",\"name\":\"About\",\"url\":\"https://ui.planhead.dev/about\",\"description\":\"A professional financial planning and forecasting tool.\",\"applicationCategory\":\"FinanceApplication\",\"operatingSystem\":\"Web\"}]}</script>",
+      "metadata": {
+        "title": "About PlAnhead - Your Personal Financial Forecasting Tool",
+        "description": "Learn about PlAnhead, a secure and private financial planning and forecasting tool designed by Dr. Daniel Schneider."
+      }
+    },
+    {
+      "url": "https://planhead.dev/bank_account/",
+      "content": "Welcome to PlAnhead! We provide powerful, private, and easy-to-use financial tools to help you make informed decisions about your future. Explore our calculators by category or jump straight into our most popular tools.\n\n## Most Popular Calculators\nFinancial Simulator, Prefab House Calculator, Car Simulator\n\n## Frequently Asked Questions\nPlAnhead is a financial planning and comparison platform focused on Total Cost of Ownership (TCO).\nYour data never leaves your browser.\nPlAnhead is free to use.",
+      "raw_html": "",
+      "metadata": {
+        "title": "PlAnhead | Financial Planning & Comparison Tools",
+        "description": "PlAnhead offers financial calculators and comparison tools."
+      }
+    },
+    {
+      "url": "https://planhead.dev/blog/",
+      "content": "## The PlAnhead Blog\nData-driven insights for smarter life decisions.\n\nComprehensive wealth forecasting tool. Compare TCO between electric and combustion engine vehicles. Analyze long-term costs of gym membership. Compare computer setups. Track caffeine half-life. Calculate historical value of money. How many books you could read instead of scrolling. Kilometers to run to neutralize foods. Calculate fair tips. Prevent impulse purchases.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Blog | PlAnhead",
+        "description": "Data-driven insights for smarter life decisions."
+      }
+    },
+    {
+      "url": "https://planhead.dev/feedback",
+      "content": "## Submit Feedback or Report a Bug\nYour feedback helps us improve PlAnhead. Please describe the issue or the feature you would like to see.\nFeedback Type: Bug Report or Feature Request\nNote: Your feedback is submitted to our GitHub repository. Avoid including sensitive personal or financial information.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Feedback | PlAnhead",
+        "description": "Submit feedback or report a bug for PlAnhead."
+      }
+    },
+    {
+      "url": "https://planhead.dev/house/",
+      "content": "## House Tools\nChoose a tool related to house costs.\n\n##### Prefabricated House\nDetailed calculation of all building costs, from land and notary fees to earthworks and interior finishing.\n\n##### Mortgage Calculator\nSimulate multiple credits (Bank, KfW) with individual interest rates, repayment options, and special repayments.\n\n##### Bauspar vs. Repayment\nCompare direct loan repayment with a Bauspar-linked strategy. Understand the insurance premium for interest rate certainty.\n\n##### QNG Profitability\nCalculate if the QNG certification pays off based on 10 years of interest savings and long-term energy yields.\n\n## Frequently Asked Questions\nBeyond the house price, you must factor in land purchase taxes, notary fees, earthworks, utility connections, and interior finishing.\nPrefabricated house costs vary by land price, side costs, and finishing. Our calculator helps you estimate the total cost of ownership.",
+      "raw_html": "",
+      "metadata": {
+        "title": "House Tools | PlAnhead",
+        "description": "House cost calculators for prefabricated homes, mortgages and more."
+      }
+    },
+    {
+      "url": "https://planhead.dev/house/bauspar_checker",
+      "content": "## Bauspar vs. Direct Repayment\nCalculate the insurance premium you pay for interest rate certainty.\n\nIn a standard annuity (Scenario A), every Euro repaid saves you the loan interest rate. In the Bauspar model (Scenario B), that same Euro only earns the low savings interest rate (e.g., 0.1%). This spread is the primary cost of the Bauspar strategy.\n\nKfW is a German state-owned investment and development bank. Many home buyers use KfW loans for their low interest rates combined with other financing models like Bausparen.\n\n## Frequently Asked Questions\nKfW is a German state-owned investment and development bank offering low interest rates.\nThis shows the future market rate needed for the Bauspar model to be mathematically superior.\n\n## Scenario A: Direct Repayment (Annuity)\nPhase 1: Fixed interest is applied for the specified binding period. Phase 2: After the binding period, the Market Rate After Fix is applied. Total Cost: sum of all interest paid over 360 months.\n\n## Scenario B: Bauspar-Link (Interest-Only)\nPhase 1 (Saving): You pay interest on 100% of the loan. Phase 2 (Loan): Savings used to pay off part of loan. Total Cost: Interest Phase 1 + Phase 2 + fees - savings interest.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Bauspar vs. Direct Repayment | PlAnhead",
+        "description": "Compare direct loan repayment with Bauspar-linked financing."
+      }
+    },
+    {
+      "url": "https://planhead.dev/house/mortgage_calculator",
+      "content": "## Mortgage Calculator\nSimulate multiple credits (Bank, KfW) with individual interest rates, repayment options, and special repayments.\n\nNote: This calculator is pre-filled with typical German examples (e.g., KfW) but can be used for any standard annuity loan worldwide with optional annual special repayments.\n\nDisclaimer: While tested comprehensively, we cannot guarantee absolute correctness. Always consult a professional banking expert for final financing decisions.\n\n## Repayment Simulation\nFind the optimal distribution of your monthly budget across all credits to minimize total interest paid.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Mortgage Calculator | PlAnhead",
+        "description": "Simulate multiple mortgage credits with individual interest rates."
+      }
+    },
+    {
+      "url": "https://planhead.dev/house/qng_calculator",
+      "content": "## QNG Profitability Calculator\nCompare EH55 baseline vs. EH40 and EH40+PV scenarios.\n\nEH55 and EH40 refer to Efficiency House standards in Germany. EH55 means the building uses only 55% of the primary energy of a reference building, while EH40 uses only 40%. Lower numbers indicate higher energy efficiency.\n\nThe QNG (Qualitaetssiegel Nachhaltiges Gebaeude) is a German state seal of quality for sustainable buildings. Required to unlock the highest KfW subsidy levels (up to 150,000 EUR subsidized loan).\n\n## Frequently Asked Questions\nThe calculator compares total financial outflow of EH40 and EH40+PV scenarios against EH55 baseline, factoring in interest savings and reduced energy costs over 25 years.\n\n## Financing Logic\nInterest Differential: Calculates total interest paid for each scenario over 10-year period. Baseline Comparison: All benefits calculated relative to EH55 baseline scenario.\n\n## Profitability & ROI\n25-year lifecycle analysis. Energy Savings includes annual savings from reduced thermal demand and PV yield. Net Profit: (Interest Saved + Energy Yield) - Upfront Upgrade Costs relative to EH55.\n\nLast updated: 2026-03-26",
+      "raw_html": "",
+      "metadata": {
+        "title": "QNG Profitability Calculator | PlAnhead",
+        "description": "Calculate if QNG certification pays off for your building project."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/",
+      "content": "## Household Tools\nChoose a tool to calculate your household expenses.\n\nWashing Machine, Freezer, Dryer, Dishwasher, Television, Kitchen Stove, Coffee Machine, Lighting Calculator, Air Fryer vs. Oven, Kettle vs. Induction, Microwave vs. Stove, Water Filter vs. Bottled.\n\n## Frequently Asked Questions\nAppliances involving heating or cooling such as stoves, ovens, and older dryers consume the most energy.\nBy comparing the Total Cost of Ownership (TCO), including energy and water usage, you can identify which appliances are truly the most cost-effective over their lifespan.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Household Tools | PlAnhead",
+        "description": "Household efficiency calculators for appliances."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/coffee",
+      "content": "## Coffee Machine ROI Calculator\nCompare the total cost and time investment across different coffee brewing methods.\n\nGenerally, bean-to-cup or portafilter machines have the lowest per-cup cost because whole beans are significantly cheaper than pods or pads. While the machine is more expensive upfront, you save 70-80% on every cup.\n\nYes. Although machines are cheap, pods often cost 0.40 to 0.60 EUR each. For a household drinking 3 cups a day, a pod system can cost 500 EUR more per year than using fresh beans.\n\nA simple pod machine usually lasts 3-5 years. A well-maintained bean-to-cup machine can last 7-10 years, and a high-quality portafilter machine can last 15+ years.\n\n## Frequently Asked Questions\nBean-to-cup machines have lowest per-cup cost: whole beans significantly cheaper than pods. Save 70-80% on every cup after initial investment.\nPods often cost 0.40-0.60 EUR each; 500 EUR more per year vs. fresh beans for 3 cups/day household.\nPortafilter machines require 5-10 mins/day for prep and cleaning, adding up to 40-60 hours a year.\nBean-to-cup needs regular descaling, cleaning tablets, new water filter - 30-50 EUR annual consumables.\nPod machine lasts 3-5 years; bean-to-cup 7-10 years; high-quality portafilter 15+ years.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Uses current energy and coffee price benchmarks. Privacy-first: No data leaves your browser.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Coffee Machine ROI Calculator | PlAnhead",
+        "description": "Compare total cost across different coffee brewing methods."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/dishwasher",
+      "content": "## Dishwasher TCO Calculator\nCompare different dishwashers based on water and energy efficiency.\n\nIn most cases, yes. Modern dishwashers use about 10-12 liters of water per full load, whereas washing the same amount by hand can consume up to 60 liters. Even with electricity costs, the dishwasher is usually more economical.\n\nCheck the EU energy label (A to G). Beyond the rating, look at specific energy consumption per 100 cycles and water consumption per cycle. A more efficient model saves hundreds over its lifetime.\n\nYes. Although Eco programs take longer, they use lower water temperatures and less water. Heating water is the most energy-intensive part of the cycle, so these programs are significantly cheaper to run.\n\n## Frequently Asked Questions\nModern dishwashers use 10-12 liters per load vs. up to 60 liters by hand. Dishwasher is more economical and hygienic.\nMost modern dishwashers designed for 10-12 year lifespan. Typical repairs after 5-7 years.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Uses current energy and water price benchmarks. Provides 10-year break-even analysis.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Dishwasher TCO Calculator | PlAnhead",
+        "description": "Compare dishwashers based on water and energy efficiency."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/dryer",
+      "content": "## Dryer ROI Calculator\nCompare different dryer technologies (Heat Pump vs. Condenser vs. Vented) based on total cost of ownership.\n\nYes, in most cases. A heat pump dryer uses about 50% less electricity than a condenser model. If you use your dryer 3-4 times a week, the energy savings often cover the higher purchase price within 4-6 years.\n\nVented dryers blow moist air outside. Condenser dryers collect water in a tank. Heat pump dryers recycle heat using a refrigerant, making them by far the most energy-efficient.\n\n## Frequently Asked Questions\nHeat pump dryer uses 50% less electricity than condenser. Energy savings cover higher purchase price within 4-6 years at 3-4 cycles/week.\nHigh-quality dryer typically lasts 10-13 years.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Compares Heat Pump vs. Condenser efficiency.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Dryer ROI Calculator | PlAnhead",
+        "description": "Compare dryer technologies based on total cost of ownership."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/freezer",
+      "content": "## Freezer Calculator\nCompare different freezer models based on total cost of ownership.\n\nOlder freezers (10+ years) often consume 2-3 times more electricity than modern A-rated models. In many cases, the electricity savings can pay back the cost of a new freezer within 5 to 7 years.\n\nNoFrost prevents ice from building up on cooling coils. A traditional freezer energy consumption increases by up to 30% if just 5mm of ice builds up.\n\nChest freezers are generally more efficient because cold air stays inside when you open the top lid. Upright freezers lose cold air faster when opened but offer better organization.\n\n## Frequently Asked Questions\nOlder freezers (10+ years) consume 2-3x more electricity than modern A-rated models. Savings pay back new freezer cost within 5-7 years.\n5mm ice buildup increases traditional freezer energy consumption by up to 30%.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Factors in annual degradation of efficiency.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Freezer Calculator | PlAnhead",
+        "description": "Compare freezer models based on total cost of ownership."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/kettle",
+      "content": "## Kettle vs. Induction Hob\nThe true cost of overfilling your kettle.\n\nBoiling more water than you need is a major source of energy waste. For a household that regularly boils double the necessary amount, this can add up to 15-25 euros per year in unnecessary electricity costs.\n\nFor very small amounts (like a single 250ml cup), an induction hob can be more efficient if your kettle has a high minimum fill level (e.g., 500ml). Induction heats exactly what you need with almost no standby loss.\n\nStandard electric kettles often have a minimum fill line (e.g. 500ml). If you only need one cup (250ml), you are forced to boil double the amount! High-speed induction hobs allow you to heat exactly what you need in a small pot.\n\n## Frequently Asked Questions\nRegularly boiling double the necessary amount can add up to 15-25 EUR per year in unnecessary electricity costs.\nGas stovetops are only about 40% efficient as most heat escapes around the kettle. Electric kettles and induction hobs are over 85% efficient.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Compares Electric Kettle vs. Induction Stove.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Kettle vs. Induction Hob | PlAnhead",
+        "description": "The true cost of overfilling your kettle."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/lighting",
+      "content": "## Lighting ROI Calculator\nCalculate the savings from replacing old bulbs with energy-efficient LEDs.\n\nLED bulbs use about 80-90% less energy than traditional incandescent bulbs and 50% less than halogen bulbs. For a single 60W bulb replaced by an 8W LED, you save about 52 kWh per year (assuming 3h/day usage).\n\nA typical LED lasts 15,000 to 25,000 hours, whereas an incandescent bulb lasts about 1,000 hours. This reduces both waste and the long-term cost of buying replacements.\n\nFor bulbs that are on for more than 2 hours a day, the electricity savings usually pay for the new LED bulb within 6 to 12 months, making it a very high-ROI upgrade.\n\n## Verified Tool Facts & Data Sources\nUses real-time energy price benchmarks. Includes bulb-lifespan amortisation. Verified data from energy efficiency labels.\nMachine-readable facts available at /facts.json\n\n## Lighting Energy Logic\nAnnual kWh = (Number of Bulbs * Average Wattage * Daily Hours * 365) / 1000. Scenario Comparison between current and proposed lighting.\n\n## Financial & Payback Analysis\nAnnual Savings: Difference in energy cost between scenarios. Investment Return: cumulative cost identifies payback point.\n\nLast updated: 2026-03-26",
+      "raw_html": "",
+      "metadata": {
+        "title": "Lighting ROI Calculator | PlAnhead",
+        "description": "Calculate savings from replacing old bulbs with energy-efficient LEDs."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/microwave_stove",
+      "content": "## Microwave vs. Stove Efficiency\nWhich method is more efficient for small kitchen tasks?\n\nYes. A microwave heats food directly and does not require heating up a burner or a heavy pot. For a single plate of food, the microwave uses about 60-70% less energy than a stove.\n\nThe stove is more efficient for large quantities (more than 1 liter of liquid or a large family meal), as the microwave efficiency drops when it has to penetrate large volumes of food.\n\nInduction is the clear winner (~90% efficiency), followed by ceramic electric (~70%). Gas is the least efficient (~40%) because most heat escapes into the kitchen air around the pot.\n\n## Frequently Asked Questions\nMicrowave uses 60-70% less energy than stove for a single plate of food.\nInduction ~90% efficient, ceramic electric ~70%, gas ~40%.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Uses current energy price benchmarks.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Microwave vs. Stove | PlAnhead",
+        "description": "Compare efficiency between microwave and conventional stove."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/oven_air_fryer",
+      "content": "## Air Fryer vs. Oven Calculator\nFind out how much electricity and time you can save by using an air fryer.\n\nFor small to medium portions, yes. Air fryers have a much smaller volume to heat and often do not require preheating. This can reduce energy consumption by 40-60% compared to a large conventional oven.\n\nThe oven is more efficient for large quantities, multiple dishes at once, or very large items (like a whole turkey). The tipping point is usually reached when you would need to run the air fryer 3 or 4 times to cook the same amount.\n\nYes, typically 20-30% faster. Because hot air is circulated very rapidly in a small space, heat transfer is more efficient, saving both time and electricity.\n\n## Frequently Asked Questions\nAir fryer reduces energy consumption by 40-60% vs. large conventional oven for small to medium portions.\nAir fryers typically cook 20-30% faster due to rapid hot air circulation in small space.\nBuilt-in ovens last 15-20 years; air fryers 5-8 years.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Compares Air Fryer vs. Traditional Oven.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Air Fryer vs. Oven | PlAnhead",
+        "description": "Compare energy consumption between air fryer and traditional oven."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/stove",
+      "content": "## Kitchen Stove Calculator\nCompare induction vs. electric/ceramic stovetops based on total cost of ownership.\n\nInduction uses electromagnetic fields to heat the pan directly, minimizing heat loss to surrounding air, making it about 10-20% more efficient than standard electric ceramic stoves.\n\nIn many regions, gas is cheaper per unit of energy. However, gas stoves are only about 40% efficient (most heat escapes around the pot), while induction is over 85% efficient.\n\nCooking with a lid can reduce energy consumption by up to 30%. It keeps heat inside the pot, allowing lower power settings once boiling point is reached.\n\n## Frequently Asked Questions\nInduction 10-20% more efficient than electric ceramic stoves. Gas stoves only 40% efficient vs. induction 85%+ efficient.\nCooking with a lid reduces energy consumption by up to 30%.\nModern stoves designed to last 13-15 years.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Compares Induction vs. Ceramic vs. Gas.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Kitchen Stove Calculator | PlAnhead",
+        "description": "Compare induction vs. electric stoves based on total cost of ownership."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/tv",
+      "content": "## TV Calculator\nCompare different television models based on total cost of ownership.\n\nModern 55-inch LED TVs typically use between 60W and 100W, which costs around 30-50 euros per year for average use.\n\nDue to EU regulations, modern TVs must consume less than 0.5W to 1W in standby.\n\nRunning a TV at maximum brightness or in Vivid mode can increase power consumption by up to 50%. Using Eco modes or an ambient light sensor can save significant energy.\n\n## Frequently Asked Questions\nModern 55-inch LED TVs use 60W-100W, costing 30-50 EUR/year for average use.\nMax brightness or Vivid mode increases power consumption by up to 50% vs. Eco mode.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Provides 10-year break-even analysis.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "TV Calculator | PlAnhead",
+        "description": "Compare television models based on total cost of ownership."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/washing_machine",
+      "content": "## Washing Machine Calculator\nCompare different washing machines based on total cost of ownership.\n\nHeating water accounts for 90% of a washing machine energy use. Switching from 60C to 30C can cut energy consumption by up to 60%.\n\nHalf-loads still use more than half the energy. Wait until you have a full load to maximize efficiency.\n\nEco programs take longer but use lower temperatures and less water, providing the same cleaning results for significantly less money.\n\n## Frequently Asked Questions\nIn many cases, yes. While initial investment is higher, lower running costs typically pay for the difference within 5 to 8 years. Over 15-year period, an efficient machine can save several hundred euros.\nA typical household with 2-3 people runs about 220 cycles per year.\n\n## Expert Tips for Saving Money & Energy\n1. Lower the Temperature: Heating water accounts for 90% of energy use. 60C to 30C cuts energy by up to 60%.\n2. Full Loads Only: Half-loads still use more than half the energy.\n3. Use Eco Mode: Same cleaning results for significantly less money.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Provides 10-year break-even analysis.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Washing Machine Calculator | PlAnhead",
+        "description": "Compare washing machines based on total cost of ownership."
+      }
+    },
+    {
+      "url": "https://planhead.dev/household/water_filter",
+      "content": "## Water Filter vs. Bottled Water\nSave money and reduce plastic waste by switching to filtered tap water.\n\nYes, significantly. Tap water costs a fraction of a cent per liter. Even after adding the cost of filter cartridges, you will typically spend less than 5-10 cents per liter, compared to 50 cents or more for bottled water.\n\nMost standard pitcher filters need replacing every 100-150 liters or every 4 weeks to maintain water quality and prevent bacterial growth.\n\nSingle-use plastic bottles take up to 450 years to decompose. Tap water is often more strictly controlled than bottled water.\n\nA single person drinking 2 liters a day can save over 700 1-liter plastic bottles per year. For a family of four, this is nearly 3,000 bottles annually.\n\n## Frequently Asked Questions\nTap water costs less than 5-10 cents per liter with filter vs. 50+ cents for bottled water.\n700+ plastic bottles saved per person per year drinking 2L/day.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Compares Filter vs. Bottled Water costs.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Water Filter vs. Bottled Water | PlAnhead",
+        "description": "Compare costs and environmental impact of water filter vs. bottled water."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/",
+      "content": "## Personal Tools\nChoose a tool related to your personal life and hobbies.\n\nFinancial Simulator, Am I Behind? (net worth benchmark), Protein Goal Simplifier, Fitness Calculator, PC Calculator, Car Calculator, Caffeine Half-Life, Inflation Calculator, Screen Time to Book Ratio, Tipping Fairness Calculator, Impulse Buy Guard, Calorie Burn vs. Reward, World Time Clock.\n\n## Frequently Asked Questions\nComprehensive simulator helps you project wealth over decades factoring in compound interest, inflation, and life events.\nCompares total cost of commercial gym membership against home gym setup to find break-even point.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Personal Tools | PlAnhead",
+        "description": "Personal finance calculators for your personal life and hobbies."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/benchmark",
+      "content": "## Am I Behind? Net Worth Benchmark\nCompare your net worth and savings to the actual median and top 10% for your age.\nData is based on recent central bank and census estimates for median and top 10% households.\n\n## The Social Media Distortion\nInstagram and YouTube often show the top 0.01%, not the top 10%. Seeing a 25-year-old with a Lambo creates a false normal. In reality, the median net worth for someone under 30 in Germany is around 10,000 EUR. If you have an emergency fund and a small portfolio, you are already ahead of most.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Am I Behind? Net Worth Benchmark | PlAnhead",
+        "description": "Compare your net worth and savings to median and top 10% for your age."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/caffeine",
+      "content": "## Caffeine Half-Life Calculator\nCalculate how much caffeine is still in your system when you try to sleep.\n\nCaffeine has an average half-life of about 5 hours. This means if you consume 100mg, 50mg is still active after 5 hours, 25mg after 10 hours, and so on. Genetics, medication, and lifestyle (like smoking) can significantly alter this rate.\n\nEven if you can fall asleep, caffeine blocks adenosine receptors in the brain, responsible for deep sleep (slow-wave sleep). This leads to lower sleep quality and feeling tired the next morning.\n\nWhile everyone is different, sleep experts generally suggest having less than 50mg of caffeine in your system to minimize disruption to your sleep architecture.\n\n## Caffeine Cheat Sheet\nEspresso: 63mg, Filter Coffee (200ml): 95mg, Energy Drink (250ml): 80mg, Black Tea (200ml): 40mg, Green Tea (200ml): 25mg.\n\n###### Verified Tool Facts\nUses pharmacokinetical half-life modeling. Caffeine benchmarks derived from USDA/EFSA data.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Caffeine Half-Life Calculator | PlAnhead",
+        "description": "Calculate how much caffeine is still in your system at bedtime."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/calories",
+      "content": "## Calorie Burn vs. Reward\nSee how much exercise it takes to neutralize that specific treat.\n\nWe use average MET (Metabolic Equivalent of Task) values. Running uses a factor of ~1.036 kcal/kg/km, and walking uses ~0.53 kcal/kg/km. Time is estimated based on 10 km/h for running and 5 km/h for walking.\n\nMoving a heavier mass requires more energy. Therefore, a heavier person burns more calories covering the same distance as a lighter person.\n\n###### Burn Rate Logic\nRunning Factor: 1.036 calories per kg per km. Walking Factor: 0.53 calories per kg per km. Distance Formula: Distance (km) = Calories / (Burn Factor x Body Weight).\n\n###### Verified Tool Facts\nBased on ACSM metabolic equations. Weight-adjusted energy expenditure formulas.\nMachine-readable facts available at /facts.json\n\nLast updated: 2026-03-26",
+      "raw_html": "",
+      "metadata": {
+        "title": "Calorie Burn vs. Reward | PlAnhead",
+        "description": "See how much exercise it takes to neutralize specific foods."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/car",
+      "content": "## Car ROI Calculator\nCompare Total Cost of Ownership between Electric Vehicles (EV) and Combustion Engines (ICE).\n\nThe TCO includes the purchase price, fuel or electricity costs, annual taxes, insurance, and estimated maintenance and repair costs over several years. It gives you the true monthly or annual cost of owning the vehicle.\n\nIn most cases, yes. While the initial purchase price is higher, the lower cost of electricity compared to fuel, along with lower maintenance costs (fewer moving parts, no oil changes) and tax benefits, often make EVs cheaper over 5-10 years.\n\n## Frequently Asked Questions\nTCO includes purchase price, fuel/electricity, taxes, insurance, and maintenance.\nEVs typically cheaper over 5-10 years due to lower electricity cost, maintenance, and tax benefits.\nReal-world usage varies 10-20% from manufacturer figures based on driving style.\nTotal loss of value is often the largest hidden cost of owning a new vehicle.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Provides 10-year break-even analysis. Supports Buy, Rent, and Leasing comparisons.\nMachine-readable facts available at /facts.json",
+      "raw_html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebApplication\",\"name\":\"Car Simulator\",\"url\":\"https://ui.planhead.dev/personal/car\",\"applicationCategory\":\"FinanceApplication\",\"operatingSystem\":\"Web\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"EUR\"}},{\"@type\":\"FinancialProduct\",\"name\":\"Car Simulator\",\"url\":\"https://ui.planhead.dev/personal/car\"}]}</script>",
+      "metadata": {
+        "title": "Car ROI Calculator | PlAnhead",
+        "description": "Compare Total Cost of Ownership between Electric and Combustion Engine vehicles."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/financial-simulator",
+      "content": "## Financial Simulator\nVisually forecast your financial future and make confident money decisions, all with the assurance that your data remains completely private.\n\nOur simulations use standard mathematical formulas for compound interest and inflation. These tools are for educational forecasting, not professional financial advice.\n\nUnlike a fixed percentage return, a Monte Carlo simulation accounts for the fact that the stock market goes up and down. It shows a range of possible outcomes, helping you prepare for worst-case scenarios in your retirement planning.\n\n## Verified Tool Facts & Data Sources\nUses deterministic compound interest modeling. Supports multi-decade forecasting (up to 50 years). Monte Carlo logic for market-volatility scenarios. Privacy-first: No financial data leaves your browser.\nMachine-readable facts available at /facts.json\n\n## Wealth Projection Logic\nAsset Integration: Combines liquid cash from bank accounts with market-driven valuations from investment depots. Cash Flow Analysis: Tracks monthly income and expenses to project savings rates.\n\n## Simulated Scenarios\nMonte Carlo simulations and historical market data. Investment projections assume average annual returns based on diversified global indices (e.g., MSCI World benchmarks). Factors in significant life events.\n\nLast updated: 2026-03-26",
+      "raw_html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebApplication\",\"name\":\"Financial Simulator\",\"url\":\"https://ui.planhead.dev/personal/financial-simulator\",\"applicationCategory\":\"FinanceApplication\",\"operatingSystem\":\"Web\",\"featureList\":[\"Compound interest simulations\",\"Scenario planning\",\"Expense tracking\",\"Visual wealth projection\"],\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"EUR\"},\"author\":{\"@type\":\"Organization\",\"name\":\"PlAnhead\"}},{\"@type\":\"FinancialProduct\",\"name\":\"Financial Simulator\",\"url\":\"https://ui.planhead.dev/personal/financial-simulator\"}]}</script>",
+      "metadata": {
+        "title": "Financial Simulator | PlAnhead",
+        "description": "Forecast your long-term wealth with our comprehensive financial simulator."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/fitness",
+      "content": "## Fitness ROI Calculator\nCompare the total cost and travel time between different commercial gyms and home setups.\n\nTypically, yes, within 2 to 4 years. While equipment requires an upfront investment, you eliminate monthly fees and travel costs.\n\nBy eliminating the commute, you can save 20-40 minutes per workout. For someone training 3 times a week, this adds up to over 50 hours of saved time per year.\n\nHigh-quality strength equipment (racks, barbells, plates) can last a lifetime. Cardio machines usually have a lifespan of 7-10 years.\n\n## Frequently Asked Questions\nHome gym break-even within 2-4 years: eliminate monthly fees and travel costs.\n20-40 minutes saved per workout commute; 50+ hours/year for 3x/week training.\n\n###### Verified Tool Facts\nCalculates TCO based on VDI 2067 standards. Provides 10-year break-even analysis.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Fitness ROI Calculator | PlAnhead",
+        "description": "Compare gym membership vs. home gym total cost of ownership."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/impulse",
+      "content": "## Impulse Buy Guard\nStop and think before you spend. This tool helps you evaluate if a purchase is truly a need or just a passing want.\n\nThe 30-Day Rule is a simple financial technique: when you want to make a non-essential purchase, wait 30 days before buying. During this time, the initial dopamine hit fades, allowing you to decide with a clear head.\n\nIt calculates what the same amount of money could grow to if invested in a broad market index (like the MSCI World) for 20 years, assuming an average annual return of 7%. It shows the long-term wealth you are trading for a short-term purchase.\n\n## Frequently Asked Questions\n30-Day Rule: wait 30 days before non-essential purchases to let dopamine hit fade.\nMSCI World 7% average annual return used for 20-year opportunity cost calculation.\n\n###### Verified Tool Facts\nHistorical MSCI World CAGR benchmarks for opportunity cost. Translates monetary debt into effective Life-Hour units.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Impulse Buy Guard | PlAnhead",
+        "description": "Prevent impulse purchases by calculating opportunity cost and work-hours required."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/inflation",
+      "content": "## Inflation Calculator\nAdjust historical prices for inflation and compare life stages across different eras.\n\nWe use the Consumer Price Index (CPI) from official national statistical offices. Formula: Value Today = Historical Value * (CPI Today / CPI Historical).\n\nFor the Euro area, the underlying data accounts for transitions from previous national currencies (e.g., Deutsche Mark) based on official fixed conversion rates and historical CPI link-series.\n\n## Historical Price Examples\nPost-War (1950): 39.78 EUR. Economic Miracle (1960): 47.58 EUR. Oil Crisis (1973): 72.49 EUR. Early 80s (1980): 100.00 EUR. Reunification (1990): 129.00 EUR. Euro Introduction (2002): 168.03 EUR. Financial Crisis (2008): 187.36 EUR. Pre-Pandemic (2019): 214.50 EUR. Today (2024): 257.99 EUR.\n\n###### Verified Tool Facts\nOfficial Consumer Price Index (CPI) data source. Historical currency conversion (DM, Franc, Lira). Inflation-adjusted purchasing power modeling.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Inflation Calculator | PlAnhead",
+        "description": "Calculate the historical value of money across different currencies and eras."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/pc",
+      "content": "## PC TCO Calculator\nCompare different computer setups based on purchase price and energy consumption.\n\nBeyond the purchase price, you must factor in annual maintenance (software, cleaning), energy consumption based on daily usage, and the expected lifespan before you need a refresh or replacement.\n\nA gaming PC under high load can use 300-500 Watts. If used for 4 hours a day, this can cost between 100 and 150 euros per year in electricity alone.\n\nPCs do not use maximum power all the time. An office PC might average 50-80W, while a gaming PC varies between 100W (browsing) and 400W+ (gaming).\n\n## Frequently Asked Questions\nGaming PC at 300-500W for 4h/day costs 100-150 EUR/year in electricity.\nLeaving PC on 24/7 unnecessarily can waste 50-80 EUR per year in idle electricity.\n\n###### Verified Tool Facts\nCalculates PC-TCO based on VDI 2067 standards. Energy-load vs. idle-state consumption models.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "PC TCO Calculator | PlAnhead",
+        "description": "Compare total cost of ownership for different computer setups."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/protein",
+      "content": "## Protein Goal Simplifier\nStop the guesswork. See exactly what reaching your goal looks like in real food.\n\nFor sedentary adults, 0.8g per kg is standard. For active individuals aiming to build muscle, research suggests between 1.6g and 2.2g per kg of bodyweight.\n\nLentils, chickpeas, tofu, tempeh, seitan, and edamame are excellent plant-based sources.\n\nFor most healthy people, a high protein diet is safe. However, individuals with pre-existing kidney conditions should consult a doctor. Excessive protein intake beyond 2.5g-3g per kg rarely provides additional muscle-building benefits.\n\n## Protein Cheat Sheet\nChicken Breast (100g): 31g protein. Egg (Large): 6g. Whey Protein (30g Scoop): 24g. Tofu (100g): 8g. Lentils (100g Cooked): 9g. Greek Yogurt (100g): 10g. Salmon (100g): 20g. Beef (100g): 26g.\n\n###### Verified Tool Facts\nUses standard macronutrient data from USDA and nutritional databases. Calculates exact quantities based on daily gram targets.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Protein Goal Simplifier | PlAnhead",
+        "description": "Visualize exactly how much food you need to hit your protein goals."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/reading",
+      "content": "## Reading vs. Screen-Time Calculator\nDiscover how many books you could read if you spent your social media time reading instead.\n\nThe average adult reads at a speed of 200 to 250 words per minute (WPM).\n\nA typical non-fiction or fiction book of about 300 pages contains roughly 80,000 to 100,000 words. We use 90,000 as a balanced default.\n\nThe goal is to visualize the opportunity cost of digital habits. By seeing how many books are lost to scrolling, it becomes easier to make conscious choices about time allocation.\n\n## Verified Tool Facts\nUses cognitive reading speed benchmarks. Historical book-length distribution metrics.\nSwapping just 30 minutes of scrolling for reading every day can lead to finishing over a dozen books a year.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Reading vs. Screen-Time | PlAnhead",
+        "description": "Discover how many books you could read instead of scrolling."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/tips",
+      "content": "## Tipping Fairness Calculator\nDetermine the ideal tip based on service quality and split it among your party.\n\nTipping is often used as a direct reflection of service quality. Our calculator adjusts the local norm slightly down for poor service, and slightly up for excellent service.\n\nIt depends heavily on the country. In the US, tipping is standard and forms a large part of the server wage. In many European and Asian countries, a service charge is already included in the bill, and tipping is only for exceptional service.\n\n## Tip Calculation Logic\nBase Percent: chosen normative percentage (e.g., 15%) as starting point. Quality Adjustment: Poor (-2%), Average (0%), or Excellent (+5%).\n\n###### Verified Tool Facts\nUses global tipping norm benchmarks. Includes fair bill splitting algorithms.\nMachine-readable facts available at /facts.json\n\nLast updated: 2026-03-26",
+      "raw_html": "",
+      "metadata": {
+        "title": "Tipping Fairness Calculator | PlAnhead",
+        "description": "Calculate fair tips based on service quality and local norms."
+      }
+    },
+    {
+      "url": "https://planhead.dev/personal/world-time",
+      "content": "## World Time Clock\nShow the current time with AM and PM for different locations in the world.\n\nThe time is calculated based on official time zones for each major city, taking into account any current daylight saving time (DST) adjustments.\n\nAll calculations are derived from Coordinated Universal Time (UTC) as the central reference point. IANA Database timezone offsets and DST rules are applied using the industry-standard IANA Time Zone Database.\n\n###### Verified Tool Facts\nSynchronized with IANA Time Zone Database. Dynamic Daylight Saving Time (DST) resolution. Sub-millisecond UTC-relative offset calculation.\nMachine-readable facts available at /facts.json\n\nLast updated: 2026-03-26",
+      "raw_html": "",
+      "metadata": {
+        "title": "World Time Clock | PlAnhead",
+        "description": "View current time across different timezones globally."
+      }
+    },
+    {
+      "url": "https://planhead.dev/professional/",
+      "content": "## Professional Tools\nChoose a tool related to your professional life and career.\n\n##### Real Wage Calculator\nCompare job offers by factoring in commute time, costs, and benefits.\n\n##### Work Time Calculator\nTrack your net working hours by accounting for multiple breaks.\n\n##### Meeting Cost Calculator\nCalculate the true financial impact of synchronous meetings.\n\n##### Spider Diagram Creator\nVisualize multi-dimensional assessments for strategic business decisions.\n\n## Frequently Asked Questions\nMeetings are expensive. By visualizing the true hourly cost based on participant salaries, teams can better prioritize synchronous time.\nReal Wage Calculator factors in commute time, costs, and benefits to give you a true hourly rate.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Professional Tools | PlAnhead",
+        "description": "Professional calculators for career and workplace decisions."
+      }
+    },
+    {
+      "url": "https://planhead.dev/professional/meeting",
+      "content": "## Meeting Cost Calculator\nCalculate the true financial impact of synchronous meetings on your organization.\n\nMeetings are one of the most expensive assets in a company. Visualizing the cost helps teams prioritize asynchronous communication and ensures synchronous time is used efficiently.\n\nAn employee cost to the company is more than just base salary. It includes social security, taxes, health insurance, office space, and equipment. A factor of 1.3 to 1.5 is standard in many industries.\n\n## Cost Calculation Logic\nHourly Rate = (Average Annual Salary x Overhead Factor) / Annual Work Hours. We assume a standard 40-hour week (approx. 2,085 hours per year). Default overhead multiplier is 1.3.\n\n## Productivity Analysis\nHuman Hours: Total collective time spent = Number of Participants x Duration in Hours. Cost per Minute: real-time burn rate indicator.\n\n###### Verified Tool Facts\nUses professional labor cost models. Calculates real-time financial burn rates.\nMachine-readable facts available at /facts.json\n\nLast updated: 2026-03-26",
+      "raw_html": "",
+      "metadata": {
+        "title": "Meeting Cost Calculator | PlAnhead",
+        "description": "Calculate the true financial impact of synchronous meetings."
+      }
+    },
+    {
+      "url": "https://planhead.dev/professional/real_wage",
+      "content": "## Real Wage Calculator\nFind out the true value of your time by accounting for the hidden costs of work.\n\nComparing jobs based only on monthly net income is often misleading. A job that pays 200 EUR more but requires an extra hour of commuting every day might actually pay less per hour of your time.\n\nRemote work is often a hidden raise. By eliminating both the time and literal cost of the commute, your hourly rate can increase by 15-25% even if the base salary stays the same.\n\nFormula: Real Hourly Wage = (Total Compensation - Commute Costs) / (Working Hours + Commute Time). This calculator treats your commute time as forced work time.\n\n## Frequently Asked Questions\nExtra hour commute daily may result in lower per-hour pay despite 200 EUR/month more salary.\nRemote work can increase effective hourly rate by 15-25% even with same base salary.\n\n###### Verified Tool Facts\nUses Total Cost of Employment (TCOE) modeling. Calculates true net income after hidden workplace costs.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Real Wage Calculator | PlAnhead",
+        "description": "Find the true value of your time accounting for hidden costs of work."
+      }
+    },
+    {
+      "url": "https://planhead.dev/professional/spider_diagram",
+      "content": "## Spider Diagram Creator\nVisualize multi-dimensional assessments for strategic business decisions.\n\nCommon criteria include Technical Skills, Communication, Problem Solving, Leadership Potential, Experience, and Cultural Fit.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Spider Diagram Creator | PlAnhead",
+        "description": "Visualize multi-dimensional assessments for strategic business decisions."
+      }
+    },
+    {
+      "url": "https://planhead.dev/professional/time_calculator",
+      "content": "## Work Time Calculator\nTrack your productivity by accurately calculating your net working hours.\n\nGross time is the total duration between your start and end time. Net time is what remains after you subtract all your break durations. Most contracts only pay for net time.\n\nIt takes your Start Time, adds your Target Hours, and then adds all recorded Break time. This tells you the earliest moment you can finish work and still meet your daily goal.\n\n## Frequently Asked Questions\nNet working time = total time at work minus all breaks. Most employers use this to verify fulfilled contract hours.\nLeave time updates in real-time as you add or remove breaks.\n\n###### Verified Tool Facts\nUses statutory break-time compliance modeling. Real-time projection of contractual target fulfillment. Supports advanced overnight-shift calculations.\nMachine-readable facts available at /facts.json",
+      "raw_html": "",
+      "metadata": {
+        "title": "Work Time Calculator | PlAnhead",
+        "description": "Track your net working hours by accounting for multiple breaks."
+      }
+    },
+    {
+      "url": "https://planhead.dev/legal/privacy-policy",
+      "content": "## Privacy Policy - PlAnhead\nLast updated: April 03, 2026\n\nWe are committed to protecting your privacy. This website is a financial planning tool that operates entirely within your browser. We do not have a backend database to store your data.\n\nAll data you provide is stored in your browser session storage and deleted when you close your browser tab. Financial Information provided by users is stored only in browser session, never on our servers.\n\nWe use cookies for: Session Cookie (functional), CSRF Token (security), Cookie Consent. We do not use any tracking or advertising cookies.\n\nWe do not share your data with any third parties. All your data remains within your browser.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Privacy Policy | PlAnhead",
+        "description": "PlAnhead privacy policy - we do not collect or store your financial data."
+      }
+    },
+    {
+      "url": "https://planhead.dev/legal/legal-disclosure",
+      "content": "## Legal Disclosure - PlAnhead\nWe use cookies to process your financial simulation data. This data is stored only in your browser session and not on our servers.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Legal Disclosure | PlAnhead",
+        "description": "Legal disclosure for PlAnhead."
+      }
+    },
+    {
+      "url": "https://planhead.dev/legal/cookie-policy",
+      "content": "## Cookie Policy - PlAnhead\nInformation about how PlAnhead uses cookies. We use functional cookies for session storage of simulation data and CSRF protection. No tracking or advertising cookies are used.",
+      "raw_html": "",
+      "metadata": {
+        "title": "Cookie Policy | PlAnhead",
+        "description": "Cookie policy for PlAnhead - only functional cookies used, no tracking."
+      }
+    }
+  ]
+}

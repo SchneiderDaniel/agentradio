@@ -1,0 +1,1733 @@
+{
+  "domain": "planhead.dev",
+  "analysis_date": "2026-04-03",
+  "site_citability": {
+    "average_score": 1.3,
+    "total_sections_analyzed": 93,
+    "highly_citable_sections": 0,
+    "highly_citable_pct": 0.0,
+    "low_citability_sections": 88,
+    "low_citability_pct": 94.6
+  },
+  "pages": [
+    {
+      "url": "https://planhead.dev/",
+      "sections": [
+        {
+          "heading": "Introduction",
+          "word_count": 28,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (28 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Most Popular Calculators",
+          "word_count": 48,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (48 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Explore by Category",
+          "word_count": 59,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (59 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "What is PlAnhead?",
+          "word_count": 54,
+          "citability_score": 2.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)",
+            "Question-format heading (matches AI query patterns)"
+          ],
+          "issues": [
+            "Too short for citation (54 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Why focus on Total Cost of Ownership?",
+          "word_count": 33,
+          "citability_score": 2.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)",
+            "Question-format heading (matches AI query patterns)"
+          ],
+          "issues": [
+            "Too short for citation (33 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Private and Secure",
+          "word_count": 29,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (29 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 72,
+          "citability_score": 2.5,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (72 words)",
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.1,
+      "total_sections": 7,
+      "highly_citable": 0,
+      "needs_work": 7
+    },
+    {
+      "url": "https://planhead.dev/about",
+      "sections": [
+        {
+          "heading": "Our Mission",
+          "word_count": 40,
+          "citability_score": 1.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "Too short for citation (40 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "The Creator: Dr. Daniel Schneider",
+          "word_count": 50,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (50 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Our Commitment to Privacy",
+          "word_count": 22,
+          "citability_score": 1.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "Too short for citation (22 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.0,
+      "total_sections": 3,
+      "highly_citable": 0,
+      "needs_work": 3
+    },
+    {
+      "url": "https://planhead.dev/bank_account/",
+      "sections": [
+        {
+          "heading": "Introduction",
+          "word_count": 33,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (33 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 26,
+          "citability_score": 1.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "Too short for citation (26 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.8,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/blog/",
+      "sections": [
+        {
+          "heading": "The PlAnhead Blog",
+          "word_count": 56,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (56 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.0,
+      "total_sections": 1,
+      "highly_citable": 0,
+      "needs_work": 1
+    },
+    {
+      "url": "https://planhead.dev/feedback",
+      "sections": [
+        {
+          "heading": "Submit Feedback or Report a Bug",
+          "word_count": 41,
+          "citability_score": 1.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "Too short for citation (41 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 1,
+      "highly_citable": 0,
+      "needs_work": 1
+    },
+    {
+      "url": "https://planhead.dev/house/",
+      "sections": [
+        {
+          "heading": "House Tools",
+          "word_count": 84,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (84 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 40,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (40 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/house/bauspar_checker",
+      "sections": [
+        {
+          "heading": "Bauspar vs. Direct Repayment",
+          "word_count": 80,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (80 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 28,
+          "citability_score": 1.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "Too short for citation (28 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Scenario A: Direct Repayment (Annuity)",
+          "word_count": 34,
+          "citability_score": 1.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "Too short for citation (34 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Scenario B: Bauspar-Link (Interest-Only)",
+          "word_count": 35,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (35 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 4,
+      "highly_citable": 0,
+      "needs_work": 4
+    },
+    {
+      "url": "https://planhead.dev/house/mortgage_calculator",
+      "sections": [
+        {
+          "heading": "Mortgage Calculator",
+          "word_count": 59,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (59 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.0,
+      "total_sections": 1,
+      "highly_citable": 0,
+      "needs_work": 1
+    },
+    {
+      "url": "https://planhead.dev/house/qng_calculator",
+      "sections": [
+        {
+          "heading": "QNG Profitability Calculator",
+          "word_count": 73,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (73 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 25,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (25 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Financing Logic",
+          "word_count": 22,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (22 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Profitability & ROI",
+          "word_count": 32,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (32 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.5,
+      "total_sections": 4,
+      "highly_citable": 0,
+      "needs_work": 4
+    },
+    {
+      "url": "https://planhead.dev/household/",
+      "sections": [
+        {
+          "heading": "Household Tools",
+          "word_count": 34,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (34 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 42,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (42 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.0,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/household/coffee",
+      "sections": [
+        {
+          "heading": "Coffee Machine ROI Calculator",
+          "word_count": 105,
+          "citability_score": 4,
+          "tier": "moderately_citable",
+          "signals": [
+            "Optimal passage length (105 words)",
+            "Data-rich (3 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 109,
+          "citability_score": 4,
+          "tier": "moderately_citable",
+          "signals": [
+            "Optimal passage length (109 words)",
+            "Data-rich (3 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 4.0,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 0
+    },
+    {
+      "url": "https://planhead.dev/household/dishwasher",
+      "sections": [
+        {
+          "heading": "Dishwasher TCO Calculator",
+          "word_count": 112,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Optimal passage length (112 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 60,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (60 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/household/dryer",
+      "sections": [
+        {
+          "heading": "Dryer ROI Calculator",
+          "word_count": 82,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (82 words)",
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 49,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (49 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/household/freezer",
+      "sections": [
+        {
+          "heading": "Freezer Calculator",
+          "word_count": 99,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (99 words)",
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 55,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (55 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/household/kettle",
+      "sections": [
+        {
+          "heading": "Kettle vs. Induction Hob",
+          "word_count": 122,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Optimal passage length (122 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 63,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (63 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 2.0,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/household/lighting",
+      "sections": [
+        {
+          "heading": "Lighting ROI Calculator",
+          "word_count": 107,
+          "citability_score": 3,
+          "tier": "low_citability",
+          "signals": [
+            "Optimal passage length (107 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Lighting Energy Logic",
+          "word_count": 23,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (23 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/household/microwave_stove",
+      "sections": [
+        {
+          "heading": "Microwave vs. Stove Efficiency",
+          "word_count": 105,
+          "citability_score": 5.5,
+          "tier": "moderately_citable",
+          "signals": [
+            "Optimal passage length (105 words)",
+            "Self-contained opening (definitional/declarative)",
+            "Data-rich (4 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 42,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Data-rich (4 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (42 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 3.8,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 1
+    },
+    {
+      "url": "https://planhead.dev/household/oven_air_fryer",
+      "sections": [
+        {
+          "heading": "Air Fryer vs. Oven Calculator",
+          "word_count": 118,
+          "citability_score": 3,
+          "tier": "low_citability",
+          "signals": [
+            "Optimal passage length (118 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 62,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (62 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 2.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/household/stove",
+      "sections": [
+        {
+          "heading": "Kitchen Stove Calculator",
+          "word_count": 94,
+          "citability_score": 3,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (94 words)",
+            "Data-rich (4 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 57,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Data-rich (4 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (57 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 2.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/household/tv",
+      "sections": [
+        {
+          "heading": "TV Calculator",
+          "word_count": 75,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (75 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 47,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (47 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/household/washing_machine",
+      "sections": [
+        {
+          "heading": "Washing Machine Calculator",
+          "word_count": 72,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (72 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 45,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (45 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Expert Tips for Saving Money & Energy",
+          "word_count": 64,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (64 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.3,
+      "total_sections": 3,
+      "highly_citable": 0,
+      "needs_work": 3
+    },
+    {
+      "url": "https://planhead.dev/household/water_filter",
+      "sections": [
+        {
+          "heading": "Water Filter vs. Bottled Water",
+          "word_count": 120,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Optimal passage length (120 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 49,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (49 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.0,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/",
+      "sections": [
+        {
+          "heading": "Personal Tools",
+          "word_count": 49,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (49 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 31,
+          "citability_score": 1.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "Too short for citation (31 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.8,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/benchmark",
+      "sections": [
+        {
+          "heading": "Am I Behind? Net Worth Benchmark",
+          "word_count": 32,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (32 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "The Social Media Distortion",
+          "word_count": 54,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Data-rich (3 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (54 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/caffeine",
+      "sections": [
+        {
+          "heading": "Caffeine Half-Life Calculator",
+          "word_count": 109,
+          "citability_score": 3.5,
+          "tier": "low_citability",
+          "signals": [
+            "Optimal passage length (109 words)",
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Caffeine Cheat Sheet",
+          "word_count": 37,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (37 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.8,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/calories",
+      "sections": [
+        {
+          "heading": "Calorie Burn vs. Reward",
+          "word_count": 121,
+          "citability_score": 4,
+          "tier": "moderately_citable",
+          "signals": [
+            "Optimal passage length (121 words)",
+            "Data-rich (4 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 4.0,
+      "total_sections": 1,
+      "highly_citable": 0,
+      "needs_work": 0
+    },
+    {
+      "url": "https://planhead.dev/personal/car",
+      "sections": [
+        {
+          "heading": "Car ROI Calculator",
+          "word_count": 88,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (88 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 76,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (76 words)",
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/financial-simulator",
+      "sections": [
+        {
+          "heading": "Financial Simulator",
+          "word_count": 79,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (79 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Verified Tool Facts & Data Sources",
+          "word_count": 30,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (30 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Wealth Projection Logic",
+          "word_count": 26,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (26 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Simulated Scenarios",
+          "word_count": 30,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (30 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.2,
+      "total_sections": 4,
+      "highly_citable": 0,
+      "needs_work": 4
+    },
+    {
+      "url": "https://planhead.dev/personal/fitness",
+      "sections": [
+        {
+          "heading": "Fitness ROI Calculator",
+          "word_count": 83,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (83 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 43,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (43 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.0,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/impulse",
+      "sections": [
+        {
+          "heading": "Impulse Buy Guard",
+          "word_count": 104,
+          "citability_score": 3,
+          "tier": "low_citability",
+          "signals": [
+            "Optimal passage length (104 words)",
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 49,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (49 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 2.0,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/inflation",
+      "sections": [
+        {
+          "heading": "Inflation Calculator",
+          "word_count": 63,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (63 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Historical Price Examples",
+          "word_count": 67,
+          "citability_score": 4.5,
+          "tier": "moderately_citable",
+          "signals": [
+            "Acceptable length (67 words)",
+            "Data-rich (9 statistics/numbers)",
+            "Well-attributed (9 source references)"
+          ],
+          "issues": []
+        }
+      ],
+      "page_citability_score": 2.8,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 1
+    },
+    {
+      "url": "https://planhead.dev/personal/pc",
+      "sections": [
+        {
+          "heading": "PC TCO Calculator",
+          "word_count": 96,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (96 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 46,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (46 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/protein",
+      "sections": [
+        {
+          "heading": "Protein Goal Simplifier",
+          "word_count": 82,
+          "citability_score": 3.5,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (82 words)",
+            "Data-rich (4 statistics/numbers)",
+            "Some attribution (1 source reference)"
+          ],
+          "issues": []
+        },
+        {
+          "heading": "Protein Cheat Sheet",
+          "word_count": 56,
+          "citability_score": 0.5,
+          "tier": "low_citability",
+          "signals": [
+            "Some attribution (1 source reference)"
+          ],
+          "issues": [
+            "Too short for citation (56 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages"
+          ]
+        }
+      ],
+      "page_citability_score": 2.0,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/reading",
+      "sections": [
+        {
+          "heading": "Reading vs. Screen-Time Calculator",
+          "word_count": 84,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (84 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Verified Tool Facts",
+          "word_count": 34,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (34 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/tips",
+      "sections": [
+        {
+          "heading": "Tipping Fairness Calculator",
+          "word_count": 85,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (85 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Tip Calculation Logic",
+          "word_count": 41,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Data-rich (4 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (41 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/personal/world-time",
+      "sections": [
+        {
+          "heading": "World Time Clock",
+          "word_count": 95,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (95 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.0,
+      "total_sections": 1,
+      "highly_citable": 0,
+      "needs_work": 1
+    },
+    {
+      "url": "https://planhead.dev/professional/",
+      "sections": [
+        {
+          "heading": "Professional Tools",
+          "word_count": 62,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (62 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 36,
+          "citability_score": 1.5,
+          "tier": "low_citability",
+          "signals": [
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "Too short for citation (36 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.2,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/professional/meeting",
+      "sections": [
+        {
+          "heading": "Meeting Cost Calculator",
+          "word_count": 71,
+          "citability_score": 2,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (71 words)",
+            "Some data (2 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Cost Calculation Logic",
+          "word_count": 29,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (29 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Productivity Analysis",
+          "word_count": 43,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (43 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 1.0,
+      "total_sections": 3,
+      "highly_citable": 0,
+      "needs_work": 3
+    },
+    {
+      "url": "https://planhead.dev/professional/real_wage",
+      "sections": [
+        {
+          "heading": "Real Wage Calculator",
+          "word_count": 111,
+          "citability_score": 3,
+          "tier": "low_citability",
+          "signals": [
+            "Optimal passage length (111 words)",
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 53,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Some data (1 statistics/numbers)"
+          ],
+          "issues": [
+            "Too short for citation (53 words, need 100-200)",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 2.0,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/professional/spider_diagram",
+      "sections": [
+        {
+          "heading": "Spider Diagram Creator",
+          "word_count": 21,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (21 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.0,
+      "total_sections": 1,
+      "highly_citable": 0,
+      "needs_work": 1
+    },
+    {
+      "url": "https://planhead.dev/professional/time_calculator",
+      "sections": [
+        {
+          "heading": "Work Time Calculator",
+          "word_count": 73,
+          "citability_score": 1,
+          "tier": "low_citability",
+          "signals": [
+            "Acceptable length (73 words)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        },
+        {
+          "heading": "Frequently Asked Questions",
+          "word_count": 55,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (55 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.5,
+      "total_sections": 2,
+      "highly_citable": 0,
+      "needs_work": 2
+    },
+    {
+      "url": "https://planhead.dev/legal/privacy-policy",
+      "sections": [
+        {
+          "heading": "Privacy Policy - PlAnhead",
+          "word_count": 108,
+          "citability_score": 3.5,
+          "tier": "low_citability",
+          "signals": [
+            "Optimal passage length (108 words)",
+            "Self-contained opening (definitional/declarative)"
+          ],
+          "issues": [
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 3.5,
+      "total_sections": 1,
+      "highly_citable": 0,
+      "needs_work": 1
+    },
+    {
+      "url": "https://planhead.dev/legal/legal-disclosure",
+      "sections": [
+        {
+          "heading": "Legal Disclosure - PlAnhead",
+          "word_count": 23,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (23 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.0,
+      "total_sections": 1,
+      "highly_citable": 0,
+      "needs_work": 1
+    },
+    {
+      "url": "https://planhead.dev/legal/cookie-policy",
+      "sections": [
+        {
+          "heading": "Cookie Policy - PlAnhead",
+          "word_count": 26,
+          "citability_score": 0,
+          "tier": "low_citability",
+          "signals": [],
+          "issues": [
+            "Too short for citation (26 words, need 100-200)",
+            "No statistics or data points \u2014 AI models prefer fact-dense passages",
+            "No source attributions \u2014 reduces AI trust in passage"
+          ]
+        }
+      ],
+      "page_citability_score": 0.0,
+      "total_sections": 1,
+      "highly_citable": 0,
+      "needs_work": 1
+    }
+  ],
+  "top_citable_sections": [
+    {
+      "heading": "Microwave vs. Stove Efficiency",
+      "word_count": 105,
+      "citability_score": 5.5,
+      "tier": "moderately_citable",
+      "signals": [
+        "Optimal passage length (105 words)",
+        "Self-contained opening (definitional/declarative)",
+        "Data-rich (4 statistics/numbers)"
+      ],
+      "issues": [
+        "No source attributions \u2014 reduces AI trust in passage"
+      ]
+    },
+    {
+      "heading": "Historical Price Examples",
+      "word_count": 67,
+      "citability_score": 4.5,
+      "tier": "moderately_citable",
+      "signals": [
+        "Acceptable length (67 words)",
+        "Data-rich (9 statistics/numbers)",
+        "Well-attributed (9 source references)"
+      ],
+      "issues": []
+    },
+    {
+      "heading": "Coffee Machine ROI Calculator",
+      "word_count": 105,
+      "citability_score": 4,
+      "tier": "moderately_citable",
+      "signals": [
+        "Optimal passage length (105 words)",
+        "Data-rich (3 statistics/numbers)"
+      ],
+      "issues": [
+        "No source attributions \u2014 reduces AI trust in passage"
+      ]
+    },
+    {
+      "heading": "Frequently Asked Questions",
+      "word_count": 109,
+      "citability_score": 4,
+      "tier": "moderately_citable",
+      "signals": [
+        "Optimal passage length (109 words)",
+        "Data-rich (3 statistics/numbers)"
+      ],
+      "issues": [
+        "No source attributions \u2014 reduces AI trust in passage"
+      ]
+    },
+    {
+      "heading": "Calorie Burn vs. Reward",
+      "word_count": 121,
+      "citability_score": 4,
+      "tier": "moderately_citable",
+      "signals": [
+        "Optimal passage length (121 words)",
+        "Data-rich (4 statistics/numbers)"
+      ],
+      "issues": [
+        "No source attributions \u2014 reduces AI trust in passage"
+      ]
+    }
+  ],
+  "worst_sections": [
+    {
+      "heading": "Explore by Category",
+      "word_count": 59,
+      "citability_score": 0,
+      "tier": "low_citability",
+      "signals": [],
+      "issues": [
+        "Too short for citation (59 words, need 100-200)",
+        "No statistics or data points \u2014 AI models prefer fact-dense passages",
+        "No source attributions \u2014 reduces AI trust in passage"
+      ]
+    },
+    {
+      "heading": "The Creator: Dr. Daniel Schneider",
+      "word_count": 50,
+      "citability_score": 0,
+      "tier": "low_citability",
+      "signals": [],
+      "issues": [
+        "Too short for citation (50 words, need 100-200)",
+        "No statistics or data points \u2014 AI models prefer fact-dense passages",
+        "No source attributions \u2014 reduces AI trust in passage"
+      ]
+    },
+    {
+      "heading": "The PlAnhead Blog",
+      "word_count": 56,
+      "citability_score": 0,
+      "tier": "low_citability",
+      "signals": [],
+      "issues": [
+        "Too short for citation (56 words, need 100-200)",
+        "No statistics or data points \u2014 AI models prefer fact-dense passages",
+        "No source attributions \u2014 reduces AI trust in passage"
+      ]
+    },
+    {
+      "heading": "Mortgage Calculator",
+      "word_count": 59,
+      "citability_score": 0,
+      "tier": "low_citability",
+      "signals": [],
+      "issues": [
+        "Too short for citation (59 words, need 100-200)",
+        "No statistics or data points \u2014 AI models prefer fact-dense passages",
+        "No source attributions \u2014 reduces AI trust in passage"
+      ]
+    },
+    {
+      "heading": "Frequently Asked Questions",
+      "word_count": 55,
+      "citability_score": 0,
+      "tier": "low_citability",
+      "signals": [],
+      "issues": [
+        "Too short for citation (55 words, need 100-200)",
+        "No statistics or data points \u2014 AI models prefer fact-dense passages",
+        "No source attributions \u2014 reduces AI trust in passage"
+      ]
+    }
+  ]
+}
