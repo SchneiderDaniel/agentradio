@@ -35,7 +35,7 @@ def check_ignores(root_dir="."):
     for r, d, f in os.walk(root_dir):
         if ".git" in d: d.remove(".git")
         for file in f:
-            if file in [".gitignore", ".geminiignore"]:
+            if file in [".gitignore", ".geminiignore", ".copilotignore"]:
                 ignore_files.append(os.path.join(r, file))
 
     if ignore_files:
@@ -49,7 +49,7 @@ def check_ignores(root_dir="."):
                     if d in content and f"**/{d}" not in content and f"/{d}" not in content:
                         print(f"  [!] Pattern '{d}' might be non-recursive. Consider using '**/{d}/'.")
     else:
-        print("\n[!] No .gitignore or .geminiignore files found.")
+        print("\n[!] No .gitignore, .geminiignore, or .copilotignore files found.")
 
     # 4. Check for submodules
     stdout, stderr, code = run_command("git submodule status", cwd=root_dir)

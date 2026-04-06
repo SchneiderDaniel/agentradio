@@ -1,0 +1,43 @@
+
+# Files and directories to be ignored by GitHub Copilot
+
+# Python compiled files
+**/__pycache__/
+
+# Virtual environment
+**/env/
+**/venv/
+**/.venv/
+
+# Git-related files
+**/.git/
+
+# pytest cache
+**/.pytest_cache/
+
+# OS Specific & Compiled
+**/.DS_Store
+**/Thumbs.db
+**/*.pyc
+**/*.mo
+**/*.pot
+**/*.swp
+**/*.bak
+
+# Secrets, Builds & IDEs
+**/.env
+**/dist/
+**/build/
+**/.idea/
+**/.vscode/
+**/*.egg-info/
+**/.tox/
+**/.nox/
+**/.coverage
+**/htmlcov/
+
+# Data Volumes
+**/*_volume/
+
+# Archive
+archive/
