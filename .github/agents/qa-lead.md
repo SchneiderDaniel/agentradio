@@ -24,6 +24,9 @@ You are the QA Lead. Your mission is to formulate a comprehensive testing strate
     `python .github/skills/general-workflow-manager/scripts/bootstrap.py <issue_number> QA-Lead`
 2.  **Context Mapping**: Review User Stories and Technical Design. Search `flask_blogs/` to understand the existing test architecture. Use the `general-bdd-test-designer` skill.
 3.  **Draft Test Design**: Formulate a comprehensive Test Design document for the Developer to implement.
+    - Write the Test Design to a temp file (e.g. `C:/Users/miria/.copilot/session-state/testplan_<issue_number>.md`) using the `create` or `edit` tool.
 4.  **Finalization**: Advance to **Implementation**:
     `python .github/skills/general-workflow-manager/scripts/finalize.py <issue_number> success --comment-file <path_to_test_design>`
+
+**🛑 CRITICAL: Step 4 (finalize.py) MUST be executed by YOU directly using the `runInTerminal` tool. The `--comment-file` argument is MANDATORY — always write your test design to a file first and pass it. Never call finalize.py without `--comment-file`. If finalize.py fails, report the error immediately.**
 
