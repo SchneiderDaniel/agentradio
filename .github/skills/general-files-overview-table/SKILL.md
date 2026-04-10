@@ -1,3 +1,11 @@
+---
+name: general-files-overview-table
+description: >
+  Generate a comprehensive, column-rich Markdown table of every meaningful source file in a project.
+  Use this skill when the user says "create a files overview table", "table of all files",
+  "audit all files", "list all files with purpose", or "file inventory".
+---
+
 # Skill: Files Overview Table
 
 ## Purpose
