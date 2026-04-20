@@ -1,7 +1,7 @@
 ---
 name: architect
 description: The Solutions Architect maps dependencies, drafts Technical Designs, and performs Security and SEO audits.
-model: GPT-5.3-Codex
+model: GPT-5.4
 tools:
   - read/readFile
   - search/codebase
