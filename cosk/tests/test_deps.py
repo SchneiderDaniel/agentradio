@@ -36,3 +36,12 @@ def test_pyproject_toml_declares_all_grammar_packages() -> None:
         "tree-sitter-c-sharp",
     }
     assert expected.issubset(dependency_names)
+
+
+def test_pyproject_mcp_dependency_range_is_pinned() -> None:
+    pyproject_path = Path(__file__).resolve().parents[1] / "pyproject.toml"
+    pyproject = tomllib.loads(pyproject_path.read_text(encoding="utf-8"))
+    dependencies: list[str] = pyproject["project"]["dependencies"]
+    mcp_dependency = next(item for item in dependencies if item.strip().startswith("mcp"))
+    assert ">=1.26" in mcp_dependency
+    assert "<2.0" in mcp_dependency

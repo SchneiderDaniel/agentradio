@@ -22,8 +22,13 @@ class FakeEmbeddingProvider:
         return self._vectors.pop(0)
 
 
-def _sample_node(start_line: int = 10) -> SkeletonNode:
-    return SkeletonNode("pkg/file.py", start_line, start_line + 2, "def run() -> None:", "docs")
+def _sample_node(
+    start_line: int = 10,
+    *,
+    signature: str = "def run() -> None:",
+    docstring: str = "docs",
+) -> SkeletonNode:
+    return SkeletonNode("pkg/file.py", start_line, start_line + 2, signature, docstring)
 
 
 def test_compute_node_id_matches_sha256_file_path_colon_start_line() -> None:
@@ -267,6 +272,45 @@ def test_search_rejects_query_vector_dimension_mismatch(monkeypatch: pytest.Monk
     store._vector_dim = 1  # noqa: SLF001
     with pytest.raises(ValueError, match="dimension mismatch"):
         store.search("query")
+
+
+def test_vector_store_validate_index_false_when_missing(tmp_path: Path) -> None:
+    store = SkeletonNodeVectorStore(db_dir=tmp_path / ".lancedb", embedding_provider=FakeEmbeddingProvider([[1.0]]))
+    assert store.validate_index() is False
+
+
+def test_vector_store_validate_index_false_when_invalid_schema(tmp_path: Path) -> None:
+    db_dir = tmp_path / ".lancedb"
+    db = SkeletonNodeVectorStore(db_dir=db_dir, embedding_provider=FakeEmbeddingProvider([[1.0]]))._connect()  # noqa: SLF001
+    db.create_table("skeleton_nodes", data=[{"node_id": "x", "vector": [1.0]}])
+    store = SkeletonNodeVectorStore(db_dir=db_dir, embedding_provider=FakeEmbeddingProvider([[1.0]]))
+    assert store.validate_index() is False
+
+
+def test_vector_store_validate_index_true_for_valid_index(tmp_path: Path) -> None:
+    provider = FakeEmbeddingProvider([[1.0, 0.0]])
+    db_dir = tmp_path / ".lancedb"
+    store = SkeletonNodeVectorStore(db_dir=db_dir, embedding_provider=provider)
+    store.rebuild_index([_sample_node()])
+    assert store.validate_index() is True
+
+
+def test_vector_store_supports_empty_index_without_search_failure(tmp_path: Path) -> None:
+    provider = FakeEmbeddingProvider([[1.0, 0.0], [1.0, 0.0]])
+    store = SkeletonNodeVectorStore(db_dir=tmp_path / ".lancedb", embedding_provider=provider)
+    store.rebuild_index([])
+    assert store.search("anything") == []
+
+
+def test_vector_store_rebuild_replaces_existing_index(tmp_path: Path) -> None:
+    provider = FakeEmbeddingProvider([[1.0, 0.0], [1.0, 0.0], [0.0, 1.0], [0.0, 1.0]])
+    store = SkeletonNodeVectorStore(db_dir=tmp_path / ".lancedb", embedding_provider=provider)
+    node_a = _sample_node(start_line=1, signature="def alpha() -> None:")
+    node_b = _sample_node(start_line=2, signature="def beta() -> None:")
+    store.rebuild_index([node_a])
+    assert store.search("query-a")[0]["node_id"] == SkeletonNodeVectorStore.compute_node_id(node_a)
+    store.rebuild_index([node_b])
+    assert store.search("query-b")[0]["node_id"] == SkeletonNodeVectorStore.compute_node_id(node_b)
 
 
 def test_upsert_same_node_twice_uses_same_node_id(monkeypatch: pytest.MonkeyPatch) -> None:

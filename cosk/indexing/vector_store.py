@@ -22,6 +22,16 @@ class SkeletonNodeSearchResult(TypedDict):
 
 
 class SkeletonNodeVectorStore:
+    _REQUIRED_COLUMNS = (
+        "node_id",
+        "file_path",
+        "start_line",
+        "end_line",
+        "raw_signature",
+        "summary",
+        "vector",
+    )
+
     def __init__(
         self,
         *,
@@ -75,6 +85,69 @@ class SkeletonNodeVectorStore:
                 self._vector_dim = list_size
         except Exception:  # noqa: BLE001
             return
+
+    def validate_index(self) -> bool:
+        if not self._db_dir.exists():
+            return False
+
+        try:
+            db = lancedb.connect(str(self._db_dir))
+            table = self._open_table_if_exists(db)
+            if table is None:
+                return False
+            schema = table.schema
+            return all(schema.get_field_index(column) >= 0 for column in self._REQUIRED_COLUMNS)
+        except Exception:  # noqa: BLE001
+            return False
+
+    def rebuild_index(self, nodes: Sequence[SkeletonNode]) -> None:
+        rows: list[dict[str, object]] = []
+        vector_dim: int | None = None
+
+        if nodes:
+            for node in nodes:
+                vector = self._embedding_provider.embed(build_node_embedding_text(node))
+                if not vector:
+                    raise ValueError("embedding vector must not be empty")
+                if vector_dim is None:
+                    vector_dim = len(vector)
+                if len(vector) != vector_dim:
+                    raise ValueError("embedding vector dimension mismatch across nodes")
+                rows.append(
+                    {
+                        "node_id": self.compute_node_id(node),
+                        "file_path": node.file_path,
+                        "start_line": node.start_line,
+                        "end_line": node.end_line,
+                        "raw_signature": node.raw_signature,
+                        "summary": node.docstring,
+                        "vector": [float(value) for value in vector],
+                    }
+                )
+        else:
+            probe_vector = self._embedding_provider.embed("cosk-empty-index-probe")
+            if not probe_vector:
+                raise ValueError("embedding vector must not be empty")
+            vector_dim = len(probe_vector)
+
+        if vector_dim is None:
+            raise ValueError("vector dimension is not initialized")
+
+        self._vector_dim = vector_dim
+        db = self._connect()
+        staging_table_name = f"{self._table_name}__staging"
+        db.drop_table(staging_table_name, ignore_missing=True)
+        staging_table = db.create_table(staging_table_name, schema=self._schema(vector_dim))
+        if rows:
+            staging_table.add(rows)
+
+        db.drop_table(self._table_name, ignore_missing=True)
+        target_table = db.create_table(self._table_name, schema=self._schema(vector_dim))
+        if rows:
+            target_table.add(rows)
+        db.drop_table(staging_table_name, ignore_missing=True)
+        if not self.validate_index():
+            raise RuntimeError("index rebuild failed validation")
 
     def upsert_nodes(self, nodes: Sequence[SkeletonNode]) -> int:
         if not nodes:
