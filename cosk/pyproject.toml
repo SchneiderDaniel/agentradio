@@ -38,6 +38,7 @@ dependencies = [
   "lancedb>=0.25,<0.31; python_version >= '3.14'",
   "networkx>=3.2,<4.0",
   "sentence-transformers>=3.0,<4.0",
+  "google-genai>=0.8,<1.0",
   "mcp>=1.0,<2.0",
 ]
 

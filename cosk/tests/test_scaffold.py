@@ -44,7 +44,9 @@ def test_pyproject_declares_required_dependency_names() -> None:
         for dependency in dependencies
     }
 
-    assert {"tree-sitter", "lancedb", "networkx", "sentence-transformers", "mcp"}.issubset(dependency_names)
+    assert {"tree-sitter", "lancedb", "networkx", "sentence-transformers", "google-genai", "mcp"}.issubset(
+        dependency_names
+    )
 
 
 def test_init_files_are_docstring_only_or_empty() -> None:
