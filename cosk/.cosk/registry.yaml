@@ -4,4 +4,4 @@ indexes:
   default:
     target_dir: C:/Users/miria/Coding/dani/copilot/agentradio
     db_dir: C:/Users/miria/Coding/dani/copilot/agentradio/.lancedb
-    last_indexed_at: '2026-04-28T19:17:29.503720+00:00'
+    last_indexed_at: '2026-04-28T19:33:40.624043+00:00'

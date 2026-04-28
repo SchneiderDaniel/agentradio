@@ -132,6 +132,7 @@ def build_parser() -> argparse.ArgumentParser:
             "and remove the 'cosk' MCP server entry from each one found."
         ),
     )
+    uninstall_parser.add_argument("--target-dir", type=Path, default=None, help="Repository directory (for project-level configs like .copilot/mcp-config.json).")
     uninstall_parser.set_defaults(handler=_run_uninstall)
 
     return parser
@@ -324,6 +325,7 @@ def _run_setup(args: argparse.Namespace) -> int:
         python_exe=sys.executable,
         cosk_cwd=cosk_cwd,
         db_dir=db_dir,
+        target_dir=str(args.target_dir.resolve()) if args.target_dir is not None else None,
     )
     write_info("  cosk install — done ✓")
     write_info("─" * 60)
@@ -331,8 +333,9 @@ def _run_setup(args: argparse.Namespace) -> int:
     return 0
 
 
-def _run_uninstall(args: argparse.Namespace) -> int:  # noqa: ARG001
-    run_uninstall_wizard()
+def _run_uninstall(args: argparse.Namespace) -> int:
+    target_dir = str(args.target_dir.resolve()) if getattr(args, "target_dir", None) is not None else None
+    run_uninstall_wizard(target_dir=target_dir)
     return 0
 
 

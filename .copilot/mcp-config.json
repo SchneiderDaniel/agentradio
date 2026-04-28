@@ -2,7 +2,20 @@
   "mcpServers": {
     "chrome-devtools": {
       "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    },
+    "cosk": {
+      "command": "C:\\Users\\miria\\Coding\\dani\\copilot\\agentradio\\forestrag\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "cosk.mcp.server",
+        "--db-dir",
+        "C:\\Users\\miria\\Coding\\dani\\copilot\\agentradio\\.lancedb"
+      ],
+      "cwd": "C:\\Users\\miria\\Coding\\dani\\copilot\\agentradio\\cosk"
     }
   }
 }

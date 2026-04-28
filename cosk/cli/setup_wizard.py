@@ -104,10 +104,81 @@ def _known_clients() -> list[_KnownClient]:
     ]
 
 
-def detect_clients() -> list[DetectedClient]:
+def _known_clients(target_dir: Path | None = None) -> list[_KnownClient]:
+    home = _home()
+    appdata = _appdata()
+    xdg = _xdg_config()
+
+    # Candidate paths for GitHub Copilot CLI project-level config (.copilot/mcp-config.json).
+    # The file lives at the repo root, so we check target_dir first, then cwd and its parent
+    # (user may run `cosk install` from a subdir like `cosk/`).
+    copilot_cli_paths: list[Path] = []
+    if target_dir is not None:
+        copilot_cli_paths.append(target_dir / ".copilot" / "mcp-config.json")
+    copilot_cli_paths.append(Path.cwd() / ".copilot" / "mcp-config.json")
+    copilot_cli_paths.append(Path.cwd().parent / ".copilot" / "mcp-config.json")
+
+    return [
+        _KnownClient(
+            name="GitHub Copilot CLI",
+            config_paths=copilot_cli_paths,
+            config_format=_ConfigFormat.CLAUDE,
+            restart_hint="No restart needed — Copilot CLI picks up the new MCP server automatically.",
+        ),
+        _KnownClient(
+            name="Claude Desktop",
+            config_paths=[
+                appdata / "Claude" / "claude_desktop_config.json",
+                home / "Library" / "Application Support" / "Claude" / "claude_desktop_config.json",
+                xdg / "claude" / "claude_desktop_config.json",
+            ],
+            config_format=_ConfigFormat.CLAUDE,
+            restart_hint="Restart Claude Desktop to apply changes.",
+        ),
+        _KnownClient(
+            name="VS Code (Copilot)",
+            config_paths=[
+                appdata / "Code" / "User" / "mcp.json",
+                home / "Library" / "Application Support" / "Code" / "User" / "mcp.json",
+                xdg / "Code" / "User" / "mcp.json",
+            ],
+            config_format=_ConfigFormat.VSCODE,
+            restart_hint="Reload VS Code window (Ctrl+Shift+P → Reload Window).",
+        ),
+        _KnownClient(
+            name="Cursor",
+            config_paths=[
+                _userprofile() / ".cursor" / "mcp.json",
+                home / ".cursor" / "mcp.json",
+            ],
+            config_format=_ConfigFormat.CLAUDE,
+            restart_hint="Restart Cursor to apply changes.",
+        ),
+        _KnownClient(
+            name="Windsurf",
+            config_paths=[
+                home / ".codeium" / "windsurf" / "mcp_config.json",
+                appdata / "Windsurf" / "mcp_config.json",
+            ],
+            config_format=_ConfigFormat.CLAUDE,
+            restart_hint="Restart Windsurf to apply changes.",
+        ),
+        _KnownClient(
+            name="Zed",
+            config_paths=[
+                xdg / "zed" / "settings.json",
+                home / ".config" / "zed" / "settings.json",
+            ],
+            config_format=_ConfigFormat.ZED,
+            restart_hint="Reload Zed settings (Ctrl+, → Reload).",
+        ),
+    ]
+
+
+def detect_clients(target_dir: Path | None = None) -> list[DetectedClient]:
     """Return all AI clients whose config file exists on disk."""
     found: list[DetectedClient] = []
-    for client in _known_clients():
+    for client in _known_clients(target_dir):
         for path in client.config_paths:
             if path.exists():
                 found.append(DetectedClient(client=client, config_path=path))
@@ -206,46 +277,46 @@ def agent_instruction_snippet(db_dir: str) -> str:
     )
 
 
-def _manual_guide(python_exe: str, cosk_cwd: str, db_dir: str) -> str:
+def _mcp_config_snippet(python_exe: str, cosk_cwd: str, db_dir: str) -> str:
+    """One-stop MCP config reference shown after every install (detected or not)."""
     return (
-        "No known AI client config was found automatically.\n\n"
-        "Supported clients: Claude Desktop, VS Code (Copilot), Cursor, Windsurf, Zed.\n"
-        "If you use a different client, add the cosk MCP server entry manually.\n\n"
-        "── Claude Desktop / Cursor / Windsurf (claude_desktop_config.json or mcp.json) ──\n\n"
-        '  "mcpServers": {\n'
-        '    "cosk": {\n'
-        f'      "command": "{python_exe}",\n'
-        '      "args": ["-m", "cosk.mcp.server", "--db-dir", "' + db_dir + '"],\n'
-        f'      "cwd": "{cosk_cwd}"\n'
-        "    }\n"
-        "  }\n\n"
-        "── VS Code / Copilot (.vscode/mcp.json or user mcp.json) ──\n\n"
-        '  "servers": {\n'
-        '    "cosk": {\n'
-        '      "type": "stdio",\n'
-        f'      "command": "{python_exe}",\n'
-        '      "args": ["-m", "cosk.mcp.server", "--db-dir", "' + db_dir + '"]\n'
-        "    }\n"
-        "  }\n\n"
-        "── Zed (~/.config/zed/settings.json) ──\n\n"
-        '  "context_servers": {\n'
-        '    "cosk": {\n'
-        '      "command": {\n'
-        f'        "path": "{python_exe}",\n'
+        "Add one of these blocks to your AI client's MCP config file:\n\n"
+        "  Claude Desktop · Cursor · Windsurf · GitHub Copilot CLI\n"
+        "  (claude_desktop_config.json / mcp.json / .copilot/mcp-config.json)\n\n"
+        '    "mcpServers": {\n'
+        '      "cosk": {\n'
+        f'        "command": "{python_exe}",\n'
+        '        "args": ["-m", "cosk.mcp.server", "--db-dir", "' + db_dir + '"],\n'
+        f'        "cwd": "{cosk_cwd}"\n'
+        "      }\n"
+        "    }\n\n"
+        "  VS Code  (.vscode/mcp.json or user mcp.json)\n\n"
+        '    "servers": {\n'
+        '      "cosk": {\n'
+        '        "type": "stdio",\n'
+        f'        "command": "{python_exe}",\n'
         '        "args": ["-m", "cosk.mcp.server", "--db-dir", "' + db_dir + '"]\n'
         "      }\n"
+        "    }\n\n"
+        "  Zed  (~/.config/zed/settings.json)\n\n"
+        '    "context_servers": {\n'
+        '      "cosk": {\n'
+        '        "command": {\n'
+        f'          "path": "{python_exe}",\n'
+        '          "args": ["-m", "cosk.mcp.server", "--db-dir", "' + db_dir + '"]\n'
+        "        }\n"
+        "      }\n"
         "    }\n"
-        "  }\n\n"
-        "After editing, restart your AI client."
     )
 
 
-def run_setup_wizard(python_exe: str, cosk_cwd: str, db_dir: str) -> None:
+def run_setup_wizard(python_exe: str, cosk_cwd: str, db_dir: str, target_dir: str | None = None) -> None:
     """Detect AI clients, patch their configs, and print the agent instruction snippet."""
-    detected = detect_clients()
+    target_dir_path = Path(target_dir) if target_dir else None
+    detected = detect_clients(target_dir_path)
 
     if not detected:
-        write_info(_manual_guide(python_exe, cosk_cwd, db_dir))
+        write_info("  No known AI client config files were found — nothing was patched automatically.")
     else:
         for dc in detected:
             ok, err = patch_client_config(
@@ -265,9 +336,26 @@ def run_setup_wizard(python_exe: str, cosk_cwd: str, db_dir: str) -> None:
             write_info("")
 
     write_info("")
+    _sep("MCP CONFIG")
+    write_info(_mcp_config_snippet(python_exe, cosk_cwd, db_dir))
+    _sep()
+
+    write_info("")
     _sep("AGENT INSTRUCTIONS")
     write_info("Paste into your CLAUDE.md / agents.md / copilot instructions:\n")
     write_info(agent_instruction_snippet(db_dir))
+    _sep()
+
+    _sep("NEXT STEPS")
+    write_info("")
+    write_info("  cosk serve is auto-started by your AI client — no manual step needed.")
+    write_info("")
+    watch_dir = target_dir or "<path-to-your-repo>"
+    write_info("  To keep the index current while the agent modifies files,")
+    write_info("  run this in a background terminal (keep it running):")
+    write_info("")
+    write_info(f"    cosk watch --target-dir {watch_dir}")
+    write_info("")
     _sep()
 
 
@@ -291,9 +379,10 @@ def _remove_cosk_entry(config_path: Path, config_format: _ConfigFormat) -> tuple
         return False, str(exc), False
 
 
-def run_uninstall_wizard() -> None:
+def run_uninstall_wizard(target_dir: str | None = None) -> None:
     """Detect AI clients and remove the cosk MCP server entry from each."""
-    detected = detect_clients()
+    target_dir_path = Path(target_dir) if target_dir else None
+    detected = detect_clients(target_dir_path)
 
     write_info("")
     _sep("UNINSTALL — REMOVING COSK FROM CLIENT CONFIGS")

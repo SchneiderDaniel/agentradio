@@ -13,6 +13,32 @@ This repository is an agentic automation framework designed to orchestrate speci
     - **Sudoku**: User-facing Sudoku puzzle game using a strict Service-Layer pattern.
 3.  **`forestrag/`**: A RAG (Retrieval-Augmented Generation) project that the framework's agents are currently configured to manage.
 
+## Cosk — Codebase Context (MCP)
+
+Cosk is an MCP server that provides semantic search and dependency graph
+navigation over the indexed codebase.
+
+### Tool preference (mandatory)
+
+**Do not use grep, find, or direct file reads for codebase navigation.**
+Always use the cosk MCP tools below instead.
+
+### When to use
+- **Finding relevant code**: use `cosk_semantic_search` for concept-level queries.
+- **Understanding dependencies**: use `cosk_get_neighbors` (inbound/outbound).
+- **Reading a definition**: use `cosk_expand_definition` for raw source lines.
+- **Tracing a symbol**: use `cosk_find_usage` to find all call/import sites.
+
+### Available tools
+
+| Tool | Input | Purpose |
+|------|-------|---------|
+| `cosk_semantic_search` | `query_string` | Vector search across all definitions |
+| `cosk_get_neighbors` | `node_id` (`file:line`) | Graph neighbors of a node |
+| `cosk_expand_definition` | `node_id` | Raw source lines for a node |
+| `cosk_find_usage` | `entity_name` | All call/import sites for a symbol |
+
+
 
 ## ⚙️ Operational Protocols (The Commissioner)
 The Main Agent (Copilot CLI) acts as the **Commissioner** (Orchestrator). It manages the high-level project status and delegates complex tasks to specialized detectives through the **Mission Control Protocol**. Tasks are located as issue in `https://github.com/SchneiderDaniel/copilot_framework/issues/*`.
