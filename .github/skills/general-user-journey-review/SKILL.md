@@ -1,20 +1,17 @@
 ---
 name: general-user-journey-review
 description: >
-  Conducts a hands-on "Apple-like" UX audit of any project, product, CLI tool, or web app.
-  Defines a realistic user persona, then physically navigates the product via playwright-cli
-  (web apps) or subprocess (CLI tools), recording every step, confusion point, and friction in
-  a SQLite journal. Identifies UX anti-patterns (cognitive overload, hidden features, missing
-  feedback, unnecessary steps), scores against Nielsen's 10 heuristics, and produces a
+  Conducts a hands-on Apple-like UX audit of any project, product, CLI tool, or web app.
+  Defines a user persona, then physically navigates the product via playwright-cli (web) or
+  subprocess (CLI), recording every step, friction, and confusion in a SQLite journal.
+  Identifies UX anti-patterns, scores against Nielsen's 10 heuristics, and produces a
   developer-ready remediation report with concrete mitigations. Optionally creates a GitHub
-  issue from the findings.
-
-  Use this skill whenever someone asks to: "review the UX", "user journey review", "walk through
-  the app as a user", "is this intuitive?", "find friction points", "make it Apple-like",
-  "usability audit", "test the onboarding", "UX check", "what would a new user think?", or
-  wants any first-person, experience-based product review. Also invoke when someone says
-  "is this easy to use?", "too many steps", "users are confused", or shares a product and
-  asks for honest UX feedback. This skill does REAL interaction — not just code reading.
+  issue from the findings. Use when someone asks to: "review the UX", "user journey review",
+  "walk through the app as a user", "is this intuitive?", "find friction points",
+  "make it Apple-like", "usability audit", "test the onboarding", "UX check",
+  "what would a new user think?", "is this easy to use?", "too many steps",
+  "users are confused", or wants any first-person experience-based product review.
+  This skill does REAL interaction — not just code reading.
 ---
 
 # Skill: general-user-journey-review

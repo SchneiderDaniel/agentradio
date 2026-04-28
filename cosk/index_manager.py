@@ -7,7 +7,7 @@ from threading import Lock
 from cosk.config import CoskConfig, get_cosk_config
 from cosk.graph.builder import rebuild
 from cosk.index_manifest import load_manifest
-from cosk.index_service import IndexBuildRequest, IndexSyncResult, sync_index
+from cosk.index_service import IndexBuildRequest, IndexProgressObserver, IndexSyncResult, sync_index
 from cosk.indexing.vector_store import SkeletonNodeVectorStore
 from cosk.repo_registry import RegistryError, load_registry, resolve_index
 
@@ -84,12 +84,15 @@ class IndexManager:
             self._contexts[key] = context
             return context
 
-    def sync(self, request: IndexBuildRequest) -> IndexSyncResult:
+    def sync(self, request: IndexBuildRequest, *, progress_observer: IndexProgressObserver | None = None) -> IndexSyncResult:
         db_dir = request.db_dir or (request.target_dir / ".lancedb")
         name = request.name or "default"
         key = self._cache_key(name, db_dir)
         with self._get_lock(key):
-            result = sync_index(request, self._embedding_provider)
+            if progress_observer is None:
+                result = sync_index(request, self._embedding_provider)
+            else:
+                result = sync_index(request, self._embedding_provider, progress_observer=progress_observer)
             self._contexts.pop(key, None)
             return result
 

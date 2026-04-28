@@ -95,6 +95,38 @@ def test_upsert_nodes_builds_rows_with_required_metadata_and_summary_mapping(mon
     assert row["summary"] == node.docstring
 
 
+@pytest.mark.parametrize(
+    ("docstring", "expected_summary"),
+    [
+        ("Documented function", "Documented function"),
+        ("   ", "def run() -> None:"),
+        ("", "def run() -> None:"),
+    ],
+)
+def test_upsert_uses_docstring_then_raw_signature_fallback_for_summary(
+    monkeypatch: pytest.MonkeyPatch,
+    docstring: str,
+    expected_summary: str,
+) -> None:
+    provider = FakeEmbeddingProvider([[1.0]])
+    store = SkeletonNodeVectorStore(embedding_provider=provider)
+    merge = MagicMock()
+    table = MagicMock()
+    table.merge_insert.return_value = merge
+    merge.when_matched_update_all.return_value = merge
+    merge.when_not_matched_insert_all.return_value = merge
+    db = MagicMock()
+    db.list_tables.return_value = []
+    db.table_names.return_value = []
+    db.open_table.side_effect = RuntimeError("missing")
+    db.create_table.return_value = table
+    monkeypatch.setattr("cosk.indexing.vector_store.lancedb.connect", MagicMock(return_value=db))
+
+    store.upsert_nodes([_sample_node(docstring=docstring)])
+    rows = merge.execute.call_args.args[0]
+    assert rows[0]["summary"] == expected_summary
+
+
 def test_upsert_nodes_uses_merge_insert_upsert_contract_on_node_id(monkeypatch: pytest.MonkeyPatch) -> None:
     provider = FakeEmbeddingProvider([[1.0]])
     store = SkeletonNodeVectorStore(embedding_provider=provider)
@@ -387,3 +419,25 @@ def test_vector_store_real_lancedb_dimension_mismatch_raises(tmp_path: Path) -> 
     store.upsert_nodes([_sample_node()])
     with pytest.raises(ValueError, match="dimension mismatch"):
         store.search("query")
+
+
+def test_upsert_uses_docstring_then_raw_signature_fallback_for_summary(monkeypatch: pytest.MonkeyPatch) -> None:
+    provider = FakeEmbeddingProvider([[1.0], [1.0]])
+    store = SkeletonNodeVectorStore(embedding_provider=provider)
+    merge = MagicMock()
+    table = MagicMock()
+    table.merge_insert.return_value = merge
+    merge.when_matched_update_all.return_value = merge
+    merge.when_not_matched_insert_all.return_value = merge
+    db = MagicMock()
+    db.open_table.side_effect = RuntimeError("missing")
+    db.create_table.return_value = table
+    monkeypatch.setattr("cosk.indexing.vector_store.lancedb.connect", MagicMock(return_value=db))
+
+    node_with_doc = _sample_node(start_line=1, signature="def one()", docstring="Useful docs")
+    node_without_doc = _sample_node(start_line=2, signature="def two()", docstring="   ")
+    store.upsert_nodes([node_with_doc, node_without_doc])
+
+    rows = merge.execute.call_args.args[0]
+    assert rows[0]["summary"] == "Useful docs"
+    assert rows[1]["summary"] == "def two()"

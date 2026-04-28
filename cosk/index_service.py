@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Literal
+from time import perf_counter
+from typing import Literal, Protocol
 
 from cosk.config import CoskConfig, get_cosk_config
 from cosk.extraction.models import SkeletonNode
-from cosk.extraction.parser import extract_file_skeleton_nodes, extract_skeleton_nodes
+from cosk.extraction.parser import _iter_supported_files, extract_file_skeleton_nodes
 from cosk.graph.builder import rebuild
 from cosk.index_manifest import (
     ManifestError,
@@ -29,6 +31,23 @@ class IndexBuildRequest:
     config: CoskConfig | None = None
 
 
+@dataclass(slots=True, frozen=True)
+class IndexIssue:
+    kind: str
+    path: str
+    message: str
+
+
+class IndexProgressObserver(Protocol):
+    def start(self, mode: str, total_files: int, deleted_files: int = 0) -> None: ...
+
+    def advance(self, file_path: Path, extracted_nodes: int, skipped: bool = False) -> None: ...
+
+    def record_issue(self, issue: IndexIssue) -> None: ...
+
+    def finish(self, result: "IndexSyncResult", elapsed_seconds: float, issue_summary: dict[str, int]) -> None: ...
+
+
 @dataclass(slots=True)
 class IndexSyncResult:
     mode: Literal["full", "incremental", "incremental_fallback_full"]
@@ -40,12 +59,59 @@ class IndexSyncResult:
     deleted_files: int
     indexed_nodes: int
     warnings: list[str] = field(default_factory=list)
+    processed_files: int = 0
+    skipped_files: int = 0
+    elapsed_seconds: float = 0.0
+    issue_counts: dict[str, int] = field(default_factory=dict)
 
 
 def _resolve_db_dir(request: IndexBuildRequest) -> Path:
     if request.db_dir is not None:
         return request.db_dir
     return request.target_dir / ".lancedb"
+
+
+def _collect_issues(
+    issues: list[IndexIssue],
+    observer: IndexProgressObserver | None,
+    kind: str,
+    file_path: Path,
+    message: str,
+) -> None:
+    issue = IndexIssue(kind=kind, path=file_path.resolve().as_posix(), message=message)
+    issues.append(issue)
+    if observer is not None:
+        observer.record_issue(issue)
+
+
+def _summarize_issues(issues: list[IndexIssue]) -> tuple[int, dict[str, int]]:
+    if not issues:
+        return 0, {}
+    per_file = {issue.path for issue in issues}
+    per_kind = dict(Counter(issue.kind for issue in issues))
+    return len(per_file), per_kind
+
+
+def _run_extraction(
+    *,
+    files: list[Path],
+    config: CoskConfig,
+    observer: IndexProgressObserver | None,
+) -> tuple[list[SkeletonNode], list[IndexIssue]]:
+    nodes: list[SkeletonNode] = []
+    issues: list[IndexIssue] = []
+    for file_path in files:
+        before = len(issues)
+        extracted = extract_file_skeleton_nodes(
+            file_path,
+            config=config,
+            issue_collector=lambda kind, path, message: _collect_issues(issues, observer, kind, path, message),
+        )
+        after = len(issues)
+        nodes.extend(extracted)
+        if observer is not None:
+            observer.advance(file_path, len(extracted), skipped=(after - before) > 0)
+    return nodes, issues
 
 
 def _full_sync(
@@ -55,10 +121,14 @@ def _full_sync(
     *,
     mode: Literal["full", "incremental_fallback_full"] = "full",
     warnings: list[str] | None = None,
+    progress_observer: IndexProgressObserver | None = None,
 ) -> IndexSyncResult:
     db_dir = _resolve_db_dir(request)
     config = request.config or get_cosk_config()
-    nodes = extract_skeleton_nodes(request.target_dir, config=config)
+    supported_files = _iter_supported_files(request.target_dir, config)
+    if progress_observer is not None:
+        progress_observer.start(mode, len(supported_files), 0)
+    nodes, issues = _run_extraction(files=supported_files, config=config, observer=progress_observer)
     vector_store.rebuild_index(nodes)
     rebuild(nodes)
     current_snapshot = snapshot_files(request.target_dir, config)
@@ -70,6 +140,7 @@ def _full_sync(
         db_dir,
         last_indexed_at=manifest.last_indexed_at,
     )
+    skipped_files, issue_counts = _summarize_issues(issues)
     return IndexSyncResult(
         mode=mode,
         index_name=index_name,
@@ -80,10 +151,19 @@ def _full_sync(
         deleted_files=0,
         indexed_nodes=len(nodes),
         warnings=warnings or [],
+        processed_files=len(supported_files),
+        skipped_files=skipped_files,
+        issue_counts=issue_counts,
     )
 
 
-def sync_index(request: IndexBuildRequest, embedding_provider: object) -> IndexSyncResult:
+def sync_index(
+    request: IndexBuildRequest,
+    embedding_provider: object,
+    *,
+    progress_observer: IndexProgressObserver | None = None,
+) -> IndexSyncResult:
+    started = perf_counter()
     config = request.config or get_cosk_config()
     request = IndexBuildRequest(
         name=request.name,
@@ -98,7 +178,11 @@ def sync_index(request: IndexBuildRequest, embedding_provider: object) -> IndexS
     index_name = request.name or "default"
 
     if not request.incremental:
-        return _full_sync(request, vector_store, index_name)
+        result = _full_sync(request, vector_store, index_name, progress_observer=progress_observer)
+        result.elapsed_seconds = perf_counter() - started
+        if progress_observer is not None:
+            progress_observer.finish(result, result.elapsed_seconds, result.issue_counts)
+        return result
 
     warnings: list[str] = []
     try:
@@ -109,24 +193,49 @@ def sync_index(request: IndexBuildRequest, embedding_provider: object) -> IndexS
 
     if not vector_store.validate_index() or manifest is None:
         warnings.append("Incremental index unavailable; ran full indexing.")
-        return _full_sync(request, vector_store, index_name, mode="incremental_fallback_full", warnings=warnings)
+        result = _full_sync(
+            request,
+            vector_store,
+            index_name,
+            mode="incremental_fallback_full",
+            warnings=warnings,
+            progress_observer=progress_observer,
+        )
+        result.elapsed_seconds = perf_counter() - started
+        if progress_observer is not None:
+            progress_observer.finish(result, result.elapsed_seconds, result.issue_counts)
+        return result
 
     if manifest.target_dir != request.target_dir.resolve().as_posix():
         warnings.append("Manifest target directory mismatch; ran full indexing.")
-        return _full_sync(request, vector_store, index_name, mode="incremental_fallback_full", warnings=warnings)
+        result = _full_sync(
+            request,
+            vector_store,
+            index_name,
+            mode="incremental_fallback_full",
+            warnings=warnings,
+            progress_observer=progress_observer,
+        )
+        result.elapsed_seconds = perf_counter() - started
+        if progress_observer is not None:
+            progress_observer.finish(result, result.elapsed_seconds, result.issue_counts)
+        return result
 
     current_snapshot = snapshot_files(request.target_dir, config)
     added, updated, deleted = diff_manifest(manifest.files, current_snapshot)
     changed = added + updated
+    if progress_observer is not None:
+        progress_observer.start("incremental", len(changed), len(deleted))
 
     delete_paths = [(request.target_dir / relative_path).resolve().as_posix() for relative_path in (*updated, *deleted)]
     if delete_paths:
         vector_store.delete_by_file_paths(delete_paths)
 
-    nodes_to_upsert: list[SkeletonNode] = []
-    for relative_path in changed:
-        file_path = request.target_dir / relative_path
-        nodes_to_upsert.extend(extract_file_skeleton_nodes(file_path, config=config))
+    nodes_to_upsert, issues = _run_extraction(
+        files=[request.target_dir / relative_path for relative_path in changed],
+        config=config,
+        observer=progress_observer,
+    )
     if nodes_to_upsert:
         vector_store.upsert_nodes(nodes_to_upsert)
 
@@ -137,7 +246,8 @@ def sync_index(request: IndexBuildRequest, embedding_provider: object) -> IndexS
     save_manifest(request.db_dir, new_manifest)
     upsert_index(index_name, request.target_dir, request.db_dir, last_indexed_at=new_manifest.last_indexed_at)
 
-    return IndexSyncResult(
+    skipped_files, issue_counts = _summarize_issues(issues)
+    result = IndexSyncResult(
         mode="incremental",
         index_name=index_name,
         target_dir=request.target_dir.resolve().as_posix(),
@@ -147,5 +257,11 @@ def sync_index(request: IndexBuildRequest, embedding_provider: object) -> IndexS
         deleted_files=len(deleted),
         indexed_nodes=len(nodes_to_upsert),
         warnings=warnings,
+        processed_files=len(changed),
+        skipped_files=skipped_files,
+        issue_counts=issue_counts,
+        elapsed_seconds=perf_counter() - started,
     )
-
+    if progress_observer is not None:
+        progress_observer.finish(result, result.elapsed_seconds, issue_counts)
+    return result

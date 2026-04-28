@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import asdict, replace
-import json
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
+import sys
 
 from cosk import inspect
-from cosk.cli.output import write_error, write_json
+from cosk.cli.output import RichIndexProgressObserver, write_error, write_info, write_json
 from cosk.config import CoskConfig, TopKValidationError, get_cosk_config, resolve_top_k
 from cosk.http_server import run_http_server
 from cosk.index_manager import IndexManager
@@ -17,30 +18,41 @@ from cosk.watch_mode import run_watch_loop
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Cosk CLI")
+    parser = argparse.ArgumentParser(
+        description="Cosk CLI for indexing and querying codebase context.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Quick Start:\n"
+            "  cosk index --target-dir <repo>\n"
+            "  cosk serve --db-dir <repo>/.lancedb\n"
+            "  cosk search --query \"find auth middleware\"\n"
+        ),
+    )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {_cli_version()}")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    index_parser = subparsers.add_parser("index", help="Build or update index")
-    index_parser.add_argument("--target-dir", type=Path, required=True)
-    index_parser.add_argument("--db-dir", type=Path, default=None)
-    index_parser.add_argument("--name", type=str, default=None)
-    index_parser.add_argument("--incremental", action="store_true")
-    index_parser.add_argument("--no-gitignore", action="store_true")
+    index_parser = subparsers.add_parser("index", help="Build or update index", description="Build or update index")
+    index_parser.add_argument("--target-dir", type=Path, required=True, help="Repository directory to index.")
+    index_parser.add_argument("--db-dir", type=Path, default=None, help="Override LanceDB directory path.")
+    index_parser.add_argument("--name", type=str, default=None, help="Optional registry name for this index.")
+    index_parser.add_argument("--incremental", action="store_true", help="Only reindex changed files from the manifest.")
+    index_parser.add_argument("--json", action="store_true", help="Force JSON output on stdout.")
+    index_parser.add_argument("--no-gitignore", action="store_true", help="Include files normally ignored by .gitignore.")
     index_parser.set_defaults(handler=_run_index)
 
     search_parser = subparsers.add_parser("search", help="Search indexed skeleton nodes")
     search_parser.add_argument("query", nargs="?")
     search_parser.add_argument("--query", dest="query_flag", default=None)
-    search_parser.add_argument("--top-k", type=int, default=None)
-    search_parser.add_argument("--db-dir", type=Path, default=None)
-    search_parser.add_argument("--name", type=str, default=None)
+    search_parser.add_argument("--top-k", type=int, default=None, help="Maximum number of results to return.")
+    search_parser.add_argument("--db-dir", type=Path, default=None, help="Override LanceDB directory path.")
+    search_parser.add_argument("--name", type=str, default=None, help="Registry index name to query.")
     search_parser.set_defaults(handler=_run_search)
 
     neighbors_parser = subparsers.add_parser("neighbors", help="Get graph neighbors for a node")
     neighbors_parser.add_argument("node_id", nargs="?")
     neighbors_parser.add_argument("--node-id", dest="node_id_flag", default=None)
-    neighbors_parser.add_argument("--db-dir", type=Path, default=None)
-    neighbors_parser.add_argument("--name", type=str, default=None)
+    neighbors_parser.add_argument("--db-dir", type=Path, default=None, help="Override LanceDB directory path.")
+    neighbors_parser.add_argument("--name", type=str, default=None, help="Registry index name to query.")
     neighbors_parser.set_defaults(handler=_run_neighbors)
 
     expand_parser = subparsers.add_parser("expand", help="Expand source lines")
@@ -50,44 +62,44 @@ def build_parser() -> argparse.ArgumentParser:
     expand_parser.add_argument("--file-path", dest="file_path_flag", default=None)
     expand_parser.add_argument("--start-line", dest="start_line_flag", type=int, default=None)
     expand_parser.add_argument("--end-line", dest="end_line_flag", type=int, default=None)
-    expand_parser.add_argument("--name", type=str, default=None)
-    expand_parser.add_argument("--db-dir", type=Path, default=None)
+    expand_parser.add_argument("--name", type=str, default=None, help="Registry index name to query.")
+    expand_parser.add_argument("--db-dir", type=Path, default=None, help="Override LanceDB directory path.")
     expand_parser.set_defaults(handler=_run_expand)
 
     usage_parser = subparsers.add_parser("find-usage", help="Find symbol usage")
     usage_parser.add_argument("entity_name", nargs="?")
     usage_parser.add_argument("--entity-name", dest="entity_name_flag", default=None)
-    usage_parser.add_argument("--db-dir", type=Path, default=None)
-    usage_parser.add_argument("--name", type=str, default=None)
+    usage_parser.add_argument("--db-dir", type=Path, default=None, help="Override LanceDB directory path.")
+    usage_parser.add_argument("--name", type=str, default=None, help="Registry index name to query.")
     usage_parser.set_defaults(handler=_run_find_usage)
 
     watch_parser = subparsers.add_parser("watch", help="Watch filesystem and reindex incrementally")
-    watch_parser.add_argument("--target-dir", type=Path, required=True)
-    watch_parser.add_argument("--db-dir", type=Path, default=None)
-    watch_parser.add_argument("--name", type=str, default=None)
-    watch_parser.add_argument("--no-gitignore", action="store_true")
+    watch_parser.add_argument("--target-dir", type=Path, required=True, help="Repository directory to watch.")
+    watch_parser.add_argument("--db-dir", type=Path, default=None, help="Override LanceDB directory path.")
+    watch_parser.add_argument("--name", type=str, default=None, help="Optional registry name for this index.")
+    watch_parser.add_argument("--no-gitignore", action="store_true", help="Include files normally ignored by .gitignore.")
     watch_parser.set_defaults(handler=_run_watch)
 
     serve_parser = subparsers.add_parser("serve", help="Serve MCP or HTTP transport")
-    serve_parser.add_argument("--db-dir", type=Path, default=None)
-    serve_parser.add_argument("--index-name", type=str, default=None)
-    serve_parser.add_argument("--http", action="store_true")
-    serve_parser.add_argument("--host", type=str, default=None)
-    serve_parser.add_argument("--port", type=int, default=None)
+    serve_parser.add_argument("--db-dir", type=Path, default=None, help="Override LanceDB directory path.")
+    serve_parser.add_argument("--index-name", type=str, default=None, help="Registry index name to serve.")
+    serve_parser.add_argument("--http", action="store_true", help="Run HTTP mode instead of stdio MCP mode.")
+    serve_parser.add_argument("--host", type=str, default=None, help="HTTP host (when --http is enabled).")
+    serve_parser.add_argument("--port", type=int, default=None, help="HTTP port (when --http is enabled).")
     serve_parser.set_defaults(handler=_run_serve)
 
     inspect_parser = subparsers.add_parser("inspect", help="Print local index and graph diagnostics")
-    inspect_parser.add_argument("--db-dir", type=Path, default=None)
+    inspect_parser.add_argument("--db-dir", type=Path, default=None, help="Override LanceDB directory path.")
     inspect_parser.set_defaults(handler=_run_inspect)
 
     registry_parser = subparsers.add_parser("registry", help="Manage named index registry")
     registry_subparsers = registry_parser.add_subparsers(dest="registry_command", required=True)
-    registry_list = registry_subparsers.add_parser("list")
+    registry_list = registry_subparsers.add_parser("list", help="List named indexes in registry")
     registry_list.set_defaults(handler=_run_registry_list)
-    registry_remove = registry_subparsers.add_parser("remove")
+    registry_remove = registry_subparsers.add_parser("remove", help="Remove an index from registry")
     registry_remove.add_argument("--name", required=True)
     registry_remove.set_defaults(handler=_run_registry_remove)
-    registry_default = registry_subparsers.add_parser("set-default")
+    registry_default = registry_subparsers.add_parser("set-default", help="Set registry default index")
     registry_default.add_argument("--name", required=True)
     registry_default.set_defaults(handler=_run_registry_set_default)
 
@@ -111,6 +123,8 @@ def _make_manager(args: argparse.Namespace, config) -> IndexManager:
 def _run_index(args: argparse.Namespace) -> int:
     config = _apply_no_gitignore(get_cosk_config(), args)
     manager = _make_manager(args, config)
+    human_mode = _is_interactive_terminal() and not args.json
+    observer = RichIndexProgressObserver() if human_mode else None
     result = manager.sync(
         IndexBuildRequest(
             name=args.name,
@@ -118,9 +132,13 @@ def _run_index(args: argparse.Namespace) -> int:
             db_dir=args.db_dir,
             incremental=args.incremental,
             config=config,
-        )
+        ),
+        progress_observer=observer,
     )
-    write_json(asdict(result))
+    if human_mode:
+        write_info("Next step: run `cosk serve` to start the MCP server.")
+    else:
+        write_json(asdict(result))
     return 0
 
 
@@ -244,6 +262,17 @@ def main(argv: list[str] | None = None) -> None:
         raise SystemExit(1) from exc
     if exit_code != 0:
         raise SystemExit(exit_code)
+
+
+def _is_interactive_terminal() -> bool:
+    return bool(sys.stdout.isatty() and sys.stderr.isatty())
+
+
+def _cli_version() -> str:
+    try:
+        return version("cosk")
+    except PackageNotFoundError:
+        return "unknown"
 
 
 if __name__ == "__main__":

@@ -130,14 +130,26 @@ def _node_graph_id(row: dict[str, object]) -> str:
     return f"{row['file_path']}:{row['start_line']}"
 
 
+def _effective_summary(raw_signature: object, summary: object) -> str:
+    summary_text = str(summary or "").strip()
+    if summary_text:
+        return summary_text
+    return str(raw_signature or "").strip()
+
+
+def _filter_token_warnings(warnings: list[str]) -> list[str]:
+    return [warning for warning in warnings if "tiktoken" not in warning.lower()]
+
+
 def enrich_search_results(results: list[dict[str, object]]) -> tuple[list[dict[str, object]], list[str]]:
     warnings: list[str] = []
     enriched: list[dict[str, object]] = []
     for row in results:
+        summary = _effective_summary(row.get("raw_signature", ""), row.get("summary", ""))
         graph_node_id = _node_graph_id(row)
-        token_count, token_warnings = estimate_with_warnings(f"{row.get('raw_signature', '')}\n{row.get('summary', '')}")
-        warnings.extend(token_warnings)
-        enriched.append({**row, "graph_node_id": graph_node_id, "token_count": token_count})
+        token_count, token_warnings = estimate_with_warnings(f"{row.get('raw_signature', '')}\n{summary}")
+        warnings.extend(_filter_token_warnings(token_warnings))
+        enriched.append({**row, "summary": summary, "graph_node_id": graph_node_id, "token_count": token_count})
     return enriched, sorted(set(warnings))
 
 
@@ -151,10 +163,11 @@ def enrich_neighbor_entries(
     for direction in ("inbound", "outbound"):
         for entry in neighbor_map.get(direction, []):
             detail = details.get(entry["node_id"], {})
-            text = f"{detail.get('raw_signature', '')}\n{detail.get('summary', '')}"
+            summary = _effective_summary(detail.get("raw_signature", ""), detail.get("summary", ""))
+            text = f"{detail.get('raw_signature', '')}\n{summary}"
             token_count, token_warnings = estimate_with_warnings(text)
-            warnings.extend(token_warnings)
-            enriched[direction].append({**entry, "token_count": token_count})
+            warnings.extend(_filter_token_warnings(token_warnings))
+            enriched[direction].append({**entry, "summary": summary, "token_count": token_count})
     return enriched, sorted(set(warnings))
 
 

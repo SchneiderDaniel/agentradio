@@ -1,16 +1,20 @@
 from __future__ import annotations
 
 import hashlib
+import importlib
 import json
 import os
 from pathlib import Path
 import subprocess
 import sys
 import sysconfig
+from unittest.mock import patch
 
 import pytest
 
 from cosk.config import get_cosk_config
+
+cli_main_module = importlib.import_module("cosk.cli.main")
 
 COSK_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = COSK_DIR.parent
@@ -110,3 +114,72 @@ def test_cli_invalid_subcommand_and_invalid_top_k_return_nonzero(tmp_path: Path)
     invalid_top_k = _run_module_cli(["search", "--query", "alpha", "--top-k", "0"], cwd=tmp_path)
     assert invalid_top_k.returncode != 0
     assert "top_k" in invalid_top_k.stderr
+
+
+def test_index_tty_prints_human_progress_and_completion_to_stderr(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    target = tmp_path / "repo"
+    target.mkdir()
+    (target / "a.py").write_text("def alpha():\n    return 1\n", encoding="utf-8")
+
+    monkeypatch.setattr(cli_main_module, "_is_interactive_terminal", lambda *_args, **_kwargs: True)
+    with patch.object(cli_main_module.server, "load_embedding_provider", return_value=make_fake_provider()):
+        cli_main_module.main(["index", "--target-dir", str(target), "--db-dir", str(tmp_path / ".lancedb")])
+    captured = capsys.readouterr()
+    assert "Indexing complete:" in captured.err
+    assert "Next step: run `cosk serve` to start the MCP server." in captured.err
+    assert captured.out == ""
+
+
+def test_index_non_tty_preserves_json_stdout(tmp_path: Path) -> None:
+    target = tmp_path / "repo"
+    target.mkdir()
+    (target / "a.py").write_text("def alpha():\n    return 1\n", encoding="utf-8")
+    result = _run_module_cli(["index", "--target-dir", str(target), "--db-dir", str(tmp_path / ".lancedb")], cwd=tmp_path)
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["indexed_nodes"] >= 1
+
+
+def test_index_prints_single_skipped_files_summary(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    target = tmp_path / "repo"
+    target.mkdir()
+    (target / "broken.sql").write_text("select 1;", encoding="utf-8")
+    monkeypatch.setattr(cli_main_module, "_is_interactive_terminal", lambda *_args, **_kwargs: True)
+    with patch.object(cli_main_module.server, "load_embedding_provider", return_value=make_fake_provider()):
+        cli_main_module.main(["index", "--target-dir", str(target), "--db-dir", str(tmp_path / ".lancedb")])
+    stderr = capsys.readouterr().err
+    assert stderr.count("files skipped") == 1
+
+
+def test_next_step_hint_not_printed_when_server_startup_handles_index(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    from cosk.mcp import server as mcp_server
+
+    target = tmp_path / "repo"
+    target.mkdir()
+    (target / "a.py").write_text("def alpha():\n    return 1\n", encoding="utf-8")
+    monkeypatch.setattr(mcp_server, "load_embedding_provider", make_fake_provider)
+
+    class _FakeMcp:
+        def run(self, _transport: str) -> None:
+            return None
+
+    monkeypatch.setattr(mcp_server, "create_mcp_server", lambda **_kwargs: _FakeMcp())
+    mcp_server.main(["--target-dir", str(target), "--db-dir", str(tmp_path / ".lancedb")])
+    captured = capsys.readouterr()
+    assert "Next step: run `cosk serve`" not in (captured.out + captured.err)
+
+
+def test_autouse_registry_fixture_is_used_by_subprocess_cli(tmp_path: Path, isolated_registry_path: Path) -> None:
+    target = tmp_path / "repo"
+    target.mkdir()
+    (target / "a.py").write_text("def alpha():\n    return 1\n", encoding="utf-8")
+    result = _run_module_cli(["index", "--target-dir", str(target), "--db-dir", str(tmp_path / ".lancedb")], cwd=tmp_path)
+    assert result.returncode == 0, result.stderr
+    assert isolated_registry_path.exists()
+    assert isolated_registry_path.read_text(encoding="utf-8")

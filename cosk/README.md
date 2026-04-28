@@ -1,14 +1,33 @@
 # Cosk
 
-Cosk is a local MCP server (stdio transport) for AI-assisted codebase navigation and inspection.
+Cosk helps AI agents understand your codebase by indexing structure, relationships, and source context for fast retrieval.
 
 ## Installation
 
 Python 3.11+ is required.
 
+### Virtual environment
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment:
+
+- Windows (PowerShell): `.venv\Scripts\activate`
+- macOS/Linux (bash/zsh): `source .venv/bin/activate`
+
 ```bash
 cd cosk
 python -m pip install -e .
+# optional token counting support
+python -m pip install -e ".[tokens]"
+```
+
+### Verify installation
+
+```bash
+cosk --version
 ```
 
 ## Configuration
@@ -44,6 +63,22 @@ Use this only-run override if you want to include ignored files:
 ```bash
 cosk index --target-dir C:\path\to\repo --no-gitignore
 ```
+
+## Quick Start
+
+| Command | Description |
+| --- | --- |
+| `cosk index --target-dir <repo>` | Build the index from source code. |
+| `cosk serve --db-dir <repo>/.lancedb` | Start the MCP stdio server for your client. |
+| `cosk search --query "<text>" --db-dir <repo>/.lancedb` | Run a semantic search from the CLI. |
+| `cosk neighbors --node-id "<file>:<line>" --db-dir <repo>/.lancedb` | Inspect graph relationships for a node. |
+| `cosk expand --file-path <file> --start-line <n> --end-line <m>` | Print raw source lines for a specific range. |
+| `cosk find-usage --entity-name "<symbol>" --db-dir <repo>/.lancedb` | Find usage contexts for a symbol. |
+| `cosk watch --target-dir <repo>` | Watch files and reindex incrementally after changes. |
+| `cosk inspect --db-dir <repo>/.lancedb` | Print local index diagnostics. |
+| `cosk registry list` | List named indexes in the local registry. |
+| `cosk registry remove --name <name>` | Remove a named index from the registry. |
+| `cosk registry set-default --name <name>` | Set the default named index in the registry. |
 
 ## Starting the MCP server
 

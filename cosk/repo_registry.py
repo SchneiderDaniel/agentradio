@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
@@ -25,6 +26,13 @@ class RegistryError(ValueError):
 
 
 def get_registry_path(cwd: Path | None = None) -> Path:
+    override_path = os.getenv("COSK_REGISTRY_PATH")
+    if override_path:
+        path = Path(override_path)
+        if path.is_absolute():
+            return path
+        root = cwd or Path.cwd()
+        return root / path
     root = cwd or Path.cwd()
     return root / ".cosk" / "registry.yaml"
 

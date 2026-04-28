@@ -4,17 +4,21 @@ from __future__ import annotations
 class TiktokenEstimator:
     def __init__(self) -> None:
         self._encoding = None
-        self._warning: str | None = None
+        self._optional_dependency_missing = False
         try:
             import tiktoken  # type: ignore
 
             self._encoding = tiktoken.get_encoding("cl100k_base")
         except Exception:
-            self._warning = "tiktoken is not installed; token_count is unavailable."
+            self._optional_dependency_missing = True
 
     @property
     def warning(self) -> str | None:
-        return self._warning
+        return None
+
+    @property
+    def optional_dependency_missing(self) -> bool:
+        return self._optional_dependency_missing
 
     def estimate(self, text: str) -> int | None:
         if not text:
@@ -33,7 +37,7 @@ def estimate_with_warnings(text: str, estimator: TiktokenEstimator | None = None
     if active_estimator.warning:
         warnings.append(active_estimator.warning)
     count = active_estimator.estimate(text)
-    if count is None and not active_estimator.warning:
+    if count is None and not active_estimator.warning and not active_estimator.optional_dependency_missing:
         warnings.append("Failed to estimate tokens for node.")
     return count, warnings
 

@@ -1,4 +1,4 @@
-# Claude Desktop Client Setup for Cosk
+# MCP Client Setup for Cosk
 
 ## Prerequisites
 
@@ -8,17 +8,31 @@
   - an existing index directory (`--db-dir`), or
   - a target directory to index (`--target-dir`)
 
-## How Claude Desktop launches Cosk
+## Generic MCP stdio setup
 
-Claude Desktop starts Cosk as a subprocess and communicates over stdio.  
+Any MCP client can launch Cosk as a subprocess over stdio.  
 There is no separate long-running background service configuration required.
+
+Use this generic server definition shape:
+
+```json
+{
+  "mcpServers": {
+    "cosk": {
+      "command": "python",
+      "args": ["-m", "cosk.mcp.server", "--db-dir", "C:/path/to/repo.lancedb"],
+      "cwd": "C:/path/to/cosk"
+    }
+  }
+}
+```
 
 ## Step-by-step setup
 
-1. Locate your Claude Desktop MCP config file.
+1. Open your MCP client configuration file.
 2. Add/update the `mcpServers` object.
 3. Add a `cosk` server entry with `command`, `args`, and optional `cwd`/`env`.
-4. Save config and restart Claude Desktop.
+4. Save config and restart your MCP client.
 
 ## Config examples
 
@@ -69,7 +83,7 @@ There is no separate long-running background service configuration required.
 
 ## Verification
 
-1. Restart Claude Desktop.
+1. Restart your MCP client.
 2. Confirm Cosk appears as connected MCP server.
 3. Confirm tools are available:
    - `cosk_semantic_search`

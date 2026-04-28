@@ -10,6 +10,7 @@ from cosk.extraction.parser import extract_skeleton_nodes
 from cosk.extraction.models import SkeletonNode
 from cosk.graph import state
 from cosk.graph.builder import build_graph
+from cosk.mcp import server as mcp_server
 from cosk.mcp.server import McpError, create_mcp_server
 from cosk.safety import middleware
 
@@ -135,6 +136,56 @@ def test_cosk_semantic_search_behavior_unchanged_with_optional_ctx_parameter() -
     payload = json.loads(tool_fn("query", ctx=None))
     assert payload[0]["file_path"] == "a.py"
     store.search.assert_called_once_with("query", top_k=5)
+
+
+def test_enrich_search_results_never_returns_empty_summary() -> None:
+    enriched, warnings = mcp_server.enrich_search_results(
+        [
+            {
+                "node_id": "1",
+                "file_path": "a.py",
+                "start_line": 1,
+                "end_line": 2,
+                "raw_signature": "def alpha()",
+                "summary": "   ",
+            }
+        ]
+    )
+    assert warnings == []
+    assert enriched[0]["summary"] == "def alpha()"
+
+
+def test_search_and_neighbors_do_not_emit_tiktoken_missing_warnings(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        mcp_server,
+        "estimate_with_warnings",
+        lambda _text: (None, ["tiktoken is not installed; token_count is unavailable."]),
+    )
+    search_results, search_warnings = mcp_server.enrich_search_results(
+        [
+            {
+                "node_id": "1",
+                "file_path": "a.py",
+                "start_line": 1,
+                "end_line": 1,
+                "raw_signature": "def alpha()",
+                "summary": "",
+            }
+        ]
+    )
+    assert search_results[0]["summary"] == "def alpha()"
+    assert search_warnings == []
+
+    store = Mock()
+    store.get_node_details.return_value = {
+        "a.py:1": {"raw_signature": "def alpha()", "summary": ""},
+    }
+    neighbors, neighbor_warnings = mcp_server.enrich_neighbor_entries(
+        store,
+        {"inbound": [{"node_id": "a.py:1", "label": "calls"}], "outbound": []},
+    )
+    assert neighbors["inbound"][0]["summary"] == "def alpha()"
+    assert neighbor_warnings == []
 
 
 @pytest.mark.parametrize("node_id", ["", "   "])
@@ -359,3 +410,33 @@ def test_cosk_find_usage_behavior_unchanged_with_middleware_present() -> None:
     state.set_graph(build_graph(nodes))
     result = json.loads(_tool_functions()["find_usage"]("foo"))
     assert result and result[0]["file_path"] == "caller.py"
+
+
+def test_enrich_search_results_never_returns_empty_summary() -> None:
+    enriched, warnings = mcp_server.enrich_search_results(
+        [
+            {
+                "node_id": "n1",
+                "file_path": "a.py",
+                "start_line": 1,
+                "end_line": 1,
+                "raw_signature": "def alpha()",
+                "summary": "",
+            }
+        ]
+    )
+    assert warnings == []
+    assert enriched[0]["summary"] == "def alpha()"
+
+
+@pytest.mark.parametrize(
+    ("fn_name", "args"),
+    [
+        ("enrich_search_results", [[{"node_id": "n", "file_path": "a.py", "start_line": 1, "end_line": 1, "raw_signature": "def a()", "summary": ""}]]),
+        ("enrich_neighbor_entries", [Mock(get_node_details=lambda _ids: {"n": {"raw_signature": "def a()", "summary": ""}}), {"inbound": [{"node_id": "n", "label": "calls"}], "outbound": []}]),
+    ],
+)
+def test_search_and_neighbors_do_not_emit_tiktoken_missing_warnings(monkeypatch: pytest.MonkeyPatch, fn_name: str, args: list[object]) -> None:
+    monkeypatch.setattr(mcp_server, "estimate_with_warnings", lambda _text: (None, []))
+    _, warnings = getattr(mcp_server, fn_name)(*args)
+    assert warnings == []

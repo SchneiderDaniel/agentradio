@@ -15,6 +15,48 @@ from cosk.mcp.server import create_mcp_server
 from cosk.safety import middleware
 
 
+@pytest.fixture(autouse=True)
+def isolated_registry_path(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Path:
+    registry_path = tmp_path / ".cosk" / "registry.yaml"
+    monkeypatch.setenv("COSK_REGISTRY_PATH", str(registry_path))
+    return registry_path
+
+
+@pytest.fixture
+def progress_spy():
+    class _ProgressSpy:
+        def __init__(self) -> None:
+            self.events: list[tuple[str, object]] = []
+
+        def start(self, mode: str, total_files: int, deleted_files: int = 0) -> None:
+            self.events.append(("start", {"mode": mode, "total_files": total_files, "deleted_files": deleted_files}))
+
+        def advance(self, file_path: Path, extracted_nodes: int, skipped: bool = False) -> None:
+            self.events.append(
+                (
+                    "advance",
+                    {"file_path": Path(file_path), "extracted_nodes": extracted_nodes, "skipped": skipped},
+                )
+            )
+
+        def record_issue(self, issue) -> None:  # noqa: ANN001
+            self.events.append(("issue", issue))
+
+        def finish(self, result, elapsed_seconds: float, issue_summary: dict[str, int]) -> None:  # noqa: ANN001
+            self.events.append(
+                (
+                    "finish",
+                    {
+                        "result": result,
+                        "elapsed_seconds": elapsed_seconds,
+                        "issue_summary": issue_summary,
+                    },
+                )
+            )
+
+    return _ProgressSpy()
+
+
 @pytest.fixture
 def python_language_settings() -> LanguageSettings:
     return LanguageSettings(

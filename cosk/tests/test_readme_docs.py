@@ -124,3 +124,28 @@ def test_walkthrough_documents_gitignore_layering_and_new_cli() -> None:
     assert "cosk index" in text
     assert "cosk serve" in text
     assert "cosk inspect" in text
+
+
+def test_client_setup_includes_generic_mcp_stdio_section() -> None:
+    text = _client_setup()
+    assert "## Generic MCP stdio setup" in text
+    assert "mcp client" in text.lower()
+
+
+def test_readme_starts_with_plain_language_elevator_pitch() -> None:
+    lines = [line for line in _readme().splitlines() if line.strip()]
+    assert "stdio transport" not in lines[1].lower()
+    assert "helps" in lines[1].lower()
+
+
+def test_readme_includes_verify_install_with_version_command() -> None:
+    text = _readme()
+    assert "cosk --version" in text
+    assert "Verify installation" in text
+
+
+def test_readme_documents_cross_platform_venv_steps() -> None:
+    text = _readme()
+    assert "python -m venv .venv" in text
+    assert ".venv\\Scripts\\activate" in text
+    assert "source .venv/bin/activate" in text

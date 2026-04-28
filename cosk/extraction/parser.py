@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 import ast
 from dataclasses import asdict, dataclass
 from importlib import import_module
@@ -24,12 +24,20 @@ def extract_skeleton_nodes(
     *,
     summarize: bool = False,
     config: CoskConfig | None = None,
+    issue_collector: Callable[[str, Path, str], None] | None = None,
 ) -> list[SkeletonNode]:
     resolved_config = config or get_cosk_config()
     root = Path(directory) if directory is not None else Path(resolved_config.extraction.source_directory)
     results: list[SkeletonNode] = []
     for file_path in _iter_supported_files(root, resolved_config):
-        results.extend(extract_file_skeleton_nodes(file_path, summarize=summarize, config=resolved_config))
+        results.extend(
+            extract_file_skeleton_nodes(
+                file_path,
+                summarize=summarize,
+                config=resolved_config,
+                issue_collector=issue_collector,
+            )
+        )
     return results
 
 
@@ -38,6 +46,7 @@ def extract_file_skeleton_nodes(
     *,
     summarize: bool = False,
     config: CoskConfig | None = None,
+    issue_collector: Callable[[str, Path, str], None] | None = None,
 ) -> list[SkeletonNode]:
     resolved_config = config or get_cosk_config()
     path = Path(file_path)
@@ -46,7 +55,15 @@ def extract_file_skeleton_nodes(
     if language_setting is None:
         return []
 
-    query_text = load_query_text(language_setting.query_file, strict=resolved_config.extraction.strict)
+    query_text = load_query_text(
+        language_setting.query_file,
+        strict=resolved_config.extraction.strict,
+        issue_collector=(
+            None
+            if issue_collector is None
+            else lambda kind, message: issue_collector(kind, path, message)
+        ),
+    )
     if query_text is None:
         return []
 
@@ -58,17 +75,33 @@ def extract_file_skeleton_nodes(
         parser = _build_parser(language_setting)
     except Exception as exc:
         if language_setting.name == "python":
-            return _extract_python_nodes_with_ast(
-                source=source,
-                path=path,
-                summarize=summarize,
-                summarizer=summarizer,
-                summarizer_kwargs=summarizer_settings.kwargs,
-                language_name=language_setting.name,
-            )
+            try:
+                return _extract_python_nodes_with_ast(
+                    source=source,
+                    path=path,
+                    summarize=summarize,
+                    summarizer=summarizer,
+                    summarizer_kwargs=summarizer_settings.kwargs,
+                    language_name=language_setting.name,
+                )
+            except Exception as ast_exc:
+                if resolved_config.extraction.strict:
+                    raise
+                _record_issue(
+                    issue_collector,
+                    "parse_failure",
+                    path,
+                    f"Skipping file due to parse failure: {path} ({ast_exc})",
+                )
+                return []
         if resolved_config.extraction.strict:
             raise
-        warnings.warn(f"Skipping file due to unavailable grammar package: {path} ({exc})", RuntimeWarning, stacklevel=2)
+        _record_issue(
+            issue_collector,
+            "missing_grammar",
+            path,
+            f"Skipping file due to unavailable grammar package: {path} ({exc})",
+        )
         return []
 
     try:
@@ -76,7 +109,7 @@ def extract_file_skeleton_nodes(
     except Exception as exc:
         if resolved_config.extraction.strict:
             raise
-        warnings.warn(f"Skipping file due to parse failure: {path} ({exc})", RuntimeWarning, stacklevel=2)
+        _record_issue(issue_collector, "parse_failure", path, f"Skipping file due to parse failure: {path} ({exc})")
         return []
 
     query = parser.language.query(query_text)
@@ -90,7 +123,7 @@ def extract_file_skeleton_nodes(
         start_line = definition.start_point[0] + 1
         end_line = definition.end_point[0] + 1
         signature = _extract_signature(source, definition, signature_nodes)
-        docstring = _extract_docstring(source, definition, docstring_nodes)
+        docstring = _normalize_docstring(_extract_docstring(source, definition, docstring_nodes))
         if summarize and summarizer and not docstring:
             docstring = summarizer(
                 signature,
@@ -276,6 +309,22 @@ def _extract_docstring(source: bytes, definition, docstring_nodes: list[object])
     return ""
 
 
+def _normalize_docstring(value: str | None) -> str:
+    return value.strip() if value else ""
+
+
+def _record_issue(
+    issue_collector: Callable[[str, Path, str], None] | None,
+    kind: str,
+    path: Path,
+    message: str,
+) -> None:
+    if issue_collector is not None:
+        issue_collector(kind, path, message)
+        return
+    warnings.warn(message, RuntimeWarning, stacklevel=2)
+
+
 def _extract_python_nodes_with_ast(
     *,
     source: bytes,
@@ -297,6 +346,7 @@ def _extract_python_nodes_with_ast(
     for node in collected_nodes:
         signature = source_lines[node.lineno - 1].strip()
         docstring = _ast_docstring_literal(source_text, node)
+        docstring = _normalize_docstring(docstring)
         if summarize and summarizer and not docstring:
             docstring = summarizer(
                 signature,

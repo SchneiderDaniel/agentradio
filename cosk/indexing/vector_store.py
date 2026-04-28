@@ -52,13 +52,14 @@ class SkeletonNodeVectorStore:
         return digest.hexdigest()
 
     def _build_row(self, node: SkeletonNode, vector: list[float]) -> dict[str, object]:
+        summary = node.docstring.strip() or node.raw_signature.strip()
         return {
             "node_id": self.compute_node_id(node),
             "file_path": node.file_path,
             "start_line": node.start_line,
             "end_line": node.end_line,
             "raw_signature": node.raw_signature,
-            "summary": node.docstring,
+            "summary": summary,
             "vector": [float(v) for v in vector],
         }
 

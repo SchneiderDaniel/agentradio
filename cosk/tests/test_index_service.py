@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import hashlib
 from pathlib import Path
+from unittest.mock import patch
 
 from cosk.config import _parse_config
+from cosk.config import CoskConfig, ExtractionSettings, LanguageSettings, SummarizerSettings
 from cosk.extraction.parser import extract_file_skeleton_nodes
 from cosk.index_manifest import manifest_path
 from cosk.index_service import IndexBuildRequest, sync_index
@@ -21,6 +23,25 @@ class FakeProvider:
 
 def _write_py(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8")
+
+
+def _python_only_config(*, strict: bool = False) -> CoskConfig:
+    return CoskConfig(
+        extraction=ExtractionSettings(
+            supported_languages=(
+                LanguageSettings(
+                    name="python",
+                    extensions=(".py",),
+                    grammar_package="tree_sitter_python",
+                    grammar_module="language",
+                    query_file="python.scm",
+                    enabled=True,
+                ),
+            ),
+            strict=strict,
+            summarizer=SummarizerSettings(),
+        )
+    )
 
 
 def test_incremental_index_add_update_delete_cycle(tmp_path: Path) -> None:
@@ -97,4 +118,67 @@ def test_incremental_missing_manifest_falls_back_to_full(tmp_path: Path) -> None
 
     assert result.mode == "incremental_fallback_full"
     assert any("Incremental index unavailable" in warning for warning in result.warnings)
+
+
+def test_sync_index_full_emits_progress_events_in_order(tmp_path: Path, progress_spy) -> None:
+    target = tmp_path / "repo"
+    target.mkdir()
+    _write_py(target / "a.py", "def a():\n    return 1\n")
+    _write_py(target / "b.py", "def b():\n    return 2\n")
+
+    result = sync_index(
+        IndexBuildRequest(name="default", target_dir=target, db_dir=tmp_path / ".lancedb", config=_python_only_config()),
+        FakeProvider(),
+        progress_observer=progress_spy,
+    )
+
+    assert result.mode == "full"
+    assert [event[0] for event in progress_spy.events] == ["start", "advance", "advance", "finish"]
+    start_payload = progress_spy.events[0][1]
+    assert start_payload["mode"] == "full"
+    assert start_payload["total_files"] == 2
+
+
+def test_sync_index_incremental_emits_progress_for_changed_files_only(tmp_path: Path, progress_spy) -> None:
+    target = tmp_path / "repo"
+    target.mkdir()
+    file_a = target / "a.py"
+    file_b = target / "b.py"
+    _write_py(file_a, "def a():\n    return 1\n")
+    _write_py(file_b, "def b():\n    return 2\n")
+    provider = FakeProvider()
+    db_dir = tmp_path / ".lancedb"
+    config = _python_only_config()
+    sync_index(IndexBuildRequest(name="default", target_dir=target, db_dir=db_dir, config=config), provider)
+
+    _write_py(file_a, "def a():\n    return 3\n")
+    sync_index(
+        IndexBuildRequest(name="default", target_dir=target, db_dir=db_dir, incremental=True, config=config),
+        provider,
+        progress_observer=progress_spy,
+    )
+
+    advance_events = [event for event in progress_spy.events if event[0] == "advance"]
+    assert len(advance_events) == 1
+    assert advance_events[0][1]["file_path"] == file_a
+    assert progress_spy.events[0][1]["mode"] == "incremental"
+
+
+def test_sync_index_aggregates_skipped_file_issues(tmp_path: Path, progress_spy) -> None:
+    target = tmp_path / "repo"
+    target.mkdir()
+    bad_file = target / "broken.py"
+    _write_py(bad_file, "def broken(\n")
+
+    with patch("cosk.extraction.parser._parse_tree", side_effect=RuntimeError("parse boom")):
+        result = sync_index(
+            IndexBuildRequest(name="default", target_dir=target, db_dir=tmp_path / ".lancedb", config=_python_only_config()),
+            FakeProvider(),
+            progress_observer=progress_spy,
+        )
+
+    assert result.skipped_files == 1
+    assert result.issue_counts.get("parse_failure") == 1
+    issue_events = [event for event in progress_spy.events if event[0] == "issue"]
+    assert len(issue_events) == 1
 
