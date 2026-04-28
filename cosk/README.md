@@ -2,22 +2,95 @@
 
 Cosk helps AI agents understand your codebase by indexing structure, relationships, and source context for fast retrieval.
 
-## Installation
+---
+
+## Quick Start
+
+### 1. Install cosk
 
 Python 3.11+ is required.
-
-### Virtual environment
 
 ```bash
 python -m venv .venv
 ```
 
-Activate the environment:
+Activate:
 
 - Windows (PowerShell): `.venv\Scripts\activate`
-- macOS/Linux (bash/zsh): `source .venv/bin/activate`
+- macOS/Linux: `source .venv/bin/activate`
 
 ```bash
+cd cosk
+pip install -e .
+```
+
+### 2. Set up in one command
+
+Run `cosk install` from inside the repo you want to index (use `..` to target the parent folder):
+
+```bash
+cd C:\path\to\your-repo\cosk
+cosk install --target-dir ..
+```
+
+Or point it at any directory:
+
+```bash
+cosk install --target-dir C:\path\to\your-repo
+```
+
+That's it. Cosk will:
+
+1. **Index** the repository (scans files, builds embeddings and graph).
+2. **Auto-configure** any detected AI clients (Claude Desktop, VS Code Copilot, Cursor, Windsurf, Zed).
+3. **Print a snippet** to paste into your `CLAUDE.md` / `agents.md` / copilot instructions.
+
+### 3. Use it
+
+Your AI client now has access to the `cosk_semantic_search`, `cosk_get_neighbors`, `cosk_expand_definition`, and `cosk_find_usage` MCP tools automatically.
+
+### Uninstall
+
+Remove cosk from all detected AI client configs:
+
+```bash
+cosk uninstall
+```
+
+---
+
+## Command Reference
+
+| Command | Description |
+| --- | --- |
+| `cosk install --target-dir <repo>` | **One-shot onboarding** — index + configure all AI clients. |
+| `cosk install --target-dir <repo> --skip-index` | Configure clients only (skip re-indexing). |
+| `cosk uninstall` | Remove cosk MCP entry from all detected AI client configs. |
+| `cosk index --target-dir <repo>` | Build or rebuild the index manually. |
+| `cosk serve --db-dir <repo>/.lancedb` | Start the MCP stdio server. |
+| `cosk search --query "<text>" --db-dir <repo>/.lancedb` | Run a semantic search from the CLI. |
+| `cosk neighbors --node-id "<file>:<line>" --db-dir <repo>/.lancedb` | Inspect graph relationships for a node. |
+| `cosk expand --file-path <file> --start-line <n> --end-line <m>` | Print raw source lines for a range. |
+| `cosk find-usage --entity-name "<symbol>" --db-dir <repo>/.lancedb` | Find usage contexts for a symbol. |
+| `cosk watch --target-dir <repo>` | Watch files and reindex incrementally on change. |
+| `cosk inspect --db-dir <repo>/.lancedb` | Print local index diagnostics. |
+| `cosk registry list` | List named indexes in the local registry. |
+| `cosk registry remove --name <name>` | Remove a named index from the registry. |
+| `cosk registry set-default --name <name>` | Set the default named index. |
+
+---
+
+## Detailed Setup
+
+### Virtual environment
+
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+source .venv/bin/activate
+
 cd cosk
 python -m pip install -e .
 # optional token counting support
@@ -43,9 +116,9 @@ set COSK_EMBEDDING_PROVIDER_FACTORY=your_module:build_provider
 
 The factory must return an object implementing `embed(text: str) -> list[float]`.
 
-## Indexing a target directory
+## Indexing options
 
-Build or rebuild an index from a source tree:
+Build or rebuild an index:
 
 ```bash
 cosk index --target-dir C:\path\to\repo
@@ -57,78 +130,24 @@ Build into a custom index directory:
 cosk index --target-dir C:\path\to\repo --db-dir C:\path\to\repo.lancedb
 ```
 
-By default, indexing respects layered `.gitignore` rules (root + nested) and also applies `exclude_dirs`.
-Use this only-run override if you want to include ignored files:
+Include files normally filtered by `.gitignore`:
 
 ```bash
 cosk index --target-dir C:\path\to\repo --no-gitignore
 ```
 
-## Quick Start
-
-### One-shot setup (recommended)
-
-Run a single command to index your repo **and** auto-configure all detected AI clients
-(Claude Desktop, VS Code Copilot, Cursor, Windsurf, Zed):
-
-```bash
-cosk install --target-dir C:\path\to\repo
-```
-
-Running from inside the repo you want to index? Use `..` to target the parent folder:
-
-```bash
-cd C:\path\to\repo\cosk
-cosk install --target-dir ..
-```
-
-Cosk will:
-1. Index the repository.
-2. Detect and patch MCP config files for any installed AI client.
-3. Print a ready-to-paste snippet for `CLAUDE.md` / `agents.md` / copilot instructions.
-
-Already indexed? Skip the index step and just configure clients:
-
-```bash
-cosk install --target-dir C:\path\to\repo --skip-index
-```
-
-To remove cosk from all detected AI client configs:
-
-```bash
-cosk uninstall
-```
-
-### Command reference
-
-| Command | Description |
-| --- | --- |
-| `cosk install --target-dir <repo>` | **One-shot onboarding** — index + configure all AI clients. |
-| `cosk uninstall` | Remove cosk MCP entry from all detected AI client configs. |
-| `cosk index --target-dir <repo>` | Build the index from source code. |
-| `cosk serve --db-dir <repo>/.lancedb` | Start the MCP stdio server for your client. |
-| `cosk search --query "<text>" --db-dir <repo>/.lancedb` | Run a semantic search from the CLI. |
-| `cosk neighbors --node-id "<file>:<line>" --db-dir <repo>/.lancedb` | Inspect graph relationships for a node. |
-| `cosk expand --file-path <file> --start-line <n> --end-line <m>` | Print raw source lines for a specific range. |
-| `cosk find-usage --entity-name "<symbol>" --db-dir <repo>/.lancedb` | Find usage contexts for a symbol. |
-| `cosk watch --target-dir <repo>` | Watch files and reindex incrementally after changes. |
-| `cosk inspect --db-dir <repo>/.lancedb` | Print local index diagnostics. |
-| `cosk registry list` | List named indexes in the local registry. |
-| `cosk registry remove --name <name>` | Remove a named index from the registry. |
-| `cosk registry set-default --name <name>` | Set the default named index in the registry. |
-
-## Starting the MCP server
-
-Supported startup forms:
+## Starting the MCP server manually
 
 ```bash
 cosk serve
 cosk serve --db-dir C:\path\to\repo.lancedb
 ```
 
-Transport is **stdio**. Clients launch Cosk as a subprocess per session (no persistent background server process documented).
+Transport is **stdio**. Clients launch Cosk as a subprocess per session.
 
-## Client connection overview
+## Manual client configuration
+
+If your client was not auto-configured by `cosk install`, add an entry manually.
 
 Example Claude Desktop-style config:
 
@@ -144,25 +163,21 @@ Example Claude Desktop-style config:
 }
 ```
 
-See full setup guide: [`docs/client_setup.md`](docs/client_setup.md)
+See full per-client guide: [`docs/client_setup.md`](docs/client_setup.md)
 
-Any stdio-capable MCP client can launch Cosk, including Claude Desktop and LangChain-based test harnesses.
+---
 
 ## MCP Tool Reference
 
 ### `cosk_semantic_search`
 
 - Purpose: semantic retrieval of indexed nodes.
-- Input schema: `{ "query_string": "string (required, non-blank)" }`
-- Output schema: JSON array of objects with keys:
-  `node_id`, `file_path`, `start_line`, `end_line`, `raw_signature`, `summary`
-- Example request:
+- Input: `{ "query_string": "string (required, non-blank)" }`
+- Output: JSON array — `node_id`, `file_path`, `start_line`, `end_line`, `raw_signature`, `summary`
 
 ```json
 { "query_string": "authenticate user" }
 ```
-
-- Example response:
 
 ```json
 [
@@ -177,150 +192,72 @@ Any stdio-capable MCP client can launch Cosk, including Claude Desktop and LangC
 ]
 ```
 
-- Error behavior:
-  - blank query -> MCP `INVALID_PARAMS`
-  - runtime failure -> MCP `INTERNAL_ERROR`
-  - empty index -> `[]`
-  - server uses `top_k=5`
+Errors: blank query → `INVALID_PARAMS`; runtime failure → `INTERNAL_ERROR`; empty index → `[]`.
 
 ### `cosk_get_neighbors`
 
-- Purpose: return inbound/outbound graph neighbors for a node.
-- Input schema: `{ "node_id": "string (required, non-blank)" }`
-- Output schema (success): JSON object:
-  `{ "inbound": [{"node_id":"...","label":"imports|calls"}], "outbound": [...] }`
-- Example request:
+- Purpose: inbound/outbound graph neighbors for a node.
+- Input: `{ "node_id": "string (required, non-blank)" }`
+- Output: `{ "inbound": [{"node_id":"...","label":"imports|calls"}], "outbound": [...] }`
 
-```json
-{ "node_id": "pkg/module.py:42" }
-```
-
-- Example response:
-
-```json
-{
-  "inbound": [{ "node_id": "pkg/caller.py:10", "label": "calls" }],
-  "outbound": [{ "node_id": "pkg/callee.py:1", "label": "calls" }]
-}
-```
-
-- Error behavior:
-  - blank node_id -> MCP `INVALID_PARAMS`
-  - missing graph -> MCP `INTERNAL_ERROR`
-  - cycle/depth guardrails -> plain text notice (not MCP error), e.g.:
-    - `Notice: You have already traversed this node. Please analyze your current context or use cosk_expand_definition.`
-    - `Notice: Depth limit reached. Summarize your findings or expand a definition.`
+Errors: blank node_id → `INVALID_PARAMS`; missing graph → `INTERNAL_ERROR`. Cycle/depth notices are plain text responses, not MCP errors.
 
 ### `cosk_expand_definition`
 
-- Purpose: return raw source lines for a file range.
-- Input schema:
-  `{ "file_path": "string (required, non-blank)", "start_line": "int >=1", "end_line": "int >= start_line" }`
-- Output schema (success): plain text (inclusive source slice).
-- Example request:
+- Purpose: raw source lines for a file range.
+- Input: `{ "file_path": "string", "start_line": int, "end_line": int }`
+- Output: plain text (inclusive source slice).
 
-```json
-{ "file_path": "pkg/module.py", "start_line": 20, "end_line": 30 }
-```
-
-- Example response:
-
-```text
-def helper():
-    return 42
-```
-
-- Error behavior:
-  - blank `file_path` -> MCP `INVALID_PARAMS`
-  - `start_line < 1` -> MCP `INVALID_PARAMS`
-  - `end_line < start_line` -> MCP `INVALID_PARAMS`
-  - unreadable file -> plain text: `Unable to read ...`
-  - out-of-range request -> plain text: `Requested line range ...`
+Errors: blank path or invalid range → `INVALID_PARAMS`; unreadable file → plain text notice.
 
 ### `cosk_find_usage`
 
-- Purpose: find usage contexts for an entity name from the relationship graph.
-- Input schema: `{ "entity_name": "string (required, non-blank)" }`
-- Output schema: JSON array of objects:
-  `{ "file_path": "str", "line": "int", "context_node_id": "str" }`
-- Example request:
+- Purpose: find usage contexts for a symbol from the relationship graph.
+- Input: `{ "entity_name": "string (required, non-blank)" }`
+- Output: `[{ "file_path": "str", "line": int, "context_node_id": "str" }]`
 
-```json
-{ "entity_name": "authenticate_user" }
-```
+Errors: blank entity_name → `INVALID_PARAMS`; missing graph → `INTERNAL_ERROR`.
 
-- Example response:
-
-```json
-[
-  {
-    "file_path": "routes.py",
-    "line": 50,
-    "context_node_id": "routes.py:50"
-  }
-]
-```
-
-- Error behavior:
-  - blank entity_name -> MCP `INVALID_PARAMS`
-  - missing graph -> MCP `INTERNAL_ERROR`
+---
 
 ## Safety & Guardrails
 
-Cosk tracks traversal context in `cosk/safety/middleware.py`:
+Cosk tracks traversal context (`cosk/safety/middleware.py`):
 
-- `record_search_origin` stores initial search origins.
-- `safety_wrap_get_neighbors` applies revisit and depth checks.
-- `record_expand_definition` unlocks deeper traversal after source expansion.
+- `record_search_origin` — stores initial search origins.
+- `safety_wrap_get_neighbors` — applies revisit and depth checks.
+- `record_expand_definition` — unlocks deeper traversal after source expansion.
 
-Guardrail notices are plain text responses, for example:
+Guardrail notices are plain text, for example:
 
 ```text
 Notice: You have already traversed this node. Please analyze your current context or use cosk_expand_definition.
 Notice: Depth limit reached. Summarize your findings or expand a definition.
 ```
 
-Cycle rejection occurs in graph building (`cosk/graph/builder.py`), and depth-limit guarded traversal applies during `cosk_get_neighbors`.
-
-## Inspecting Cosk locally
-
-Inspect index + graph status from terminal:
+## Inspecting the index
 
 ```bash
 cosk inspect
 cosk inspect --db-dir C:\path\to\repo.lancedb
 ```
 
-Inspector shows:
-
-- index validity and db path
-- indexed nodes table
-- graph stats (from loaded graph or rebuilt snapshot)
-- vector DB metadata (table, columns, vector dimension, samples)
-
-Example output:
-
-```text
-Header: db_path=... index_valid=True graph_source=rebuilt
-Indexed Nodes Table ...
-Graph Stats Table ...
-Vector DB Panel ...
-Footer: Tip: Use --db-dir to inspect a non-default index
-```
+Shows index validity, indexed nodes, graph stats, and vector DB metadata.
 
 ## Troubleshooting
 
-- **Invalid index path**: verify `--db-dir` points to a valid LanceDB with `skeleton_nodes`.
-- **Graph unavailable**: graph-backed tools (`cosk_get_neighbors`, `cosk_find_usage`) return MCP `INTERNAL_ERROR` if graph is not loaded.
+- **Invalid index path**: verify `--db-dir` points to a valid LanceDB directory with `skeleton_nodes`.
+- **Graph unavailable**: `cosk_get_neighbors` and `cosk_find_usage` return `INTERNAL_ERROR` if the graph is not loaded.
 - **Embedding provider override fails**: ensure `COSK_EMBEDDING_PROVIDER_FACTORY=module:callable` is importable and returns an object with `embed`.
-- **Client launch expectations**: MCP clients must spawn `python -m cosk.mcp.server` and communicate over stdio.
+- **Client not auto-detected**: use `cosk install --skip-index` after adding the client, or configure manually via [`docs/client_setup.md`](docs/client_setup.md).
 
 ## Backward compatibility
 
-The new CLI is primary (`cosk index`, `cosk serve`, `cosk inspect`), but module entrypoints remain supported:
+The new CLI is primary, but module entrypoints remain supported:
 
 ```bash
 python -m cosk.mcp.server
 python -m cosk.mcp.server --target-dir C:\path\to\repo
 python -m cosk.inspect
 ```
+
