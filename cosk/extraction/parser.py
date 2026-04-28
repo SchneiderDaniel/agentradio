@@ -236,6 +236,8 @@ def _iter_supported_files(root: Path, config: CoskConfig) -> list[Path]:
             if dir_name in config.extraction.exclude_dirs:
                 continue
             child_dir = current_path / dir_name
+            if (child_dir / "pyvenv.cfg").is_file():
+                continue
             relative_dir = child_dir.relative_to(root).as_posix()
             if respect_gitignore and _matches_gitignore(active_spec, relative_dir, is_dir=True):
                 continue
