@@ -146,3 +146,68 @@ def test_gemini_embedding_provider_real_api_if_key_present() -> None:
     vector = provider.embed("hello")
     assert vector
     assert all(isinstance(value, float) for value in vector)
+
+
+def test_gemini_embed_reuses_client_across_calls(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    key_file = tmp_path / ".geminikey"
+    key_file.write_text("file-key", encoding="utf-8")
+    embedding = types.SimpleNamespace(values=[1.0])
+    response = types.SimpleNamespace(embeddings=[embedding])
+    client = types.SimpleNamespace(models=types.SimpleNamespace(embed_content=MagicMock(return_value=response)))
+    _install_fake_google_genai(monkeypatch, client=client)
+    provider = GeminiEmbeddingProvider(key_file=str(key_file))
+    provider.embed("a")
+    provider.embed("b")
+    google_module = sys.modules["google"]
+    google_module.genai.Client.assert_called_once_with(api_key="file-key")
+
+
+def test_gemini_embed_batch_returns_vector_per_input(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    key_file = tmp_path / ".geminikey"
+    key_file.write_text("file-key", encoding="utf-8")
+    emb1 = types.SimpleNamespace(values=[1.0, 2.0])
+    emb2 = types.SimpleNamespace(values=[3.0, 4.0])
+    response = types.SimpleNamespace(embeddings=[emb1, emb2])
+    client = types.SimpleNamespace(models=types.SimpleNamespace(embed_content=MagicMock(return_value=response)))
+    _install_fake_google_genai(monkeypatch, client=client)
+    provider = GeminiEmbeddingProvider(key_file=str(key_file), model_name="model-x")
+
+    result = provider.embed_batch(["hello", "world"])
+
+    assert result == [[1.0, 2.0], [3.0, 4.0]]
+    client.models.embed_content.assert_called_once_with(model="model-x", contents=["hello", "world"])
+
+
+def test_gemini_embed_batch_empty_input_returns_empty_list(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    key_file = tmp_path / ".geminikey"
+    key_file.write_text("file-key", encoding="utf-8")
+    client = types.SimpleNamespace(models=types.SimpleNamespace(embed_content=MagicMock()))
+    _install_fake_google_genai(monkeypatch, client=client)
+    provider = GeminiEmbeddingProvider(key_file=str(key_file))
+
+    assert provider.embed_batch([]) == []
+    client.models.embed_content.assert_not_called()
+
+
+def test_gemini_embed_batch_raises_when_too_many_texts(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    key_file = tmp_path / ".geminikey"
+    key_file.write_text("file-key", encoding="utf-8")
+    client = types.SimpleNamespace(models=types.SimpleNamespace(embed_content=MagicMock()))
+    _install_fake_google_genai(monkeypatch, client=client)
+    provider = GeminiEmbeddingProvider(key_file=str(key_file))
+
+    with pytest.raises(ValueError, match="max 100 texts"):
+        provider.embed_batch(["x"] * 101)
+
+
+def test_gemini_embed_batch_raises_on_response_count_mismatch(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    key_file = tmp_path / ".geminikey"
+    key_file.write_text("file-key", encoding="utf-8")
+    response = types.SimpleNamespace(embeddings=[types.SimpleNamespace(values=[1.0])])
+    client = types.SimpleNamespace(models=types.SimpleNamespace(embed_content=MagicMock(return_value=response)))
+    _install_fake_google_genai(monkeypatch, client=client)
+    provider = GeminiEmbeddingProvider(key_file=str(key_file))
+
+    with pytest.raises(ValueError, match="1 vectors for 3 inputs"):
+        provider.embed_batch(["a", "b", "c"])
+

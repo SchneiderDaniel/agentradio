@@ -9,7 +9,44 @@ import lancedb
 import pyarrow as pa
 
 from cosk.extraction.models import SkeletonNode
-from cosk.indexing.embedding import EmbeddingProvider, GeminiEmbeddingProvider, build_node_embedding_text
+from cosk.indexing.embedding import (
+    EmbeddingProvider,
+    GeminiEmbeddingProvider,
+    _GEMINI_BATCH_LIMIT,
+    build_node_embedding_text,
+)
+
+_EMBED_BATCH_SIZE = _GEMINI_BATCH_LIMIT
+
+
+def _embed_all(
+    provider: EmbeddingProvider,
+    texts: list[str],
+    on_node_embedded: Callable[[int, int], None] | None,
+) -> list[list[float]]:
+    """Embed all texts, batching 100 at a time if provider supports embed_batch."""
+    total = len(texts)
+    if not total:
+        return []
+
+    if hasattr(provider, "embed_batch"):
+        vectors: list[list[float]] = []
+        for start in range(0, total, _EMBED_BATCH_SIZE):
+            chunk = texts[start : start + _EMBED_BATCH_SIZE]
+            chunk_vectors = provider.embed_batch(chunk)  # type: ignore[attr-defined]
+            vectors.extend(chunk_vectors)
+            if on_node_embedded:
+                for j in range(len(chunk_vectors)):
+                    on_node_embedded(start + j + 1, total)
+        return vectors
+
+    # Sequential fallback for providers without embed_batch
+    vectors = []
+    for i, text in enumerate(texts, 1):
+        vectors.append(provider.embed(text))
+        if on_node_embedded:
+            on_node_embedded(i, total)
+    return vectors
 
 
 class SkeletonNodeSearchResult(TypedDict):
@@ -122,9 +159,9 @@ class SkeletonNodeVectorStore:
         vector_dim: int | None = None
 
         if nodes:
-            total = len(nodes)
-            for i, node in enumerate(nodes, 1):
-                vector = self._embedding_provider.embed(build_node_embedding_text(node))
+            texts = [build_node_embedding_text(n) for n in nodes]
+            vectors = _embed_all(self._embedding_provider, texts, on_node_embedded)
+            for node, vector in zip(nodes, vectors):
                 if not vector:
                     raise ValueError("embedding vector must not be empty")
                 if vector_dim is None:
@@ -132,8 +169,6 @@ class SkeletonNodeVectorStore:
                 if len(vector) != vector_dim:
                     raise ValueError("embedding vector dimension mismatch across nodes")
                 rows.append(self._build_row(node, vector))
-                if on_node_embedded is not None:
-                    on_node_embedded(i, total)
         else:
             probe_vector = self._embedding_provider.embed("cosk-empty-index-probe")
             if not probe_vector:
@@ -170,9 +205,10 @@ class SkeletonNodeVectorStore:
 
         rows: list[dict[str, object]] = []
         first_vector_dim: int | None = None
-        total = len(nodes)
-        for i, node in enumerate(nodes, 1):
-            vector = self._embedding_provider.embed(build_node_embedding_text(node))
+
+        texts = [build_node_embedding_text(n) for n in nodes]
+        vectors = _embed_all(self._embedding_provider, texts, on_node_embedded)
+        for node, vector in zip(nodes, vectors):
             if first_vector_dim is None:
                 first_vector_dim = len(vector)
                 if first_vector_dim == 0:
@@ -180,8 +216,6 @@ class SkeletonNodeVectorStore:
             if len(vector) != first_vector_dim:
                 raise ValueError("embedding vector dimension mismatch across nodes")
             rows.append(self._build_row(node, vector))
-            if on_node_embedded is not None:
-                on_node_embedded(i, total)
 
         if self._vector_dim is None and first_vector_dim is not None:
             self._vector_dim = first_vector_dim

@@ -7,6 +7,8 @@ from typing import Protocol
 
 from cosk.extraction.models import SkeletonNode
 
+_GEMINI_BATCH_LIMIT = 100
+
 
 class EmbeddingProvider(Protocol):
     def embed(self, text: str) -> list[float]:
@@ -51,6 +53,12 @@ class GeminiEmbeddingProvider:
         self._retry_max_attempts = retry_max_attempts
         self._retry_base_delay = retry_base_delay
         self._retry_max_delay = retry_max_delay
+        self._client = self._build_client()
+
+    def _build_client(self) -> object:
+        from google import genai  # noqa: PLC0415
+
+        return genai.Client(api_key=self._api_key)
 
     @staticmethod
     def _resolve_key(key_file: str) -> str:
@@ -68,12 +76,8 @@ class GeminiEmbeddingProvider:
         if text is None:
             raise ValueError("text must not be None")
 
-        from google import genai
-
-        client = genai.Client(api_key=self._api_key)
-
         def _request() -> object:
-            return client.models.embed_content(model=self._model_name, contents=text)
+            return self._client.models.embed_content(model=self._model_name, contents=text)
 
         result = _retry_with_backoff(
             _request,
@@ -88,6 +92,38 @@ class GeminiEmbeddingProvider:
         if not values:
             raise ValueError("Gemini embedding response returned empty vector")
         return [float(value) for value in values]
+
+    def embed_batch(self, texts: list[str]) -> list[list[float]]:
+        """Embed up to _GEMINI_BATCH_LIMIT texts in a single API call."""
+        if not texts:
+            return []
+        if len(texts) > _GEMINI_BATCH_LIMIT:
+            raise ValueError(
+                f"embed_batch: max {_GEMINI_BATCH_LIMIT} texts per call, got {len(texts)}"
+            )
+
+        def _request() -> object:
+            return self._client.models.embed_content(model=self._model_name, contents=texts)
+
+        result = _retry_with_backoff(
+            _request,
+            max_attempts=self._retry_max_attempts,
+            base_delay=self._retry_base_delay,
+            max_delay=self._retry_max_delay,
+        )
+        embeddings = getattr(result, "embeddings", None)
+        got = len(embeddings) if embeddings else 0
+        if not embeddings or got != len(texts):
+            raise ValueError(
+                f"Gemini batch embedding returned {got} vectors for {len(texts)} inputs"
+            )
+        results: list[list[float]] = []
+        for emb in embeddings:
+            values = getattr(emb, "values", None)
+            if not values:
+                raise ValueError("Gemini embedding response returned empty vector")
+            results.append([float(v) for v in values])
+        return results
 
 
 def build_node_embedding_text(node: SkeletonNode) -> str:

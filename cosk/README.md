@@ -145,6 +145,27 @@ cosk serve --db-dir C:\path\to\repo.lancedb
 
 Transport is **stdio**. Clients launch Cosk as a subprocess per session.
 
+## Keeping the index current
+
+When an AI agent (or you) modifies files, the index goes stale. The recommended approach is **two terminals**:
+
+**Terminal 1 — file watcher (keep running):**
+
+```bash
+cosk watch --target-dir C:\path\to\repo
+```
+
+This watches the filesystem and reindexes changed files incrementally in real time. The MCP server reads from the same LanceDB directory and picks up updates automatically between queries — no restart needed.
+
+**Terminal 2 — normal work** (AI client connects to `cosk serve` as usual via MCP config).
+
+**Alternative — manual rebuild** (simpler, slower):
+
+```bash
+# Run once before or after an agent session
+cosk index --target-dir C:\path\to\repo
+```
+
 ## Manual client configuration
 
 If your client was not auto-configured by `cosk install`, add an entry manually.

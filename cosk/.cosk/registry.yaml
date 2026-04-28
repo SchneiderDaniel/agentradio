@@ -2,6 +2,6 @@ version: 1
 default: default
 indexes:
   default:
-    target_dir: C:/Users/miria/AppData/Local/Temp/pytest-of-miria/pytest-472/test_incremental_missing_manif0/src
-    db_dir: C:/Users/miria/AppData/Local/Temp/pytest-of-miria/pytest-472/test_incremental_missing_manif0/.lancedb
-    last_indexed_at: '2026-04-28T16:45:15.487998+00:00'
+    target_dir: C:/Users/miria/Coding/dani/copilot/agentradio
+    db_dir: C:/Users/miria/Coding/dani/copilot/agentradio/.lancedb
+    last_indexed_at: '2026-04-28T19:17:29.503720+00:00'

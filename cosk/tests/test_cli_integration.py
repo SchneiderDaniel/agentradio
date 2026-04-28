@@ -127,7 +127,7 @@ def test_index_tty_prints_human_progress_and_completion_to_stderr(
     with patch.object(cli_main_module.server, "load_embedding_provider", return_value=make_fake_provider()):
         cli_main_module.main(["index", "--target-dir", str(target), "--db-dir", str(tmp_path / ".lancedb")])
     captured = capsys.readouterr()
-    assert "Indexing complete:" in captured.err
+    assert "Done" in captured.err
     assert "Next step: run `cosk serve` to start the MCP server." in captured.err
     assert captured.out == ""
 

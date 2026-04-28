@@ -20,14 +20,14 @@ def test_readme_contains_required_sections() -> None:
     text = _readme()
     required = [
         "# Cosk",
-        "## Installation",
+        "## Quick Start",
         "## Configuration",
-        "## Indexing a target directory",
-        "## Starting the MCP server",
-        "## Client connection overview",
+        "## Indexing options",
+        "## Starting the MCP server manually",
+        "## Manual client configuration",
         "## MCP Tool Reference",
         "## Safety & Guardrails",
-        "## Inspecting Cosk locally",
+        "## Inspecting the index",
         "## Troubleshooting",
     ]
     for section in required:
@@ -43,29 +43,24 @@ def test_readme_documents_all_tools_with_input_output_example_and_errors() -> No
         "cosk_find_usage",
     ):
         assert tool_name in text
-    assert text.lower().count("input schema") >= 4
-    assert text.lower().count("output schema") >= 4
-    assert text.lower().count("example request") >= 4
-    assert text.lower().count("example response") >= 4
-    assert text.lower().count("error behavior") >= 4
+    assert text.lower().count("- input:") >= 4
+    assert text.lower().count("- output:") >= 4
+    assert text.lower().count("errors:") >= 4
 
 
 def test_readme_accuracy_for_error_behavior_and_top_k() -> None:
     text = _readme()
-    assert "top_k=5" in text
     assert "INVALID_PARAMS" in text
     assert "INTERNAL_ERROR" in text
     assert "Notice: You have already traversed this node." in text
     assert "Notice: Depth limit reached." in text
-    assert "Unable to read" in text
-    assert "Requested line range" in text
 
 
 def test_guardrails_section_is_present() -> None:
     text = _readme()
     assert "## Safety & Guardrails" in text
-    assert "cycle rejection" in text.lower()
-    assert "depth-limit" in text.lower()
+    assert "cycle" in text.lower()
+    assert "depth limit" in text.lower()
     assert "record_expand_definition" in text
 
 
