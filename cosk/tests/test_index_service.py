@@ -9,6 +9,7 @@ from cosk.config import CoskConfig, ExtractionSettings, LanguageSettings, Summar
 from cosk.extraction.parser import extract_file_skeleton_nodes
 from cosk.index_manifest import manifest_path
 from cosk.index_service import IndexBuildRequest, sync_index
+from cosk.indexing.vector_store import SkeletonNodeVectorStore
 
 
 class FakeProvider:
@@ -181,4 +182,57 @@ def test_sync_index_aggregates_skipped_file_issues(tmp_path: Path, progress_spy)
     assert result.issue_counts.get("parse_failure") == 1
     issue_events = [event for event in progress_spy.events if event[0] == "issue"]
     assert len(issue_events) == 1
+
+
+def test_full_sync_rebuild_triggers_symbol_fts_index_creation(tmp_path: Path) -> None:
+    target = tmp_path / "src"
+    target.mkdir()
+    _write_py(target / "auth.py", "def authenticate_user():\n    return True\n")
+    provider = FakeProvider()
+    db_dir = tmp_path / ".lancedb"
+    config = _python_only_config()
+
+    sync_index(IndexBuildRequest(name="default", target_dir=target, db_dir=db_dir, config=config), provider)
+
+    store = SkeletonNodeVectorStore(db_dir=db_dir, embedding_provider=provider)
+    payload = store.search_symbol("authenticate_user", top_k=1)
+    assert payload
+    assert payload[0]["raw_signature"].startswith("def authenticate_user")
+
+
+def test_incremental_sync_upsert_refreshes_symbol_fts_indexes(tmp_path: Path) -> None:
+    target = tmp_path / "src"
+    target.mkdir()
+    file_path = target / "auth.py"
+    _write_py(file_path, "def authenticate_user():\n    return True\n")
+    provider = FakeProvider()
+    db_dir = tmp_path / ".lancedb"
+    config = _python_only_config()
+    sync_index(IndexBuildRequest(name="default", target_dir=target, db_dir=db_dir, config=config), provider)
+
+    _write_py(file_path, "def authorize_user():\n    return True\n")
+    sync_index(IndexBuildRequest(name="default", target_dir=target, db_dir=db_dir, incremental=True, config=config), provider)
+
+    store = SkeletonNodeVectorStore(db_dir=db_dir, embedding_provider=provider)
+    payload = store.search_symbol("authorize_user", top_k=1)
+    assert payload
+    assert payload[0]["raw_signature"].startswith("def authorize_user")
+
+
+def test_incremental_sync_with_no_changes_preserves_symbol_search(tmp_path: Path) -> None:
+    target = tmp_path / "src"
+    target.mkdir()
+    _write_py(target / "auth.py", "def authenticate_user():\n    return True\n")
+    provider = FakeProvider()
+    db_dir = tmp_path / ".lancedb"
+    config = _python_only_config()
+    sync_index(IndexBuildRequest(name="default", target_dir=target, db_dir=db_dir, config=config), provider)
+
+    result = sync_index(IndexBuildRequest(name="default", target_dir=target, db_dir=db_dir, incremental=True, config=config), provider)
+    assert result.mode == "incremental"
+
+    store = SkeletonNodeVectorStore(db_dir=db_dir, embedding_provider=provider)
+    payload = store.search_symbol("authenticate_user", top_k=1)
+    assert payload
+    assert payload[0]["raw_signature"].startswith("def authenticate_user")
 

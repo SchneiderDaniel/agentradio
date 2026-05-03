@@ -190,6 +190,13 @@ def test_cosk_hybrid_search_deduplicates_by_node_id() -> None:
     assert [row["node_id"] for row in payload] == ["same"]
 
 
+def test_cosk_hybrid_search_wraps_runtime_failures_as_internal_error() -> None:
+    tools = _tool_functions()
+    tools["store"].search.side_effect = RuntimeError("boom")
+    with pytest.raises(McpError, match="cosk_hybrid_search failed:"):
+        tools["hybrid_search"]("query")
+
+
 def test_cosk_semantic_search_behavior_unchanged_with_optional_ctx_parameter() -> None:
     tool_fn, store = _tool_fn(
         [

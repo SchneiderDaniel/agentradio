@@ -463,8 +463,8 @@ def test_rebuild_index_creates_symbol_fts_indexes(monkeypatch: pytest.MonkeyPatc
     db.create_table.side_effect = [staging, target]
     monkeypatch.setattr("cosk.indexing.vector_store.lancedb.connect", MagicMock(return_value=db))
     store.rebuild_index([_sample_node()])
-    target.create_fts_index.assert_any_call("node_name", name="node_name_idx", replace=True)
-    target.create_fts_index.assert_any_call("raw_signature", name="raw_signature_idx", replace=True)
+    target.create_fts_index.assert_any_call("node_name", index_name="node_name_idx", replace=True)
+    target.create_fts_index.assert_any_call("raw_signature", index_name="raw_signature_idx", replace=True)
 
 
 def test_upsert_nodes_refreshes_symbol_fts_indexes(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -478,8 +478,8 @@ def test_upsert_nodes_refreshes_symbol_fts_indexes(monkeypatch: pytest.MonkeyPat
     db.open_table.return_value = table
     monkeypatch.setattr("cosk.indexing.vector_store.lancedb.connect", MagicMock(return_value=db))
     store.upsert_nodes([_sample_node()])
-    table.create_fts_index.assert_any_call("node_name", name="node_name_idx", replace=False)
-    table.create_fts_index.assert_any_call("raw_signature", name="raw_signature_idx", replace=False)
+    table.create_fts_index.assert_any_call("node_name", index_name="node_name_idx", replace=False)
+    table.create_fts_index.assert_any_call("raw_signature", index_name="raw_signature_idx", replace=False)
 
 
 def test_search_symbol_exact_uses_multimatch_with_boosted_node_name(monkeypatch: pytest.MonkeyPatch) -> None:

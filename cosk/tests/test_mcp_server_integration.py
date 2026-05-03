@@ -10,9 +10,11 @@ from typing import Any
 from unittest.mock import Mock
 
 import anyio
+import lancedb
 from mcp.client.session import ClientSession
 from mcp.client.stdio import StdioServerParameters, stdio_client
 import networkx as nx
+import pyarrow as pa
 import pytest
 
 from cosk.extraction.parser import extract_skeleton_nodes
@@ -65,6 +67,20 @@ def sample_target_dir(tmp_path: Path) -> Path:
 
 
 @pytest.fixture
+def hybrid_target_dir(tmp_path: Path) -> Path:
+    target = tmp_path / "hybrid"
+    target.mkdir()
+    (target / "auth.py").write_text(
+        "def authenticate_user(username: str, password: str) -> bool:\n"
+        "    return bool(username and password)\n\n"
+        "def authorize_account(user: str) -> bool:\n"
+        "    return bool(user)\n",
+        encoding="utf-8",
+    )
+    return target
+
+
+@pytest.fixture
 def prebuilt_index_dir(tmp_path: Path, sample_target_dir: Path) -> Path:
     db_dir = tmp_path / "prebuilt.lancedb"
     store = SkeletonNodeVectorStore(db_dir=db_dir, embedding_provider=make_fake_provider())
@@ -77,6 +93,38 @@ def empty_valid_index_dir(tmp_path: Path) -> Path:
     db_dir = tmp_path / "empty.lancedb"
     store = SkeletonNodeVectorStore(db_dir=db_dir, embedding_provider=make_fake_provider())
     store.rebuild_index([])
+    return db_dir
+
+
+@pytest.fixture
+def legacy_index_dir(tmp_path: Path) -> Path:
+    db_dir = tmp_path / "legacy.lancedb"
+    db = lancedb.connect(str(db_dir))
+    db.create_table(
+        "skeleton_nodes",
+        schema=pa.schema(
+            [
+                pa.field("node_id", pa.string()),
+                pa.field("file_path", pa.string()),
+                pa.field("start_line", pa.int64()),
+                pa.field("end_line", pa.int64()),
+                pa.field("raw_signature", pa.string()),
+                pa.field("summary", pa.string()),
+                pa.field("vector", pa.list_(pa.float32(), 8)),
+            ]
+        ),
+        data=[
+            {
+                "node_id": "legacy-1",
+                "file_path": "legacy.py",
+                "start_line": 1,
+                "end_line": 1,
+                "raw_signature": "def authenticate_user():",
+                "summary": "legacy",
+                "vector": [0.1] * 8,
+            }
+        ],
+    )
     return db_dir
 
 
@@ -192,6 +240,81 @@ def test_tools_list_contains_all_tools(prebuilt_index_dir: Path) -> None:
     names = {tool.name for tool in tools.tools}
     assert {"cosk_semantic_search", "cosk_get_neighbors", "cosk_get_symbol_source", "cosk_find_usage"} <= names
     assert "cosk_expand_definition" not in names
+
+
+def test_tools_list_contains_symbol_and_hybrid_tools(prebuilt_index_dir: Path) -> None:
+    tools = _run_mcp_session(["--db-dir", str(prebuilt_index_dir)], lambda session: session.list_tools())
+    names = {tool.name for tool in tools.tools}
+    assert {"cosk_symbol_search", "cosk_hybrid_search"} <= names
+
+
+def test_cosk_symbol_search_exact_symbol_lookup_end_to_end(prebuilt_index_dir: Path) -> None:
+    async def _call(session: ClientSession) -> Any:
+        return await session.call_tool("cosk_symbol_search", {"symbol_name": "authenticate_user"})
+
+    result = _run_mcp_session(["--db-dir", str(prebuilt_index_dir)], _call)
+    assert not result.isError
+    payload = json.loads(_tool_text_payload(result))
+    assert payload
+    assert payload[0]["raw_signature"].startswith("def authenticate_user")
+
+
+def test_cosk_symbol_search_fuzzy_distance_end_to_end(tmp_path: Path) -> None:
+    target = tmp_path / "fuzzy-target"
+    target.mkdir()
+    (target / "symbols.py").write_text("def alpha(token: str):\n    return token\n", encoding="utf-8")
+    db_dir = tmp_path / "fuzzy.lancedb"
+    _run_mcp_session(
+        ["--target-dir", str(target), "--db-dir", str(db_dir)],
+        lambda session: session.list_tools(),
+    )
+
+    async def _call(session: ClientSession) -> Any:
+        exact = await session.call_tool(
+            "cosk_symbol_search",
+            {"symbol_name": "alphx", "fuzzy": True, "distance": 0},
+        )
+        fuzzy = await session.call_tool(
+            "cosk_symbol_search",
+            {"symbol_name": "alphx", "fuzzy": True, "distance": 1},
+        )
+        return exact, fuzzy
+
+    exact_result, fuzzy_result = _run_mcp_session(["--db-dir", str(db_dir)], _call)
+    assert not exact_result.isError
+    assert not fuzzy_result.isError
+    assert json.loads(_tool_text_payload(exact_result)) == []
+    fuzzy_payload = json.loads(_tool_text_payload(fuzzy_result))
+    assert fuzzy_payload
+    assert fuzzy_payload[0]["raw_signature"].startswith("def alpha")
+
+
+def test_cosk_hybrid_search_end_to_end_returns_sorted_deduped_results(hybrid_target_dir: Path, tmp_path: Path) -> None:
+    db_dir = tmp_path / "hybrid.lancedb"
+    _run_mcp_session(
+        ["--target-dir", str(hybrid_target_dir), "--db-dir", str(db_dir)],
+        lambda session: session.list_tools(),
+    )
+
+    async def _call(session: ClientSession) -> Any:
+        return await session.call_tool("cosk_hybrid_search", {"query": "authenticate_user", "top_k": 3})
+
+    result = _run_mcp_session(["--db-dir", str(db_dir)], _call)
+    assert not result.isError
+    payload = json.loads(_tool_text_payload(result))
+    node_ids = [row["node_id"] for row in payload]
+    assert node_ids == list(dict.fromkeys(node_ids))
+    assert payload
+    assert payload[0]["raw_signature"].startswith("def authenticate_user")
+
+
+def test_cosk_symbol_search_legacy_index_returns_clear_rebuild_error(legacy_index_dir: Path) -> None:
+    async def _call(session: ClientSession) -> Any:
+        return await session.call_tool("cosk_symbol_search", {"symbol_name": "authenticate_user"})
+
+    result = _run_mcp_session(["--db-dir", str(legacy_index_dir)], _call)
+    assert result.isError is True
+    assert "rebuild" in _tool_text_payload(result).lower()
 
 
 def test_cosk_semantic_search_happy_path_returns_required_json_fields(prebuilt_index_dir: Path) -> None:

@@ -80,7 +80,6 @@ class SkeletonNodeVectorStore:
         "start_line",
         "end_line",
         "raw_signature",
-        "node_name",
         "summary",
         "vector",
     )
@@ -158,10 +157,19 @@ class SkeletonNodeVectorStore:
             return
 
     @staticmethod
+    def _create_named_fts_index(table, field_name: str, index_name: str, *, replace: bool) -> None:
+        try:
+            table.create_fts_index(field_name, index_name=index_name, replace=replace)
+        except TypeError:
+            table.create_fts_index(field_name, name=index_name, replace=replace)
+
+    @staticmethod
     def _ensure_symbol_fts_indexes(table, *, replace: bool = False) -> None:
         for field_name, index_name in (("node_name", "node_name_idx"), ("raw_signature", "raw_signature_idx")):
             try:
-                table.create_fts_index(field_name, name=index_name, replace=replace)
+                SkeletonNodeVectorStore._create_named_fts_index(
+                    table, field_name, index_name, replace=replace
+                )
             except Exception as exc:  # noqa: BLE001
                 if not replace and "already exists" in str(exc).lower():
                     continue
