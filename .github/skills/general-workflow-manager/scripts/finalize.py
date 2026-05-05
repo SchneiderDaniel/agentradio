@@ -135,7 +135,7 @@ def transition_workflow(issue_number, outcome, repo=CONFIG["repo"]):
         "gh", "project", "item-list", str(project_number),
         "--owner", owner,
         "--format", "json",
-        "--limit", "100"
+        "--limit", "500"
     ])
 
     if not items_json:
